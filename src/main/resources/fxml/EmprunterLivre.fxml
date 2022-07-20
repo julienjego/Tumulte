@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.tumulte.controllers.ControllerEmpruntLivre">
+   <children>
+      <MenuBar fx:id="menuBar" style="-fx-background-color: #a4dbed;">
+          <menus>
+              <Menu mnemonicParsing="false" text="Edition">
+                  <items>
+                      <MenuItem fx:id="menuEmprunt" mnemonicParsing="false" text="Consulter la fiche" />
+                      <MenuItem mnemonicParsing="false" text="Rechercher" />
+                      <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem mnemonicParsing="false" text="Quitter" />
+                  </items>
+              </Menu>
+              <Menu mnemonicParsing="false" text="Aide">
+                  <items>
+                      <MenuItem mnemonicParsing="false" text="Consulter l'aide" />
+                      <MenuItem fx:id="itmAbout" mnemonicParsing="false" onAction="#openAbout" text="A propos" />
+                  </items>
+              </Menu>
+          </menus>
+      </MenuBar>
+  <AnchorPane layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutY="-1.0" prefHeight="163.0" prefWidth="900.0" text="Adhérent en cours" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="101.0" prefWidth="898.0" style="-fx-background-color: #a4dbed;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="77.0" text="N° Adhérent :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <Label fx:id="lblNumAdherent" layoutX="91.0" layoutY="14.0" prefHeight="25.0" prefWidth="77.0" text="1234" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="14.0" />
+                        <Label layoutX="14.0" layoutY="45.0" prefHeight="25.0" prefWidth="77.0" text="Nom :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="49.0" />
+                        <Label fx:id="lblNomAdherent" layoutX="91.0" layoutY="45.0" prefHeight="25.0" prefWidth="77.0" text="Neymar" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="49.0" />
+                        <Label layoutX="14.0" layoutY="76.0" prefHeight="25.0" prefWidth="77.0" text="Prénom :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="84.0" />
+                        <Label fx:id="lblPrenomAdherent" layoutX="91.0" layoutY="76.0" prefHeight="25.0" prefWidth="77.0" text="Jean" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="84.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TitledPane>
+            <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="-1.0" layoutY="167.0" prefHeight="383.0" prefWidth="902.0" text="Infos sur le livre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="163.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #a4dbed;">
+                     <children>
+                        <Label layoutX="17.0" layoutY="12.0" prefHeight="25.0" prefWidth="125.0" text="Code de l'exemplaire :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                        <TextField fx:id="txtCodeExemplaire" layoutX="140.0" layoutY="12.0" onKeyPressed="#activerBtnRechercher" AnchorPane.leftAnchor="149.0" AnchorPane.topAnchor="14.0" />
+                        <Button fx:id="btnRechercherLivre" layoutX="309.0" layoutY="12.0" mnemonicParsing="false" onAction="#rechercherLivre" prefHeight="25.0" prefWidth="126.0" text="Rechercher" AnchorPane.leftAnchor="309.0" AnchorPane.topAnchor="14.0" />
+                        <Label layoutX="17.0" layoutY="59.0" prefHeight="25.0" prefWidth="76.0" text="Titre :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="49.0" />
+                        <Label layoutX="17.0" layoutY="96.0" prefHeight="25.0" prefWidth="76.0" text="Auteur :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="84.0" />
+                        <Label layoutX="17.0" layoutY="121.0" prefHeight="25.0" prefWidth="76.0" text="Thème :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="119.0" />
+                        <Label layoutX="17.0" layoutY="170.0" prefHeight="25.0" prefWidth="76.0" text="Etat :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="154.0" />
+                        <Label layoutX="17.0" layoutY="195.0" prefHeight="25.0" prefWidth="76.0" text="Disponible :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="189.0" />
+                        <Label layoutX="14.0" layoutY="232.0" prefHeight="25.0" prefWidth="82.0" text="Commentaire :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="224.0" />
+                        <Label layoutX="457.0" layoutY="59.0" prefHeight="25.0" prefWidth="76.0" text="ISBN :" />
+                        <Label layoutX="457.0" layoutY="94.0" prefHeight="25.0" prefWidth="76.0" text="ISSN :" />
+                        <Label layoutX="454.0" layoutY="129.0" prefHeight="25.0" prefWidth="83.0" text="Emplacement :" />
+                        <Button fx:id="btnMenuPrincipal" layoutX="507.0" layoutY="285.0" mnemonicParsing="false" onAction="#retourMenuPrincipal" text="Menu Principal" />
+                        <Button fx:id="btnEmprunter" layoutX="724.0" layoutY="285.0" mnemonicParsing="false" onAction="#emprunterLivre" text="Emprunter" />
+                        <Button fx:id="btnAnnuler" layoutX="635.0" layoutY="285.0" mnemonicParsing="false" onAction="#annuler" text="Annuler" />
+                        <Label fx:id="lblTitreExemplaire" layoutX="159.0" layoutY="59.0" prefHeight="25.0" prefWidth="285.0" />
+                        <Label fx:id="lblAuteur" layoutX="159.0" layoutY="94.0" prefHeight="25.0" prefWidth="286.0" />
+                        <Label fx:id="lblTheme" layoutX="159.0" layoutY="129.0" prefHeight="25.0" prefWidth="76.0" />
+                        <Label fx:id="lblEtat" layoutX="159.0" layoutY="164.0" prefHeight="25.0" prefWidth="76.0" />
+                        <Label fx:id="lblDisponible" layoutX="159.0" layoutY="199.0" prefHeight="25.0" prefWidth="76.0" />
+                        <Label fx:id="lblISBN" layoutX="552.0" layoutY="59.0" prefHeight="25.0" prefWidth="112.0" />
+                        <Label fx:id="lblISSN" layoutX="552.0" layoutY="94.0" prefHeight="25.0" prefWidth="83.0" />
+                        <Label fx:id="lblEmplacement" layoutX="552.0" layoutY="129.0" prefHeight="25.0" prefWidth="83.0" />
+                        <TextArea layoutX="33.6" layoutY="278.6" prefHeight="48.0" prefWidth="369.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="259.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </TitledPane>
+         </children>
+  </AnchorPane>
+      <AnchorPane layoutY="571.0" prefHeight="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+          <children>
+              <Label fx:id="lblRole" layoutX="134.0" layoutY="3.0" text="Bibliothècaire" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="123.0" />
+              <Label maxWidth="-1.0" prefHeight="17.0" prefWidth="123.0" text="Connecté en tant que :" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+              </Label>
+              <Label fx:id="lblDate" layoutX="262.0" text="date" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+          </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

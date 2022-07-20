@@ -1,0 +1,129 @@
+.background {
+    -fx-background-color: #a4dbed;
+}
+
+.label {
+
+
+    -fx-text-fill: #00008b;
+    -fx-opacity: 0.6;
+}
+
+.label-bright {
+
+
+    -fx-text-fill: #0000e0;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-text-fill: #00008b;
+    -fx-opacity: 1;
+}
+
+
+.split-pane:horizontal>.split-pane-divider {
+    -fx-border-color: transparent #2681b3 transparent #275be9;
+    -fx-background-color: transparent, derive(#a4dbed, 20%);
+}
+
+.split-pane {
+    -fx-padding: 1 0 0 0;
+}
+
+.menu-bar {
+    -fx-background-color: derive(#a4dbed, 20%);
+}
+
+.context-menu {
+    -fx-background-color: derive(#a4dbed, 50%);
+}
+
+.menu-bar .label {
+
+
+    -fx-text-fill: #00008b;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: #a4dbed;
+}
+
+.text-field {
+
+
+}
+
+/*
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+/*.button {
+    -fx-border-color: #275be9;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #a4dbed;
+    -fx-text-fill: #00008b;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+#btnValiderTop {
+        -fx-border-color: inherit;
+        -fx-background-color: grey;
+        -fx-text-fill: inherit;
+}
+
+.button:hover {
+    -fx-background-color: #2681b3;
+}
+
+.button:pressed,
+.button:default:hover:pressed {
+    -fx-background-color: #a4dbed;
+    -fx-text-fill: #00008b;
+}
+
+.button:focused {
+    -fx-border-color: #275be9, #275be9;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled,
+.button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #bcdee9;
+    -fx-text-fill: #00008b;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #00008b;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color, 30%);
+}*/
+
+.hbox {
+    -fx-background-color: #a4dbed;
+
+}
+
+.pane {
+    -fx-background-color: #a4dbed;
+}
+
+.vbox {
+    -fx-border-color: #a4dbed;
+
+}
+
+.grid {
+    -fx-background-color: #a4dbed;
+
+}

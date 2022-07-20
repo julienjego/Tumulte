@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pane0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.controllers.ControllerImpressionTicket">
+   <children>
+      <Label layoutX="16.0" layoutY="14.0" prefHeight="27.0" prefWidth="265.0" text="MÉGATHEQUE de Marmusots" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="51.0" layoutY="44.0" prefHeight="17.0" prefWidth="198.0" text="76 rue des Marmuzots, 21000 DIJON" textAlignment="CENTER" />
+      <Label layoutX="134.0" layoutY="61.0" prefHeight="17.0" prefWidth="38.0" text="RH456" />
+      <Label fx:id="lblQuand" alignment="CENTER" layoutX="17.0" layoutY="96.0" prefHeight="17.0" prefWidth="265.0" text="Le 13/07/2022 à 15h45" />
+      <Label layoutX="23.0" layoutY="162.0" prefHeight="17.0" prefWidth="66.0" text="Adhérent n°" />
+      <Label fx:id="lblNumAdherent" layoutX="89.0" layoutY="162.0" prefHeight="17.0" prefWidth="75.0" text="0000004850" />
+      <Label layoutX="158.0" layoutY="162.0" prefHeight="17.0" prefWidth="12.0" text=":" />
+      <Label fx:id="lblPrenomNom" layoutX="173.0" layoutY="162.0" prefHeight="17.0" prefWidth="83.0" text="Martin Valek" />
+      <Label layoutX="23.0" layoutY="179.0" prefHeight="17.0" prefWidth="66.0" text="Validité :" />
+      <Label fx:id="lblDateValidite" layoutX="77.0" layoutY="179.0" prefHeight="17.0" prefWidth="116.0" text="13 Mars 2023" />
+      <Label layoutX="23.0" layoutY="218.0" prefHeight="20.0" prefWidth="127.0" text="Prêt en cours :">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Pane fx:id="pane1" layoutX="16.0" layoutY="253.0">
+         <children>
+            <Label fx:id="lblNumeroExemplaire1" layoutX="7.0" prefHeight="17.0" prefWidth="19.0" text="#1 " />
+            <Label layoutX="26.0" prefHeight="17.0" prefWidth="19.0" text="//" />
+            <Label layoutX="45.0" prefHeight="17.0" prefWidth="38.0" text="ISBN : " />
+            <Label fx:id="lblIsbn1" layoutX="83.0" prefHeight="17.0" prefWidth="185.0" text="978-2914569026" />
+            <Label fx:id="lblTitre1" layoutX="9.0" layoutY="17.0" prefHeight="17.0" prefWidth="246.0" text="Enquête sur l'existence des anges gardiens " />
+            <Label layoutX="9.0" layoutY="34.0" prefHeight="17.0" prefWidth="246.0" text="MÉGATHEQUE de Marmusots" />
+            <Label layoutX="9.0" layoutY="51.0" prefHeight="17.0" prefWidth="83.0" text="Date de prêt : " />
+            <Label layoutX="9.0" layoutY="68.0" prefHeight="17.0" prefWidth="116.0" text="Date de retour limite :" />
+            <Label fx:id="lblDatePret1" layoutX="150.0" layoutY="51.0" prefHeight="17.0" prefWidth="83.0" text="13/07/2022" />
+            <Label fx:id="lblDateRetour1" layoutX="150.0" layoutY="68.0" prefHeight="17.0" prefWidth="83.0" text="28/07/2022" />
+            <Separator layoutY="100.0" prefHeight="10.0" prefWidth="265.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="pane2" layoutX="19.0" layoutY="363.0">
+         <children>
+            <Label fx:id="lblNumeroExemplaire2" layoutX="7.0" prefHeight="17.0" prefWidth="19.0" text="#1 " />
+            <Label layoutX="26.0" prefHeight="17.0" prefWidth="19.0" text="//" />
+            <Label layoutX="45.0" prefHeight="17.0" prefWidth="38.0" text="ISBN : " />
+            <Label fx:id="lblIsbn2" layoutX="83.0" prefHeight="17.0" prefWidth="185.0" text="978-2290038055" />
+            <Label fx:id="lblTitre2" layoutX="9.0" layoutY="17.0" prefHeight="17.0" prefWidth="246.0" text="TV Lobotomie: La vérité scientifique sur les effets de la télévision" />
+            <Label layoutX="9.0" layoutY="34.0" prefHeight="17.0" prefWidth="246.0" text="MÉGATHEQUE de Marmusots" />
+            <Label layoutX="9.0" layoutY="51.0" prefHeight="17.0" prefWidth="83.0" text="Date de prêt : " />
+            <Label layoutX="9.0" layoutY="68.0" prefHeight="17.0" prefWidth="116.0" text="Date de retour limite :" />
+            <Label fx:id="lblDatePret2" layoutX="150.0" layoutY="51.0" prefHeight="17.0" prefWidth="83.0" text="13/07/2022" />
+            <Label fx:id="lblDateRetour2" layoutX="150.0" layoutY="68.0" prefHeight="17.0" prefWidth="83.0" text="28/07/2022" />
+            <Separator layoutY="100.0" prefHeight="10.0" prefWidth="265.0" />
+         </children>
+      </Pane>
+      <Pane fx:id="pane3" layoutX="19.0" layoutY="473.0">
+         <children>
+            <Label fx:id="lblNumeroExemplaire3" layoutX="7.0" prefHeight="17.0" prefWidth="19.0" text="#4 " />
+            <Label layoutX="26.0" prefHeight="17.0" prefWidth="19.0" text="//" />
+            <Label layoutX="45.0" prefHeight="17.0" prefWidth="38.0" text="ISBN : " />
+            <Label fx:id="lblIsbn3" layoutX="83.0" prefHeight="17.0" prefWidth="185.0" text="978-2253160298" />
+            <Label fx:id="lblTitre3" layoutX="9.0" layoutY="17.0" prefHeight="17.0" prefWidth="246.0" text="L'Encyclopédie du savoir relatif et absolu" />
+            <Label layoutX="9.0" layoutY="34.0" prefHeight="17.0" prefWidth="246.0" text="MÉGATHEQUE de Marmusots" />
+            <Label layoutX="9.0" layoutY="51.0" prefHeight="17.0" prefWidth="83.0" text="Date de prêt : " />
+            <Label layoutX="9.0" layoutY="68.0" prefHeight="17.0" prefWidth="116.0" text="Date de retour limite :" />
+            <Label fx:id="lblDatePret3" layoutX="150.0" layoutY="51.0" prefHeight="17.0" prefWidth="83.0" text="08/07/2022" />
+            <Label fx:id="lblDateRetour3" layoutX="150.0" layoutY="68.0" prefHeight="17.0" prefWidth="83.0" text="23/07/2022" />
+            <Separator layoutY="100.0" prefHeight="10.0" prefWidth="265.0" />
+         </children>
+      </Pane>
+   </children>
+</Pane>

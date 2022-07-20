@@ -141,7 +141,6 @@ public class ControllerAfficherAdherent implements Initializable {
 
         );
 
-        System.out.println("ici" + data);
         tblPretEnCours.setEditable(true);
 
         colTtlTitre.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("titre"));
@@ -154,7 +153,6 @@ public class ControllerAfficherAdherent implements Initializable {
         colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codEmplacement"));
 
         tblPretEnCours.setItems(data);
-        tblPretEnCours.getColumns().addAll(colTtlTitre, colTtlBbl, colTtlIsbn, colTtlDatepret);
     }
 
     @FXML
@@ -162,7 +160,7 @@ public class ControllerAfficherAdherent implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("A propos");
         alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\r© Afpa 2022 ");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

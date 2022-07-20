@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,6 +37,11 @@ public class ControllerPrincipal implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         init();
+
+        btnEmprunt.setGraphic(new ImageView(new Image(App.class.getResource("/image/borrow.png").toExternalForm(), 72, 72, true, true)));
+        btnStat.setGraphic(new ImageView(new Image(App.class.getResource("/image/report.png").toExternalForm(), 72, 72, true, true)));
+        btnFonds.setGraphic(new ImageView(new Image(App.class.getResource("/image/books.png").toExternalForm(), 72, 72, true, true)));
+
     }
 
     private void init() {
@@ -85,7 +92,7 @@ public class ControllerPrincipal implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("A propos");
         alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\r© Afpa 2022 ");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

@@ -227,12 +227,30 @@ public class ControllerEmpruntLivre implements Initializable {
     }
 
     private void confEmpruntLivre() {
+        String messageErreur1;
+        String messageErreur2;
+        switch (txtCodeExemplaire.getText()){
+            case "666":
+                messageErreur1 = "Le livre n'est pas disponible.";
+                messageErreur2 = "Le Livre JavaFX pour les nuls est déjà emprunté\r"
+                        + "Vous pouvez passer au suivant ou quitter";
+                break;
+            case "6666":
+                messageErreur1 = "Le code exemplaire est inconnu.";
+                messageErreur2 = "Merci de vérifier et saisir le code exemplaire à nouveau";
+                break;
+
+            default:
+                messageErreur1 = "Le livre est emprunté.";
+                messageErreur2 = "Merci de nous laisser tranquille.";
+        }
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText("Le livre est emprunté.");
-        alert.setContentText("Le Livre JavaFX pour les nuls est emprunté\r"
-                + "Vous pouvez passer au suivant ou quitter");
+        alert.setTitle("Erreur");
+        alert.setHeaderText(messageErreur1);
+        alert.setContentText(messageErreur2);
         alert.showAndWait();
+
     }
 
     private boolean codeExemplaireIsEmpty() {
@@ -244,7 +262,7 @@ public class ControllerEmpruntLivre implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("A propos");
         alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\r© Afpa 2022 ");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 }

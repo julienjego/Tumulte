@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.controllers.ControllerImpressionTicket">
+<Pane fx:id="pane0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.tumulte.controllers.ControllerImpressionTicket">
    <children>
       <Label layoutX="16.0" layoutY="14.0" prefHeight="27.0" prefWidth="265.0" text="MÉGATHEQUE de Marmusots" textAlignment="CENTER">
          <font>

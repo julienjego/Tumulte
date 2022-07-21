@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -82,10 +84,13 @@ public class ControllerRechercherAdherent implements Initializable {
      * Activer boutons.
      */
     @FXML
-    void activerBoutons() {
+    void activerBoutons(KeyEvent e) {
         btnRechercherAdherent.setDisable(!idAdherentEstValide());
         btnConsulterFicheAdherent.setDisable(!idAdherentEstValide());
         btnValiderAdherent.setDisable(!idAdherentEstValide());
+        if (e.getCode().equals(KeyCode.ENTER) ) {
+            rechercherAdherent();
+        }
     }
 
     /**

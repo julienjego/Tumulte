@@ -44,10 +44,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.tumulte.controllers.ControllerEmpruntLivre">
    <children>
-      <MenuBar fx:id="menuBar" style="-fx-background-color: #a4dbed;">
+      <MenuBar fx:id="menuBar">
           <menus>
               <Menu mnemonicParsing="false" text="Edition">
                   <items>
@@ -67,7 +66,7 @@
       </MenuBar>
   <AnchorPane layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutY="-1.0" prefHeight="163.0" prefWidth="900.0" text="Adhérent en cours" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutY="-1.0" prefHeight="163.0" prefWidth="900.0" text="Adhérent en cours" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="101.0" prefWidth="898.0" style="-fx-background-color: #a4dbed;">
                      <children>
@@ -84,7 +83,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </TitledPane>
-            <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="-1.0" layoutY="167.0" prefHeight="383.0" prefWidth="902.0" text="Infos sur le livre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="163.0">
+            <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="-1.0" layoutY="167.0" prefHeight="383.0" prefWidth="902.0" text="Infos sur le livre" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="175.0">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #a4dbed;">
                      <children>
@@ -100,9 +99,9 @@
                         <Label layoutX="457.0" layoutY="59.0" prefHeight="25.0" prefWidth="76.0" text="ISBN :" />
                         <Label layoutX="457.0" layoutY="94.0" prefHeight="25.0" prefWidth="76.0" text="ISSN :" />
                         <Label layoutX="454.0" layoutY="129.0" prefHeight="25.0" prefWidth="83.0" text="Emplacement :" />
-                        <Button fx:id="btnMenuPrincipal" layoutX="507.0" layoutY="285.0" mnemonicParsing="false" onAction="#retourMenuPrincipal" text="Menu Principal" />
-                        <Button fx:id="btnEmprunter" layoutX="724.0" layoutY="285.0" mnemonicParsing="false" onAction="#emprunterLivre" text="Emprunter" />
-                        <Button fx:id="btnAnnuler" layoutX="635.0" layoutY="285.0" mnemonicParsing="false" onAction="#annuler" text="Annuler" />
+                        <Button fx:id="btnMenuPrincipal" layoutX="507.0" layoutY="285.0" mnemonicParsing="false" onAction="#retourMenuPrincipal" prefHeight="40.0" prefWidth="100.0" text="Menu Principal" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="234.0" />
+                        <Button fx:id="btnEmprunter" mnemonicParsing="false" onAction="#emprunterLivre" prefHeight="40.0" prefWidth="100.0" text="Emprunter" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="14.0" />
+                        <Button fx:id="btnAnnuler" layoutX="635.0" layoutY="285.0" mnemonicParsing="false" onAction="#annuler" prefHeight="40.0" prefWidth="100.0" text="Annuler" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="124.0" />
                         <Label fx:id="lblTitreExemplaire" layoutX="159.0" layoutY="59.0" prefHeight="25.0" prefWidth="285.0" />
                         <Label fx:id="lblAuteur" layoutX="159.0" layoutY="94.0" prefHeight="25.0" prefWidth="286.0" />
                         <Label fx:id="lblTheme" layoutX="159.0" layoutY="129.0" prefHeight="25.0" prefWidth="76.0" />

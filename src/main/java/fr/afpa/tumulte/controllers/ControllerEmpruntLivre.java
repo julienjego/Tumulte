@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -24,6 +26,7 @@ import java.util.ResourceBundle;
  */
 public class ControllerEmpruntLivre implements Initializable {
 
+    public Label lblDate;
     /**
      * Bouton annuler.
      */
@@ -173,6 +176,7 @@ public class ControllerEmpruntLivre implements Initializable {
                 App.class.getResource("/fxml/menuPrincipal.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();
@@ -195,6 +199,8 @@ public class ControllerEmpruntLivre implements Initializable {
     }
 
     private void init() {
+        DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        lblDate.setText(LocalDate.now().format(frformat));
         btnRechercherLivre.setDisable(true);
     }
 

@@ -32,26 +32,20 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.tumulte.controllers.ControllerAfficherAdherent">
-    <children>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+<AnchorPane prefHeight="632.0" prefWidth="924.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.tumulte.controllers.ControllerAfficherAdherent">
+   <children>
+        <MenuBar fx:id="menuBar">
             <menus>
                 <Menu mnemonicParsing="false" text="Edition">
                     <items>
@@ -68,54 +62,50 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-            <items>
-                <AnchorPane>
-                    <children>
-                        <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="551.0" prefWidth="898.0" text="Fiche adhérent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <content>
-                                <AnchorPane>
-                                    <children>
-                                        <Label layoutX="20.0" layoutY="44.0" prefHeight="18.0" prefWidth="38.0" text="Nom :" AnchorPane.leftAnchor="14.0" />
-                                        <Label layoutX="20.0" layoutY="72.0" text="Prénom :" AnchorPane.leftAnchor="14.0" />
-                                        <Label layoutX="12.0" layoutY="96.0" text="Téléphone :" AnchorPane.leftAnchor="12.0" />
-                                        <Label fx:id="lblNom" layoutX="62.0" layoutY="44.0" prefWidth="134.0" text="Neymar" />
-                                        <Label fx:id="lblPrenom" layoutX="76.0" layoutY="72.0" prefHeight="18.0" prefWidth="159.0" text="Jean" />
-                                        <Label fx:id="lblTel" layoutX="90.0" layoutY="96.0" text="06 01 02 03 04" />
-                                        <Label layoutX="578.0" layoutY="44.0" text="Adresse :" />
-                                        <Label fx:id="lblAdresse" layoutX="633.0" layoutY="44.0" prefHeight="18.0" prefWidth="236.0" text="1 rue Dufour, 59000 Marmusots" />
-                                        <Label layoutX="578.0" layoutY="96.0" text="N° adhérent :" />
-                                        <Label fx:id="lblNumAdherent" layoutX="658.0" layoutY="96.0" prefHeight="18.0" prefWidth="94.0" text="1234567890" />
-                                        <Label layoutX="20.0" layoutY="153.0" text="Nombre de prêt en cours :" AnchorPane.leftAnchor="14.0" />
-                                        <Label layoutX="20.0" layoutY="177.0" text="Nombre de prêt en retard:" AnchorPane.leftAnchor="14.0" />
-                                        <Label fx:id="lblNbPretEnCours" layoutX="172.0" layoutY="153.0" text="3" />
-                                        <Label fx:id="lblPretRetard" layoutX="172.0" layoutY="177.0" text="0" />
-                                        <Label layoutX="33.6" layoutY="211.0" prefHeight="18.0" prefWidth="153.0" text="Liste des prêt en cours :" AnchorPane.leftAnchor="14.0" />
-                                        <TableView fx:id="tblPretEnCours" layoutX="32.6" layoutY="254.0" prefHeight="159.0" prefWidth="850.0" AnchorPane.leftAnchor="14.0">
-                                            <columns>
-                                                <TableColumn fx:id="colTtlTitre" prefWidth="287.20003283023834" text="Titre" />
-                                                <TableColumn fx:id="colTtlBbl" prefWidth="136.7999267578125" text="Bibliothèque" />
-                                                <TableColumn fx:id="colTtlIsbn" prefWidth="127.20010375976562" text="ISBN" />
-                                                <TableColumn fx:id="colTtlDatepret" prefWidth="78.4000244140625" text="Date de prêt" />
-                                                <TableColumn fx:id="colTtldateRetour" minWidth="0.0" prefWidth="89.60009765625" text="Date de retour" />
-                                                <TableColumn fx:id="colTtlCodeExemplaire" minWidth="0.0" prefWidth="158.40008544921875" text="Code exemplaire" />
-                                            </columns>
-                                        </TableView>
-                                        <Button fx:id="btnModifier" layoutX="799.0" layoutY="473.0" mnemonicParsing="false" onAction="#modifierAdherent" prefHeight="40.0" prefWidth="100.0" text="Modifier" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-                                        <Button fx:id="btnImpreimerTicket" layoutX="663.0" layoutY="471.0" mnemonicParsing="false" onAction="#imprimerTicket" prefHeight="40.0" prefWidth="100.0" text="Imprimer ticket" AnchorPane.bottomAnchor="13.799999999999955" AnchorPane.rightAnchor="124.0" />
-                                        <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#retourVersRechercherAdherent" prefHeight="40.0" prefWidth="100.0" text="Retour" AnchorPane.bottomAnchor="13.799999999999955" AnchorPane.rightAnchor="234.0" />
-                                    </children>
-                                </AnchorPane>
-                            </content>
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                        </TitledPane>
-                    </children>
-                </AnchorPane>
-            </items>
-        </SplitPane>
-        <AnchorPane layoutY="645.0" prefHeight="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+          <AnchorPane layoutY="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+              <children>
+                  <TitledPane alignment="CENTER" animated="false" collapsible="false" text="Fiche adhérent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <content>
+                          <AnchorPane style="-fx-background-color: #a4dbed;">
+                              <children>
+                                  <Label layoutX="20.0" layoutY="44.0" prefHeight="18.0" prefWidth="38.0" text="Nom :" AnchorPane.leftAnchor="14.0" />
+                                  <Label layoutX="20.0" layoutY="72.0" text="Prénom :" AnchorPane.leftAnchor="14.0" />
+                                  <Label layoutX="12.0" layoutY="96.0" text="Téléphone :" AnchorPane.leftAnchor="12.0" />
+                                  <Label fx:id="lblNom" layoutX="62.0" layoutY="44.0" prefWidth="134.0" text="Neymar" />
+                                  <Label fx:id="lblPrenom" layoutX="76.0" layoutY="72.0" prefHeight="18.0" prefWidth="159.0" text="Jean" />
+                                  <Label fx:id="lblTel" layoutX="90.0" layoutY="96.0" text="06 01 02 03 04" />
+                                  <Label layoutX="578.0" layoutY="44.0" text="Adresse :" />
+                                  <Label fx:id="lblAdresse" layoutX="633.0" layoutY="44.0" prefHeight="18.0" prefWidth="236.0" text="1 rue Dufour, 59000 Marmusots" />
+                                  <Label layoutX="578.0" layoutY="96.0" text="N° adhérent :" />
+                                  <Label fx:id="lblNumAdherent" layoutX="658.0" layoutY="96.0" prefHeight="18.0" prefWidth="94.0" text="1234567890" />
+                                  <Label layoutX="20.0" layoutY="153.0" text="Nombre de prêt en cours :" AnchorPane.leftAnchor="14.0" />
+                                  <Label layoutX="20.0" layoutY="177.0" text="Nombre de prêt en retard:" AnchorPane.leftAnchor="14.0" />
+                                  <Label fx:id="lblNbPretEnCours" layoutX="172.0" layoutY="153.0" text="3" />
+                                  <Label fx:id="lblPretRetard" layoutX="172.0" layoutY="177.0" text="0" />
+                                  <Label layoutX="33.6" layoutY="211.0" prefHeight="18.0" prefWidth="153.0" text="Liste des prêt en cours :" AnchorPane.leftAnchor="14.0" />
+                                  <TableView fx:id="tblPretEnCours" layoutX="32.6" layoutY="254.0" prefHeight="159.0" prefWidth="850.0" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
+                                      <columns>
+                                          <TableColumn fx:id="colTtlTitre" prefWidth="287.20003283023834" text="Titre" />
+                                          <TableColumn fx:id="colTtlBbl" prefWidth="136.7999267578125" text="Bibliothèque" />
+                                          <TableColumn fx:id="colTtlIsbn" prefWidth="127.20010375976562" text="ISBN" />
+                                          <TableColumn fx:id="colTtlDatepret" prefWidth="78.4000244140625" text="Date de prêt" />
+                                          <TableColumn fx:id="colTtldateRetour" minWidth="0.0" prefWidth="89.60009765625" text="Date de retour" />
+                                          <TableColumn fx:id="colTtlCodeExemplaire" minWidth="0.0" prefWidth="158.40008544921875" text="Code exemplaire" />
+                                      </columns>
+                                  </TableView>
+                                  <Button fx:id="btnModifier" layoutX="799.0" layoutY="473.0" mnemonicParsing="false" onAction="#modifierAdherent" prefHeight="40.0" prefWidth="100.0" text="Modifier" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                                  <Button fx:id="btnImpreimerTicket" layoutX="663.0" layoutY="471.0" mnemonicParsing="false" onAction="#imprimerTicket" prefHeight="40.0" prefWidth="100.0" text="Imprimer ticket" AnchorPane.bottomAnchor="13.799999999999955" AnchorPane.rightAnchor="124.0" />
+                                  <Button fx:id="btnRetour" mnemonicParsing="false" onAction="#retourVersRechercherAdherent" prefHeight="40.0" prefWidth="100.0" text="Retour" AnchorPane.bottomAnchor="13.799999999999955" AnchorPane.rightAnchor="234.0" />
+                              </children>
+                          </AnchorPane>
+                      </content>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+                  </TitledPane>
+              </children>
+          </AnchorPane>
+        <AnchorPane layoutY="484.0" prefHeight="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
                 <Label fx:id="lblRole" layoutX="134.0" layoutY="3.0" text="Bibliothècaire" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="123.0" />
                 <Label maxWidth="-1.0" prefHeight="17.0" prefWidth="123.0" text="Connecté en tant que :" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
@@ -123,5 +113,5 @@
                 <Label fx:id="lblDate" layoutX="262.0" text="date" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             </children>
         </AnchorPane>
-    </children>
-</VBox>
+   </children>
+</AnchorPane>

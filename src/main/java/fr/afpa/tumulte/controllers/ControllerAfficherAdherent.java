@@ -99,8 +99,8 @@ public class ControllerAfficherAdherent implements Initializable {
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();

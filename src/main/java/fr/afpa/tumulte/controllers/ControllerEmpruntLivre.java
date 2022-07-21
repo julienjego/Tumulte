@@ -217,9 +217,8 @@ public class ControllerEmpruntLivre implements Initializable {
      */
     private void afficherLabels() {
         if (txtCodeExemplaire.getText().equals("666")){
-            String messageErreur1 = "Le livre n'est pas disponible.";
-            String messageErreur2 = "Le Livre JavaFX pour les nuls est déjà emprunté\r"
-                    + "Vous pouvez passer au suivant ou quitter";
+            String messageErreur1 = "Numéro d'exemplaire erroné.";
+            String messageErreur2 = "Merci de vérifier et saisir à nouveau.";
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else if (txtCodeExemplaire.getText().equals("6666")) {
             lblTitreExemplaire.setText("JavaFX pour les nuls");

@@ -118,7 +118,7 @@ public class ControllerAfficherAdherent implements Initializable {
             stage2.setScene(scene2);
             stage2.initModality(Modality.APPLICATION_MODAL);
             stage2.initOwner(stage);
-
+            stage2.setResizable(false);
             stage2.show();
 
         } catch (IOException e) {

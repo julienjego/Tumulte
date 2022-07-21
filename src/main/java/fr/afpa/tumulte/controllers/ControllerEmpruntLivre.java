@@ -203,15 +203,30 @@ public class ControllerEmpruntLivre implements Initializable {
      * le bouton rechercher.
      */
     private void afficherLabels() {
-        lblTitreExemplaire.setText("JavaFX pour les nuls");
-        lblAuteur.setText("Doug Lowe");
-        lblTheme.setText("Autre");
-        lblEtat.setText("Neuf");
-        lblDisponible.setText("Oui");
-        lblISBN.setText("978-1-118-38534-0");
-        lblISSN.setText("NC");
-        lblEmplacement.setText("B1");
-
+        if (txtCodeExemplaire.getText().equals("666")){
+            String messageErreur1 = "Le livre n'est pas disponible.";
+            String messageErreur2 = "Le Livre JavaFX pour les nuls est déjà emprunté\r"
+                    + "Vous pouvez passer au suivant ou quitter";
+            afficherMessageErreur(messageErreur1, messageErreur2);
+        } else if (txtCodeExemplaire.getText().equals("6666")) {
+            lblTitreExemplaire.setText("JavaFX pour les nuls");
+            lblAuteur.setText("Doug Lowe");
+            lblTheme.setText("Autre");
+            lblEtat.setText("Neuf");
+            lblDisponible.setText("Non");
+            lblISBN.setText("978-1-118-38534-0");
+            lblISSN.setText("NC");
+            lblEmplacement.setText("B1");
+        } else {
+            lblTitreExemplaire.setText("JavaFX pour les nuls");
+            lblAuteur.setText("Doug Lowe");
+            lblTheme.setText("Autre");
+            lblEtat.setText("Neuf");
+            lblDisponible.setText("Oui");
+            lblISBN.setText("978-1-118-38534-0");
+            lblISSN.setText("NC");
+            lblEmplacement.setText("B1");
+        }
     }
 
     private void effacer() {
@@ -227,30 +242,34 @@ public class ControllerEmpruntLivre implements Initializable {
     }
 
     private void confEmpruntLivre() {
-        String messageErreur1;
-        String messageErreur2;
-        switch (txtCodeExemplaire.getText()){
-            case "666":
-                messageErreur1 = "Le livre n'est pas disponible.";
-                messageErreur2 = "Le Livre JavaFX pour les nuls est déjà emprunté\r"
-                        + "Vous pouvez passer au suivant ou quitter";
-                break;
-            case "6666":
-                messageErreur1 = "Le code exemplaire est inconnu.";
-                messageErreur2 = "Merci de vérifier et saisir le code exemplaire à nouveau";
-                break;
 
-            default:
-                messageErreur1 = "Le livre est emprunté.";
-                messageErreur2 = "Merci de nous laisser tranquille.";
+        if (txtCodeExemplaire.getText().equals("6666")){
+            String messageErreur1 = "Le livre n'est pas disponible.";
+            String messageErreur2 = "Le Livre JavaFX pour les nuls est déjà emprunté\r"
+                    + "Vous pouvez passer au suivant ou quitter";
+            afficherMessageErreur(messageErreur1, messageErreur2);
+        } else {
+            String message1 = "Le livre est emprunté.";
+            String message2 = "Merci de nous laisser tranquille.";
+            afficherMessage(message1, message2);
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    }
+
+    private void afficherMessageErreur(String messageErreur1, String messageErreur2) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Erreur");
         alert.setHeaderText(messageErreur1);
         alert.setContentText(messageErreur2);
         alert.showAndWait();
+    }
 
+    private void afficherMessage(String message1, String message2) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(message1);
+        alert.setContentText(message2);
+        alert.showAndWait();
     }
 
     private boolean codeExemplaireIsEmpty() {

@@ -18,10 +18,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
 
+    public Label lblDate;
     private Stage stage;
     private Scene scene;
     @FXML
@@ -96,6 +99,7 @@ public class ControllerAfficherAdherent implements Initializable {
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         scene = new Scene(fxmlLoader.load());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
@@ -114,7 +118,7 @@ public class ControllerAfficherAdherent implements Initializable {
             stage2.setScene(scene2);
             stage2.initModality(Modality.APPLICATION_MODAL);
             stage2.initOwner(stage);
-
+            stage2.setResizable(false);
             stage2.show();
 
         } catch (IOException e) {
@@ -129,6 +133,8 @@ public class ControllerAfficherAdherent implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        lblDate.setText(LocalDate.now().format(frformat));
 
         final ObservableList<Exemplaire> data = FXCollections.observableArrayList(
                 new Exemplaire("Enquête sur l'existence des anges gardiens ", "Bibliothèque des Marmusots", "L2191-8",

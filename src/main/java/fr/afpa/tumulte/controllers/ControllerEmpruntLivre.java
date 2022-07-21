@@ -179,6 +179,7 @@ public class ControllerEmpruntLivre implements Initializable {
                 App.class.getResource("/fxml/menuPrincipal.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();

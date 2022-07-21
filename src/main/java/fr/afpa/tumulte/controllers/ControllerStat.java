@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -265,6 +266,7 @@ public class ControllerStat implements Initializable {
                 App.class.getResource("/fxml/menuPrincipal.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();
@@ -314,7 +316,8 @@ public class ControllerStat implements Initializable {
         btnValiderTop.setVisible(false);
         tabTheme.setVisible(false);
         tabLivres.setVisible(false);
-        lblDate.setText(String.valueOf(LocalDate.now()));
+        DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        lblDate.setText(LocalDate.now().format(frformat));
 
     }
 

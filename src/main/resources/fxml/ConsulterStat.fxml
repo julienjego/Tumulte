@@ -49,7 +49,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="600.0" minWidth="900.0" style="-fx-background-color: #a4dbed;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.tumulte.controllers.ControllerStat">
+<AnchorPane minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.afpa.tumulte.controllers.ControllerStat">
     <children>
         <MenuBar fx:id="menuBar">
             <menus>

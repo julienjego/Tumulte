@@ -19,13 +19,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.security.KeyException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
  * The type Controller emprunt livre.
  */
 public class ControllerEmpruntLivre implements Initializable {
+
+    public Label lblDate;
 
     /**
      * Bouton annuler.
@@ -202,6 +205,8 @@ public class ControllerEmpruntLivre implements Initializable {
     }
 
     private void init() {
+        DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        lblDate.setText(LocalDate.now().format(frformat));
         btnRechercherLivre.setDisable(true);
     }
 

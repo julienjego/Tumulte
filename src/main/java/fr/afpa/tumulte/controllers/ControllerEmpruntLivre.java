@@ -11,6 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -27,6 +29,7 @@ import java.util.ResourceBundle;
 public class ControllerEmpruntLivre implements Initializable {
 
     public Label lblDate;
+
     /**
      * Bouton annuler.
      */
@@ -186,8 +189,12 @@ public class ControllerEmpruntLivre implements Initializable {
      * Activer btn rechercher.
      */
     @FXML
-    void activerBtnRechercher() {
+    void activerBtnRechercher(KeyEvent e) {
+
         btnRechercherLivre.setDisable(codeExemplaireIsEmpty());
+        if (e.getCode().equals(KeyCode.ENTER) ) {
+            rechercherLivre();
+        }
     }
 
     /**

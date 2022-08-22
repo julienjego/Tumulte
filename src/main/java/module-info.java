@@ -1,6 +1,9 @@
 module fr.afpa.app {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
+    requires jakarta.persistence;
+    requires org.hibernate.orm.core;
 
 
     opens fr.afpa.tumulte.app to javafx.fxml;

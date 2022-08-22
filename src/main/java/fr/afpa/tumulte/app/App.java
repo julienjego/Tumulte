@@ -1,6 +1,7 @@
 package fr.afpa.tumulte.app;
 
 import fr.afpa.tumulte.outils.Utile;
+import fr.afpa.tumulte.outils.doa;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,6 +35,12 @@ public class App extends Application {
             event.consume();
             Utile.exitApp("Êtes-vous sûr ?");
         });
+
+        try {
+            doa.listTheme();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

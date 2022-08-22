@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="fr.afpa.tumulte">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>fr.afpa.tumulte.entites.Theme</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- value permet d'update ou de create -->
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:mysql://172.16.130.140:3306/tumult?serverTimezone=UTC"/>
+            <property name="jakarta.persistence.jdbc.user" value="CDA"/>
+            <property name="jakarta.persistence.jdbc.password" value="hello"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

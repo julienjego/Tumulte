@@ -1,9 +1,17 @@
 package fr.afpa.tumulte.entites;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 /**
  * The type Auteur.
  */
+@Entity
 public class Auteur {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String codeAuteur;
     private String nomAuteur;
     private String prenomAuteur;

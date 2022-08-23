@@ -1,9 +1,11 @@
 package fr.afpa.tumulte.entites;
 
+import jakarta.persistence.Entity;
+
 /**
  * The type Auteur.
  */
-
+@Entity
 public class Auteur {
     private String codeAuteur;
     private String nomAuteur;

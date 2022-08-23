@@ -1,67 +1,72 @@
 package fr.afpa.tumulte.entites;
 
+import fr.afpa.tumulte.outils.Emplacement_pk;
 import jakarta.persistence.*;
 
+@IdClass(Emplacement_pk.class)
 @Entity
 @Table(name = "emplacement")
 public class Emplacement {
-    @ManyToOne
-    private String codBibliotheque;
     @Id
-    private String CodEmplacement;
-    @OneToOne
-    private String codTheme;
-    private String LibelEmplacement;
+    @ManyToOne
+    @JoinColumn(name = "codBibliotheque")
+    private Bibliotheque bibliotheque;
+    @Id
+    private String codEmplacement;
+    @ManyToOne
+    @JoinColumn(name = "codTheme")
+    private Theme theme;
+    private String libelEmplacement;
 
-    public Emplacement(String codBibliotheque, String codEmplacement, String codTheme, String libelEmplacement) {
-        this.codBibliotheque = codBibliotheque;
-        CodEmplacement = codEmplacement;
-        this.codTheme = codTheme;
-        LibelEmplacement = libelEmplacement;
+    public Emplacement(Bibliotheque codBibliotheque, String codEmplacement, Theme codTheme, String libelEmplacement) {
+        this.bibliotheque = codBibliotheque;
+        codEmplacement = codEmplacement;
+        this.theme = codTheme;
+        libelEmplacement = libelEmplacement;
     }
 
     public Emplacement() {
     }
 
-    public String getCodBibliotheque() {
-        return codBibliotheque;
+    public Bibliotheque getBibliotheque() {
+        return bibliotheque;
     }
 
-    public void setCodBibliotheque(String codBibliotheque) {
-        this.codBibliotheque = codBibliotheque;
+    public void setBibliotheque(Bibliotheque bibliotheque) {
+        this.bibliotheque = bibliotheque;
     }
 
     public String getCodEmplacement() {
-        return CodEmplacement;
+        return codEmplacement;
     }
 
     public void setCodEmplacement(String codEmplacement) {
-        CodEmplacement = codEmplacement;
+        codEmplacement = codEmplacement;
     }
 
-    public String getCodTheme() {
-        return codTheme;
+    public Theme getTheme() {
+        return theme;
     }
 
-    public void setCodTheme(String codTheme) {
-        this.codTheme = codTheme;
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 
     public String getLibelEmplacement() {
-        return LibelEmplacement;
+        return libelEmplacement;
     }
 
     public void setLibelEmplacement(String libelEmplacement) {
-        LibelEmplacement = libelEmplacement;
+        libelEmplacement = libelEmplacement;
     }
 
     @Override
     public String toString() {
         return "Emplacement{" +
-                "codBibliotheque='" + codBibliotheque + '\'' +
-                ", CodEmplacement='" + CodEmplacement + '\'' +
-                ", codTheme='" + codTheme + '\'' +
-                ", LibelEmplacement='" + LibelEmplacement + '\'' +
+                "codBibliotheque='" + bibliotheque + '\'' +
+                ", CodEmplacement='" + codEmplacement + '\'' +
+                ", codTheme='" + theme + '\'' +
+                ", LibelEmplacement='" + libelEmplacement + '\'' +
                 '}';
     }
 }

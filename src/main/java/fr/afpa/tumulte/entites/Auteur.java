@@ -11,9 +11,15 @@ import jakarta.persistence.Id;
 @Entity
 public class Auteur {
     @Id
+    /** un commentaire de merde !*/
     //Ah!
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String codeAuteur;
+    /**
+     * un commentaire bidon
+     * sur plusieurs lignes
+     * pour que ça se voit
+     */
     private String nomAuteur;
     private String prenomAuteur;
 

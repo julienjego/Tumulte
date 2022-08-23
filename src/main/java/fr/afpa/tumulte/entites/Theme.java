@@ -1,9 +1,6 @@
 package fr.afpa.tumulte.entites;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * The type Theme.
@@ -15,12 +12,12 @@ public class Theme {
      * Code du thème.
      */
     @Id
-    @Column(name="codTheme")
+    @Column(name = "codTheme")
     private String codeTheme;
     /**
      * Nom du thème.
      */
-    @Column(name="libelTheme")
+    @Column(name = "libelTheme")
     private String theme;
     /**
      * Description du thème.
@@ -29,6 +26,7 @@ public class Theme {
     /**
      * nombre d'emprunt de ce thème.
      */
+    @Transient
     private int nbEmprunt;
 
     /**

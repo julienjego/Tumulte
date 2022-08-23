@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * The type Livre.
  */
 @Entity
+@Table(name = "livre")
 public class Livre {
     /**
      * l'isbn du livre.

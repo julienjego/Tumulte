@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * The type Auteur.
  */
 @Entity
+@Table(name = "auteur")
 public class Auteur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

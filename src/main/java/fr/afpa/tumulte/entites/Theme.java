@@ -12,6 +12,7 @@ public class Theme {
      * Code du thème.
      */
     @Id
+    @Column(name = "codTheme")
     private String codTheme;
     /**
      * Nom du thème.

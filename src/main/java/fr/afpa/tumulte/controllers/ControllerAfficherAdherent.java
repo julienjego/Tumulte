@@ -137,8 +137,8 @@ public class ControllerAfficherAdherent implements Initializable {
         lblDate.setText(LocalDate.now().format(frformat));
 
         final ObservableList<Exemplaire> data = FXCollections.observableArrayList(
-                new Exemplaire("Enquête sur l'existence des anges gardiens ", "Bibliothèque des Marmusots", "L2191-8",
-                        "978-2914569026", "18/07/2022", "978-2914569026", "23/07/2022"),
+                new Exemplaire("Enquête sur l'existence des anges gardiens ", "Bibliothèque des Marmusots", "code exemplaire",
+                        "on sait aps, disponible ou l", "date de pret", "isbnvrai", "23/07/2022"),
                 new Exemplaire("TV Lobotomie: La vérité scientifique sur les effets de la télévision",
                         "Bibliothèque des Marmusots", "J5685-7", "978-2290038055", "18/07/2022", "978-2290038055",
                         "23/07/2022"),
@@ -154,7 +154,7 @@ public class ControllerAfficherAdherent implements Initializable {
         colTtlBbl.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codBibliotheque"));
 
         colTtlDatepret.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codExemplaire"));
-        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("disponible"));
+        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("isbnLivre"));
         colTtldateRetour.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("dateRetour"));
         colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codEmplacement"));
 

@@ -18,7 +18,7 @@ public class Livre {
     /**
      * code du thème du livre.
      */
-    @OneToOne
+    @ManyToOne
     private String codTheme;
     /**
      * Titre du livre.

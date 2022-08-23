@@ -10,6 +10,17 @@ public class Exemplaire {
     private String disponible;
     private String dateRetour;
 
+    public Exemplaire(String titre, String codBibliotheque, String codEmplacement, String isbnLivre,
+                      String codExemplaire, String disponible, String dateRetour) {
+        this.titre = titre;
+        this.codBibliotheque = codBibliotheque;
+        this.codEmplacement = codEmplacement;
+        this.isbnLivre = isbnLivre;
+        this.codExemplaire = codExemplaire;
+        this.disponible = disponible;
+        this.dateRetour = dateRetour;
+    }
+
     /**
      * @return String
      */
@@ -21,17 +32,6 @@ public class Exemplaire {
      * @param dateRetour
      */
     public void setDateRetour(String dateRetour) {
-        this.dateRetour = dateRetour;
-    }
-
-    public Exemplaire(String titre, String codBibliotheque, String codEmplacement, String isbnLivre,
-            String codExemplaire, String disponible, String dateRetour) {
-        this.titre = titre;
-        this.codBibliotheque = codBibliotheque;
-        this.codEmplacement = codEmplacement;
-        this.isbnLivre = isbnLivre;
-        this.codExemplaire = codExemplaire;
-        this.disponible = disponible;
         this.dateRetour = dateRetour;
     }
 
@@ -57,8 +57,7 @@ public class Exemplaire {
     }
 
     /**
-     * @param codBibliotheque
-     *                        coucou
+     * @param codBibliotheque coucou
      */
     public void setCodBibliotheque(String codBibliotheque) {
         this.codBibliotheque = codBibliotheque;

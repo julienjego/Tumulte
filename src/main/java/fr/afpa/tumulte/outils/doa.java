@@ -29,14 +29,12 @@ public class doa {
         }
     }
 
-    public static void listTheme() {
+    public static List<Theme> listTheme() {
         EntityManager entityManager = null;
         try {
             entityManager = entityManagerFactory.createEntityManager();
             List<Theme> themes = entityManager.createQuery("from Theme", Theme.class).getResultList();
-            for (Theme theme : themes) {
-                System.out.println(theme);
-            }
+            return themes;
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close();

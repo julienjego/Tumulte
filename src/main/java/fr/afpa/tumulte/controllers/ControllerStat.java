@@ -199,9 +199,9 @@ public class ControllerStat implements Initializable {
                 grfTheme.setVisible(false);
                 ObservableList<Theme> listTheme = lireTheme();
                 colCodeTheme.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("codeTheme"));
+                        new PropertyValueFactory<Theme, String>("codTheme"));
                 colTheme.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("theme"));
+                        new PropertyValueFactory<Theme, String>("libelTheme"));
                 colDescription.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>(
                                 "descripTheme"));

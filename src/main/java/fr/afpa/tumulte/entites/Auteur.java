@@ -1,12 +1,14 @@
 package fr.afpa.tumulte.entites;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 /**
  * The type Auteur.
  */
 @Entity
 public class Auteur {
+    @Id
     private String codeAuteur;
     private String nomAuteur;
     private String prenomAuteur;

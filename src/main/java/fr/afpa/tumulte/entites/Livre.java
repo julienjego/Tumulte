@@ -14,12 +14,13 @@ public class Livre {
      * l'isbn du livre.
      */
     @Id
-    private String IsbnLivre;
+    private String isbnLivre;
     /**
      * code du thème du livre.
      */
     @ManyToOne
-    private String codTheme;
+    @JoinColumn(name = "codTheme")
+    private Theme theme;
     /**
      * Titre du livre.
      */
@@ -32,14 +33,11 @@ public class Livre {
             joinColumns = @JoinColumn(name = "IsbnLivre"),
             inverseJoinColumns = @JoinColumn(name = "codAuteur"))
     private ArrayList<Auteur> auteur;
-//    /**
-//     * nombre d'exemplaire de ce livre.
-//     */
-//    private int nbExemplaire;
-//    /**
-//     * nombre d'emprunt de ce livre.
-//     */
-//    private int nbEmprunt;
+
+    /**
+     * nombre d'emprunt de ce livre.
+     */
+    private int nbEmprunt;
 
     public Livre() {
     }
@@ -48,85 +46,45 @@ public class Livre {
      * Instantiates a new Livre.
      *
      * @param isbnLivre  the isbn livre
-     * @param codTheme   the cod theme
+     * @param theme      the cod theme
      * @param titreLivre the titre livre
      * @param auteur     the auteur
      */
-    public Livre(String isbnLivre, String codTheme, String titreLivre, ArrayList<Auteur> auteur) {
-        IsbnLivre = isbnLivre;
-        this.codTheme = codTheme;
+    public Livre(String isbnLivre, Theme theme, String titreLivre, ArrayList<Auteur> auteur) {
+        this.isbnLivre = isbnLivre;
+        this.theme = theme;
         this.titreLivre = titreLivre;
         this.auteur = auteur;
     }
 
-    /**
-     * Gets isbn livre.
-     *
-     * @return the isbn livre
-     */
     public String getIsbnLivre() {
-        return IsbnLivre;
+        return isbnLivre;
     }
 
-    /**
-     * Sets isbn livre.
-     *
-     * @param isbnLivre the isbn livre
-     */
     public void setIsbnLivre(String isbnLivre) {
-        IsbnLivre = isbnLivre;
+        this.isbnLivre = isbnLivre;
     }
 
-    /**
-     * Gets cod theme.
-     *
-     * @return the cod theme
-     */
-    public String getCodTheme() {
-        return codTheme;
+    public fr.afpa.tumulte.entites.Theme getTheme() {
+        return theme;
     }
 
-    /**
-     * Sets cod theme.
-     *
-     * @param codTheme the cod theme
-     */
-    public void setCodTheme(String codTheme) {
-        this.codTheme = codTheme;
+    public void setTheme(fr.afpa.tumulte.entites.Theme theme) {
+        this.theme = theme;
     }
 
-    /**
-     * Gets titre livre.
-     *
-     * @return the titre livre
-     */
     public String getTitreLivre() {
         return titreLivre;
     }
 
-    /**
-     * Sets titre livre.
-     *
-     * @param titreLivre the titre livre
-     */
     public void setTitreLivre(String titreLivre) {
         this.titreLivre = titreLivre;
     }
 
-    /**
-     * Gets auteur.
-     *
-     * @return the auteur
-     */
     public ArrayList<Auteur> getAuteur() {
         return auteur;
     }
 
-    /**
-     * Sets auteur.
-     *
-     * @param auteur the auteur
-     */
     public void setAuteur(ArrayList<Auteur> auteur) {
         this.auteur = auteur;
     }

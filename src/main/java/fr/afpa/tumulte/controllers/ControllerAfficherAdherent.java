@@ -136,16 +136,9 @@ public class ControllerAfficherAdherent implements Initializable {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lblDate.setText(LocalDate.now().format(frformat));
 
-        final ObservableList<Exemplaire> data = FXCollections.observableArrayList(
-                new Exemplaire("Enquête sur l'existence des anges gardiens ", "Bibliothèque des Marmusots", "L2191-8",
-                        "978-2914569026", "18/07/2022", "978-2914569026", "23/07/2022"),
-                new Exemplaire("TV Lobotomie: La vérité scientifique sur les effets de la télévision",
-                        "Bibliothèque des Marmusots", "J5685-7", "978-2290038055", "18/07/2022", "978-2290038055",
-                        "23/07/2022"),
-                new Exemplaire("L'Encyclopédie du savoir relatif et absolu", "Bibliothèque des Marmusots", "R4856-5",
-                        "978-2253160298l", "18/07/2022", "978-2253160298l", "23/07/2022")
-
-        );
+       // @TODO"taper ds la bdd pour avoir livre + exemplaire + emprunt"
+        final ObservableList<?> data = FXCollections.observableArrayList(
+       );
 
         tblPretEnCours.setEditable(true);
 
@@ -153,12 +146,12 @@ public class ControllerAfficherAdherent implements Initializable {
 
         colTtlBbl.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codBibliotheque"));
 
-        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codExemplaire"));
-        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("disponible"));
+        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("datePret"));
+        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("IsbnLivre"));
         colTtldateRetour.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("dateRetour"));
-        colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codEmplacement"));
+        colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("numExemplaire"));
 
-        tblPretEnCours.setItems(data);
+        //@todo remettre le nouveau tableau à la place de data ------------ >>>   tblPretEnCours.setItems(data);   <<<------------------//
     }
 
     @FXML

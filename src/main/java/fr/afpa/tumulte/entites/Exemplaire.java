@@ -1,133 +1,98 @@
 package fr.afpa.tumulte.entites;
 
+import jakarta.persistence.*;
+
+
+@Entity
 public class Exemplaire {
 
-    private String titre;
-    private String codBibliotheque;
-    private String codEmplacement;
-    private String isbnLivre;
-    private String codExemplaire;
-    private String disponible;
-    private String dateRetour;
+    @Id
+    private String numExemplaire;
+    @ManyToOne
+    @JoinColumn(name = "codBibliotheque")
+    private Bibliotheque codBibliotheque;
+    @ManyToOne
+    @JoinColumn(name = "codEmplacement")
+    private Emplacement codEmplacement;
 
-    /**
-     * @return String
-     */
-    public String getDateRetour() {
-        return dateRetour;
+    @ManyToOne
+    @JoinColumn(name = "IsbnLivre")
+    private Livre IsbnLivre;
+    @Basic(fetch = FetchType.LAZY)
+    private String commentExemplaire;
+    private boolean disponible = true;
+
+
+    public void setNumExemplaire(String numExemplaire) {
+        this.numExemplaire = numExemplaire;
     }
 
-    /**
-     * @param dateRetour
-     */
-    public void setDateRetour(String dateRetour) {
-        this.dateRetour = dateRetour;
-    }
-
-    public Exemplaire(String titre, String codBibliotheque, String codEmplacement, String isbnLivre,
-            String codExemplaire, String disponible, String dateRetour) {
-        this.titre = titre;
+    public void setCodBibliotheque(Bibliotheque codBibliotheque) {
         this.codBibliotheque = codBibliotheque;
-        this.codEmplacement = codEmplacement;
-        this.isbnLivre = isbnLivre;
-        this.codExemplaire = codExemplaire;
+    }
+
+    public void setCodEmplacement(Emplacement emplacement) {
+        this.codEmplacement = emplacement;
+    }
+
+    public void setIsbnLivre(Livre IsbnLivre) {
+        this.IsbnLivre = IsbnLivre;
+    }
+
+    public void setCommentExemplaire(String commentExemplaire) {
+        this.commentExemplaire = commentExemplaire;
+    }
+
+    public void setDisponible(boolean disponible) {
         this.disponible = disponible;
-        this.dateRetour = dateRetour;
     }
 
-    /**
-     * @return String
-     */
-    public String getTitre() {
-        return titre;
+    public String getNumExemplaire() {
+        return numExemplaire;
     }
 
-    /**
-     * @param titre
-     */
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
-
-    /**
-     * @return String
-     */
-    public String getCodBibliotheque() {
+    public Bibliotheque getCodBibliotheque() {
         return codBibliotheque;
     }
 
-    /**
-     * @param codBibliotheque
-     *                        coucou
-     */
-    public void setCodBibliotheque(String codBibliotheque) {
-        this.codBibliotheque = codBibliotheque;
-    }
-
-    /**
-     * @return String
-     */
-    public String getCodEmplacement() {
+    public Emplacement getemplacement() {
         return codEmplacement;
     }
 
-    /**
-     * @param codEmplacement
-     */
-    public void setCodEmplacement(String codEmplacement) {
-        this.codEmplacement = codEmplacement;
+    public Livre getlivre() {
+        return IsbnLivre;
     }
 
-    /**
-     * @return String
-     */
-    public String getisbnLivre() {
-        return isbnLivre;
+    public String getCommentExemplaire() {
+        return commentExemplaire;
     }
 
-    /**
-     * @param isbnLivre
-     */
-    public void setIsbnLivre(String isbnLivre) {
-        this.isbnLivre = isbnLivre;
-    }
-
-    /**
-     * @return String
-     */
-    public String getCodExemplaire() {
-        return codExemplaire;
-    }
-
-    /**
-     * @param codExemplaire
-     */
-    public void setCodExemplaire(String codExemplaire) {
-        this.codExemplaire = codExemplaire;
-    }
-
-    /**
-     * @return String
-     */
-    public String isDisponible() {
+    public boolean isDisponible() {
         return disponible;
     }
 
-    /**
-     * @param disponible
-     */
-    public void setDisponible(String disponible) {
+
+    @Override
+    public String toString() {
+        return "Exemplaire{" +
+                "numExemplaire='" + numExemplaire + '\'' +
+                ", Bibliotheque='" + codBibliotheque + '\'' +
+                ", emplacement=" + codEmplacement +
+                ", livre=" + IsbnLivre +
+                ", commentExemplaire='" + commentExemplaire + '\'' +
+                ", disponible=" + disponible +
+                '}';
+    }
+
+    public Exemplaire(String numExemplaire, Bibliotheque codBibliotheque, Emplacement emplacement, Livre IsbnLivre, String commentExemplaire, boolean disponible) {
+        this.numExemplaire = numExemplaire;
+        this.codBibliotheque = codBibliotheque;
+        this.codEmplacement = emplacement;
+        this.IsbnLivre = IsbnLivre;
+        this.commentExemplaire = commentExemplaire;
         this.disponible = disponible;
     }
 
-    /**
-     * @return String
-     */
-    @Override
-    public String toString() {
-        return "Exemplaire [codBibliotheque=" + codBibliotheque + ", codEmplacement=" + codEmplacement
-                + ", codExemplaire=" + codExemplaire + ", disponible=" + disponible + ", isbnLivre=" + isbnLivre
-                + ", titre=" + titre + "]";
+    public Exemplaire() {
     }
-
 }

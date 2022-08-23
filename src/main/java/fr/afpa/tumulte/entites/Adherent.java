@@ -1,16 +1,34 @@
 package fr.afpa.tumulte.entites;
 
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+
 /**
  * The type Adherent.
  */
+@Entity
+@Table(name = "adherent")
 public class Adherent {
-    private String numAdherent;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "numAdherent",nullable = false, length = 11)
+    private int numAdherent;
+    @Column (name = "nomAdherent",nullable = false, length = 50)
     private String nomAdherent;
+    @Column (name = "prenomAdherent",nullable = false, length = 50)
     private String prenomAdherent;
+    @Column (name = "adrAdherent",nullable = false, length = 50)
     private String adrAdherent;
+    @Column (name = "telAdherent",nullable = false, length = 20)
     private String teleAdherent;
-    private String perimeLe;
+    @Column (name = "perimeLe",nullable = false)
+    private LocalDate perimeLe;
+    @Column (name = "pwdAdherent",nullable = true, length = 10)
     private String pwdAdherent;
+
+    public Adherent() {
+    }
 
     /**
      * Instantiates a new Adherent.
@@ -22,12 +40,12 @@ public class Adherent {
      * @param teleAdherent   the tele adherent
      * @param perimeLe       the perime le
      */
-    public Adherent(final String numAdherent,
+    public Adherent(final int numAdherent,
                     final String nomAdherent,
                     final String prenomAdherent,
                     final String adrAdherent,
                     final String teleAdherent,
-                    final String perimeLe) {
+                    final LocalDate perimeLe) {
         this.numAdherent = numAdherent;
         this.nomAdherent = nomAdherent;
         this.prenomAdherent = prenomAdherent;
@@ -41,7 +59,7 @@ public class Adherent {
      *
      * @return the num adherent
      */
-    public String getNumAdherent() {
+    public int getNumAdherent() {
         return numAdherent;
     }
 
@@ -50,8 +68,8 @@ public class Adherent {
      *
      * @param numAdherent the num adherent
      */
-    public void setNumAdherent(final String numAdherent) {
-        this.numAdherent = numAdherent.trim();
+    public void setNumAdherent(final int numAdherent) {
+        this.numAdherent = numAdherent;
     }
 
     /**
@@ -131,7 +149,7 @@ public class Adherent {
      *
      * @return the perime le
      */
-    public String getPerimeLe() {
+    public LocalDate getPerimeLe() {
         return perimeLe;
     }
 
@@ -140,7 +158,7 @@ public class Adherent {
      *
      * @param perimeLe the perime le
      */
-    public void setPerimeLe(final String perimeLe) {
+    public void setPerimeLe(final LocalDate perimeLe) {
         this.perimeLe = perimeLe;
     }
 

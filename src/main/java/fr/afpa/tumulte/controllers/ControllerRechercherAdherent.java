@@ -122,12 +122,11 @@ public class ControllerRechercherAdherent implements Initializable {
     void rechercherAdherent() {
 
         Adherent jean = new Adherent(
-                "1234",
+                1234,
                 "Neymar",
                 "Jean",
                 "1 rue du four - 59000 Marmusots",
-                "06.01.02.03.04",
-                "2022-07-17");
+                "06.01.02.03.04", LocalDate.of(2022,07,17));
 
         afficherInfoAdherent(jean);
 
@@ -165,7 +164,7 @@ public class ControllerRechercherAdherent implements Initializable {
     }
 
     private boolean abonnementEstPerime(Adherent adherent) {
-        return LocalDate.parse(adherent.getPerimeLe()).isBefore(LocalDate.now());
+        return adherent.getPerimeLe().isBefore(LocalDate.now());
     }
 
     private boolean numAdherentEstConnu(Adherent adherent) {
@@ -182,7 +181,7 @@ public class ControllerRechercherAdherent implements Initializable {
                 lblCotisationAJour.setText("Non");
                 lblCotisation.setVisible(true);
                 lblDateFinCotisation.setVisible(true);
-                lblDateFinCotisation.setText(adherent.getPerimeLe());
+                lblDateFinCotisation.setText(String.valueOf(adherent.getPerimeLe()));
             } else {
                 lblCotisationAJour.setText("Oui");
                 lblCotisation.setVisible(false);

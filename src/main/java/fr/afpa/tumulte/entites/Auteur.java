@@ -1,27 +1,32 @@
 package fr.afpa.tumulte.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
 
 /**
  * The type Auteur.
  */
 @Entity
+@Table(name = "auteur")
 public class Auteur {
     @Id
     /** un commentaire de merde !*/
     //Ah!
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String codeAuteur;
-    /**
-     * un commentaire bidon
-     * sur plusieurs lignes
-     * pour que ça se voit
-     */
+  
     private String nomAuteur;
+
     private String prenomAuteur;
+
+    @JoinTable(name = "Redaction",
+            joinColumns = @JoinColumn(name = "codAuteur"),
+            inverseJoinColumns = @JoinColumn(name = "IsbnLivre"))
+    private ArrayList<Livre> livres;
+
+    public Auteur() {
+    }
 
     /**
      * Instantiates a new Auteur.

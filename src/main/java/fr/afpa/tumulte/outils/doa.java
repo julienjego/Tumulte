@@ -18,7 +18,7 @@ public class doa {
             Theme theme = entityManager.find(Theme.class, codeTheme);
             EntityTransaction trans = entityManager.getTransaction();
             trans.begin();
-            theme.setTheme(libel);
+            theme.setLibelTheme(libel);
             entityManager.persist(theme);
             trans.commit();
             System.out.println(theme);
@@ -29,14 +29,12 @@ public class doa {
         }
     }
 
-    public static void listTheme() {
+    public static List<Theme> listTheme() {
         EntityManager entityManager = null;
         try {
             entityManager = entityManagerFactory.createEntityManager();
             List<Theme> themes = entityManager.createQuery("from Theme", Theme.class).getResultList();
-            for (Theme theme : themes) {
-                System.out.println(theme);
-            }
+            return themes;
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close();

@@ -16,6 +16,9 @@ public class Auteur {
     private String nomAuteur;
     private String prenomAuteur;
 
+    public Auteur() {
+    }
+
     /**
      * Instantiates a new Auteur.
      *

@@ -15,6 +15,7 @@ import java.io.LineNumberReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Utile.
@@ -141,51 +142,9 @@ public class Utile {
      */
     public static ObservableList<Theme> lireTheme() {
         try {
-            FileReader fileReader = new FileReader(
-                    "src/main/resources/csv/lstThemes.csv");
-            LineNumberReader lineNumberReader
-                    = new LineNumberReader(fileReader);
-            String ligneLue;
-            String codeTheme;
-            String lTheme;
-            String description;
-            int nbEmprunt;
             Theme theme;
-            ArrayList<Theme> listTheme = new ArrayList<>();
-            do {
-                ligneLue = lineNumberReader.readLine();
-                if (ligneLue != null) {
-                    codeTheme = ligneLue.substring(0, ligneLue.indexOf(","));
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    lTheme = ligneLue.substring(0, ligneLue.indexOf(","));
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    description = ligneLue.substring(0, ligneLue.indexOf(","));
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    nbEmprunt = Integer.parseInt(ligneLue);
-                    theme = new Theme(codeTheme,
-                            lTheme,
-                            description,
-                            nbEmprunt);
-                    listTheme.add(theme);
-                }
-            } while (ligneLue != null);
+            List<Theme> listTheme = doa.listTheme();
             return FXCollections.observableArrayList(listTheme);
-        } catch (NullPointerException npe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(npe.getMessage());
-            alert.showAndWait();
-        } catch (FileNotFoundException fnfe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(fnfe.getMessage());
-            alert.setContentText("fichier non trouvé !");
-            alert.showAndWait();
-
-        } catch (IOException ioe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.showAndWait();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(e.getMessage());

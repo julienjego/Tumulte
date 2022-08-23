@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Auteur {
     @Id
+    //Ah!
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String codeAuteur;
     private String nomAuteur;

@@ -3,6 +3,7 @@ package fr.afpa.tumulte.entites;
 /**
  * The type Auteur.
  */
+
 public class Auteur {
     private String codeAuteur;
     private String nomAuteur;

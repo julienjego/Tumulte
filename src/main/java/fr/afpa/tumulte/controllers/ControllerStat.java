@@ -237,7 +237,7 @@ public class ControllerStat implements Initializable {
                 ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
 
                 for (int i = 1; i < listTheme.size(); i++) {
-                    String item = listTheme.get(i).getTheme();
+                    String item = listTheme.get(i).getLibelTheme();
                     int count = listTheme.get(i).getNbEmprunt();
                     data.add(new BarChart.Data(item + "(" + count + ")", count));
                 }

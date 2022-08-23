@@ -1,16 +1,23 @@
 package fr.afpa.tumulte.entites;
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+
 /**
  * The type Livre.
  */
+@Entity
 public class Livre {
     /**
      * l'isbn du livre.
      */
+    @Id
     private String IsbnLivre;
     /**
      * code du thème du livre.
      */
+    @OneToOne
     private String codTheme;
     /**
      * Titre du livre.
@@ -19,69 +26,36 @@ public class Livre {
     /**
      * Auteur du livre.
      */
-    private Auteur auteur;
-    /**
-     * nombre d'exemplaire de ce livre.
-     */
-    private int nbExemplaire;
-    /**
-     * nombre d'emprunt de ce livre.
-     */
-    private int nbEmprunt;
+    @ManyToMany
+    @JoinTable(name = "Redaction",
+            joinColumns = @JoinColumn(name = "IsbnLivre"),
+            inverseJoinColumns = @JoinColumn(name = "codAuteur"))
+    private ArrayList<Auteur> auteur;
+//    /**
+//     * nombre d'exemplaire de ce livre.
+//     */
+//    private int nbExemplaire;
+//    /**
+//     * nombre d'emprunt de ce livre.
+//     */
+//    private int nbEmprunt;
+
+    public Livre() {
+    }
 
     /**
      * Instantiates a new Livre.
      *
-     * @param isbnLivre    the isbn livre
-     * @param codTheme     the cod theme
-     * @param titreLivre   the titre livre
-     * @param auteur       the auteur
-     * @param nbExemplaire the nb exemplaire
-     * @param nbEmprunt    the nb emprunt
+     * @param isbnLivre  the isbn livre
+     * @param codTheme   the cod theme
+     * @param titreLivre the titre livre
+     * @param auteur     the auteur
      */
-    public Livre(String isbnLivre, String codTheme, String titreLivre, Auteur auteur, int nbExemplaire, int nbEmprunt) {
+    public Livre(String isbnLivre, String codTheme, String titreLivre, ArrayList<Auteur> auteur) {
         IsbnLivre = isbnLivre;
         this.codTheme = codTheme;
         this.titreLivre = titreLivre;
         this.auteur = auteur;
-        this.nbExemplaire = nbExemplaire;
-        this.nbEmprunt = nbEmprunt;
-    }
-
-    /**
-     * Gets nb exemplaire.
-     *
-     * @return the nb exemplaire
-     */
-    public int getNbExemplaire() {
-        return nbExemplaire;
-    }
-
-    /**
-     * Sets nb exemplaire.
-     *
-     * @param nbExemplaire the nb exemplaire
-     */
-    public void setNbExemplaire(int nbExemplaire) {
-        this.nbExemplaire = nbExemplaire;
-    }
-
-    /**
-     * Gets nb emprunt.
-     *
-     * @return the nb emprunt
-     */
-    public int getNbEmprunt() {
-        return nbEmprunt;
-    }
-
-    /**
-     * Sets nb emprunt.
-     *
-     * @param nbEmprunt the nb emprunt
-     */
-    public void setNbEmprunt(int nbEmprunt) {
-        this.nbEmprunt = nbEmprunt;
     }
 
     /**
@@ -143,7 +117,7 @@ public class Livre {
      *
      * @return the auteur
      */
-    public Auteur getAuteur() {
+    public ArrayList<Auteur> getAuteur() {
         return auteur;
     }
 
@@ -152,7 +126,7 @@ public class Livre {
      *
      * @param auteur the auteur
      */
-    public void setAuteur(Auteur auteur) {
+    public void setAuteur(ArrayList<Auteur> auteur) {
         this.auteur = auteur;
     }
 

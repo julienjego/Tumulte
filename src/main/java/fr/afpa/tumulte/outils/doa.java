@@ -18,7 +18,7 @@ public class doa {
             Theme theme = entityManager.find(Theme.class, codeTheme);
             EntityTransaction trans = entityManager.getTransaction();
             trans.begin();
-            theme.setTheme(libel);
+            theme.setLibelTheme(libel);
             entityManager.persist(theme);
             trans.commit();
             System.out.println(theme);

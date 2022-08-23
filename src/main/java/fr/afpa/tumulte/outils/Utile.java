@@ -96,13 +96,13 @@ public class Utile {
                     ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
                     nbEmprunt = Integer.parseInt(ligneLue);
 
-                    livre = new Livre(isbnLivre,
-                            codTheme,
-                            titreLivre,
-                            auteur,
-                            nbExemplaire,
-                            nbEmprunt);
-                    listLivre.add(livre);
+//                    livre = new Livre(isbnLivre,
+//                            codTheme,
+//                            titreLivre,
+//                            auteur,
+//                            nbExemplaire,
+//                            nbEmprunt);
+//                    listLivre.add(livre);
                 }
             } while (ligneLue != null);
 

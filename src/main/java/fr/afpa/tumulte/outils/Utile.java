@@ -1,6 +1,7 @@
 package fr.afpa.tumulte.outils;
 
 import fr.afpa.tumulte.entites.Auteur;
+import fr.afpa.tumulte.entites.Bibliotheque;
 import fr.afpa.tumulte.entites.Livre;
 import fr.afpa.tumulte.entites.Theme;
 import javafx.collections.FXCollections;
@@ -21,6 +22,7 @@ import java.util.List;
  * The type Utile.
  */
 public class Utile {
+    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
 
     /**
      * Exit app.
@@ -45,11 +47,12 @@ public class Utile {
      * @return the array list
      */
     public static ArrayList<String> lireBib() {
-        ArrayList<String> lstBib = new ArrayList<String>();
-        lstBib.add("Toutes les Bibliotèques");
-        lstBib.add("Bibliotèques de Marmusot");
-        lstBib.add("Bibliotèques à la con");
-        return lstBib;
+        ArrayList<String> lstNomBib = new ArrayList<String>();
+        List<Bibliotheque> lstBib = AccesStat.listBib();
+        lstNomBib.add(TOUTES_BIB);
+        lstBib.forEach(bibliotheque -> lstNomBib.add(bibliotheque.getLibelBibliotheque()));
+
+        return lstNomBib;
     }
 
     /**
@@ -59,6 +62,7 @@ public class Utile {
      *
      * @return the observable list
      */
+
     public static ObservableList<Livre> lireLivre() {
         try {
             FileReader fileReader = new FileReader(
@@ -140,10 +144,10 @@ public class Utile {
      *
      * @return the observable list
      */
-    public static ObservableList<Theme> lireTheme() {
+    public static ObservableList<Theme> lireTheme(String nomBib) {
         try {
             Theme theme;
-            List<Theme> listTheme = doa.listTheme();
+            List<Theme> listTheme = AccesStat.listTheme(nomBib);
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

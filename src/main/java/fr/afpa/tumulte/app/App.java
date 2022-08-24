@@ -11,10 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Hello world!
- */
-// Salut
 public class App extends Application {
     public static void main(String[] args) {
         System.out.println("Adhérent : " + DaoAdherent.showAdherent(1).getPerimeLe());
@@ -38,12 +34,6 @@ public class App extends Application {
             Utile.exitApp("Êtes-vous sûr ?");
         });
 
-        try {
-            doa.listTheme();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
 
 }

@@ -2,18 +2,18 @@ package fr.afpa.tumulte.entites;
 
 import jakarta.persistence.*;
 
-
 @Entity
+@Table(name = "exemplaire")
 public class Exemplaire {
 
     @Id
     private String numExemplaire;
     @ManyToOne
     @JoinColumn(name = "codBibliotheque")
-    private Bibliotheque codBibliotheque;
+    private Bibliotheque bibliotheque;
     @ManyToOne
     @JoinColumn(name = "codEmplacement")
-    private Emplacement codEmplacement;
+    private Emplacement emplacement;
 
     @ManyToOne
     @JoinColumn(name = "IsbnLivre")
@@ -22,41 +22,44 @@ public class Exemplaire {
     private String commentExemplaire;
     private boolean disponible = true;
 
-
-    public void setNumExemplaire(String numExemplaire) {
+    public Exemplaire(String numExemplaire, Bibliotheque bibliotheque, Emplacement emplacement, Livre IsbnLivre, String commentExemplaire, boolean disponible) {
         this.numExemplaire = numExemplaire;
+        this.bibliotheque = bibliotheque;
+        this.emplacement = emplacement;
+        this.IsbnLivre = IsbnLivre;
+        this.commentExemplaire = commentExemplaire;
+        this.disponible = disponible;
     }
 
-    public void setCodBibliotheque(Bibliotheque codBibliotheque) {
-        this.codBibliotheque = codBibliotheque;
+    public Exemplaire() {
     }
 
-    public void setCodEmplacement(Emplacement emplacement) {
-        this.codEmplacement = emplacement;
+    public void setEmplacement(Emplacement emplacement) {
+        this.emplacement = emplacement;
     }
 
     public void setIsbnLivre(Livre IsbnLivre) {
         this.IsbnLivre = IsbnLivre;
     }
 
-    public void setCommentExemplaire(String commentExemplaire) {
-        this.commentExemplaire = commentExemplaire;
-    }
-
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
-
     public String getNumExemplaire() {
         return numExemplaire;
     }
 
-    public Bibliotheque getCodBibliotheque() {
-        return codBibliotheque;
+    public void setNumExemplaire(String numExemplaire) {
+        this.numExemplaire = numExemplaire;
+    }
+
+    public Bibliotheque getBibliotheque() {
+        return bibliotheque;
+    }
+
+    public void setBibliotheque(Bibliotheque bibliotheque) {
+        this.bibliotheque = bibliotheque;
     }
 
     public Emplacement getemplacement() {
-        return codEmplacement;
+        return emplacement;
     }
 
     public Livre getlivre() {
@@ -67,32 +70,27 @@ public class Exemplaire {
         return commentExemplaire;
     }
 
+    public void setCommentExemplaire(String commentExemplaire) {
+        this.commentExemplaire = commentExemplaire;
+    }
+
     public boolean isDisponible() {
         return disponible;
     }
 
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
 
     @Override
     public String toString() {
         return "Exemplaire{" +
-                "numExemplaire='" + numExemplaire + '\'' +
-                ", Bibliotheque='" + codBibliotheque + '\'' +
-                ", emplacement=" + codEmplacement +
-                ", livre=" + IsbnLivre +
-                ", commentExemplaire='" + commentExemplaire + '\'' +
-                ", disponible=" + disponible +
-                '}';
-    }
-
-    public Exemplaire(String numExemplaire, Bibliotheque codBibliotheque, Emplacement emplacement, Livre IsbnLivre, String commentExemplaire, boolean disponible) {
-        this.numExemplaire = numExemplaire;
-        this.codBibliotheque = codBibliotheque;
-        this.codEmplacement = emplacement;
-        this.IsbnLivre = IsbnLivre;
-        this.commentExemplaire = commentExemplaire;
-        this.disponible = disponible;
-    }
-
-    public Exemplaire() {
+                       "numExemplaire='" + numExemplaire + '\'' +
+                       ", Bibliotheque='" + bibliotheque + '\'' +
+                       ", emplacement=" + emplacement +
+                       ", livre=" + IsbnLivre +
+                       ", commentExemplaire='" + commentExemplaire + '\'' +
+                       ", disponible=" + disponible +
+                       '}';
     }
 }

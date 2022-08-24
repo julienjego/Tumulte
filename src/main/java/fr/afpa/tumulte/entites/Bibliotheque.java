@@ -8,12 +8,12 @@ import jakarta.persistence.Table;
 @Table(name = "bibliotheque")
 public class Bibliotheque {
     @Id
-    private String codBiblio;
+    private String codBibliotheque;
     private String libelBibliotheque;
     private String adrBibliotheque;
 
-    public Bibliotheque(String codBiblio, String libelBibliotheque, String adrBibliotheque) {
-        this.codBiblio = codBiblio;
+    public Bibliotheque(String codBibliotheque, String libelBibliotheque, String adrBibliotheque) {
+        this.codBibliotheque = codBibliotheque;
         this.libelBibliotheque = libelBibliotheque;
         this.adrBibliotheque = adrBibliotheque;
     }
@@ -21,12 +21,12 @@ public class Bibliotheque {
     public Bibliotheque() {
     }
 
-    public String getCodBiblio() {
-        return codBiblio;
+    public String getCodBibliotheque() {
+        return codBibliotheque;
     }
 
-    public void setCodBiblio(String codBiblio) {
-        this.codBiblio = codBiblio;
+    public void setCodBibliotheque(String codBibliotheque) {
+        this.codBibliotheque = codBibliotheque;
     }
 
     public String getLibelBibliotheque() {
@@ -48,9 +48,9 @@ public class Bibliotheque {
     @Override
     public String toString() {
         return "Bibliotheque{" +
-                "codBiblio='" + codBiblio + '\'' +
-                ", libelBibliotheque='" + libelBibliotheque + '\'' +
-                ", adrBibliotheque='" + adrBibliotheque + '\'' +
-                '}';
+                       "codBiblio='" + codBibliotheque + '\'' +
+                       ", libelBibliotheque='" + libelBibliotheque + '\'' +
+                       ", adrBibliotheque='" + adrBibliotheque + '\'' +
+                       '}';
     }
 }

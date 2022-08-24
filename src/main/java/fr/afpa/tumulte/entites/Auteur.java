@@ -11,11 +11,9 @@ import java.util.ArrayList;
 @Table(name = "auteur")
 public class Auteur {
     @Id
-    /** un commentaire de merde !*/
-    //Ah!
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String codeAuteur;
-  
+
     private String nomAuteur;
 
     private String prenomAuteur;

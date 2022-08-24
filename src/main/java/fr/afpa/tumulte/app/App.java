@@ -36,12 +36,6 @@ public class App extends Application {
             Utile.exitApp("Êtes-vous sûr ?");
         });
 
-        try {
-            doa.listTheme();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
 
 }

@@ -197,7 +197,7 @@ public class ControllerStat implements Initializable {
                 tabTheme.setVisible(true);
                 tabLivres.setVisible(false);
                 grfTheme.setVisible(false);
-                ObservableList<Theme> listTheme = lireTheme();
+                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString());
                 colCodeTheme.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("codTheme"));
                 colTheme.setCellValueFactory(
@@ -233,7 +233,7 @@ public class ControllerStat implements Initializable {
                 tabLivres.setVisible(false);
                 tabTheme.setVisible(false);
 
-                ObservableList<Theme> listTheme = lireTheme();
+                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString());
                 ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
 
                 for (int i = 1; i < listTheme.size(); i++) {

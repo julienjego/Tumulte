@@ -10,6 +10,7 @@
         <class>fr.afpa.tumulte.entites.Auteur</class>
         <class>fr.afpa.tumulte.entites.Bibliotheque</class>
         <class>fr.afpa.tumulte.entites.Emplacement</class>
+        <class>fr.afpa.tumulte.entites.Emprunt_pk</class>
         <class>fr.afpa.tumulte.entites.Emprunt</class>
         <class>fr.afpa.tumulte.entites.Exemplaire</class>
         <class>fr.afpa.tumulte.entites.Livre</class>

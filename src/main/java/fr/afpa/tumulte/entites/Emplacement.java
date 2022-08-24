@@ -1,20 +1,18 @@
 package fr.afpa.tumulte.entites;
 
-import fr.afpa.tumulte.outils.Emplacement_pk;
 import jakarta.persistence.*;
 
-@IdClass(Emplacement_pk.class)
 @Entity
 @Table(name = "emplacement")
 public class Emplacement {
 
-    @EmbeddedId
-    private Emplacement_pk id;
     @ManyToOne
     @JoinColumn(name = "codBibliotheque")
     @MapsId("codBibliotheque")
     private Bibliotheque bibliotheque;
-    @MapsId("codEmplacement")
+
+    //    @MapsId("codEmplacement")
+    @Id
     private String codEmplacement;
     @ManyToOne
     @JoinColumn(name = "codTheme")
@@ -66,10 +64,10 @@ public class Emplacement {
     @Override
     public String toString() {
         return "Emplacement{" +
-                "codBibliotheque='" + bibliotheque + '\'' +
-                ", CodEmplacement='" + codEmplacement + '\'' +
-                ", codTheme='" + theme + '\'' +
-                ", LibelEmplacement='" + libelEmplacement + '\'' +
-                '}';
+                       "codBibliotheque='" + bibliotheque + '\'' +
+                       ", CodEmplacement='" + codEmplacement + '\'' +
+                       ", codTheme='" + theme + '\'' +
+                       ", LibelEmplacement='" + libelEmplacement + '\'' +
+                       '}';
     }
 }

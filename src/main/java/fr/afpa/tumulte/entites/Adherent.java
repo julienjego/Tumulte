@@ -3,6 +3,8 @@ package fr.afpa.tumulte.entites;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Adherent.
@@ -13,7 +15,7 @@ public class Adherent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "numAdherent",nullable = false, length = 11)
-    private int numAdherent;
+    private Integer numAdherent;
     @Column (name = "nomAdherent",nullable = false, length = 50)
     private String nomAdherent;
     @Column (name = "prenomAdherent",nullable = false, length = 50)
@@ -26,6 +28,8 @@ public class Adherent {
     private LocalDate perimeLe;
     @Column (name = "pwdAdherent",nullable = true, length = 10)
     private String pwdAdherent;
+//    @OneToMany
+//    private List<Emprunt> lstEmpruntsEnCours = new ArrayList<>();
 
     public Adherent() {
     }
@@ -40,7 +44,7 @@ public class Adherent {
      * @param teleAdherent   the tele adherent
      * @param perimeLe       the perime le
      */
-    public Adherent(final int numAdherent,
+    public Adherent(final Integer numAdherent,
                     final String nomAdherent,
                     final String prenomAdherent,
                     final String adrAdherent,
@@ -59,7 +63,7 @@ public class Adherent {
      *
      * @return the num adherent
      */
-    public int getNumAdherent() {
+    public Integer getNumAdherent() {
         return numAdherent;
     }
 
@@ -68,7 +72,7 @@ public class Adherent {
      *
      * @param numAdherent the num adherent
      */
-    public void setNumAdherent(final int numAdherent) {
+    public void setNumAdherent(final Integer numAdherent) {
         this.numAdherent = numAdherent;
     }
 

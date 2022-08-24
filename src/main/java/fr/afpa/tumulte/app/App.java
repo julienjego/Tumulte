@@ -1,5 +1,6 @@
 package fr.afpa.tumulte.app;
 
+import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.Utile;
 import fr.afpa.tumulte.outils.doa;
 import javafx.application.Application;
@@ -12,7 +13,8 @@ import java.io.IOException;
 
 public class App extends Application {
     public static void main(String[] args) {
-        launch();
+        System.out.println("Adhérent : " + DaoAdherent.showAdherent(1).getPerimeLe());
+        //launch();
     }
 
     @Override

@@ -7,6 +7,7 @@
     <persistence-unit name="fr.afpa.tumulte">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>fr.afpa.tumulte.entites.Theme</class>
+        <class>fr.afpa.tumulte.entites.Adherent</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

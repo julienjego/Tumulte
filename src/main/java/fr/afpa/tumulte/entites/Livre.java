@@ -14,7 +14,7 @@ public class Livre {
      * l'isbn du livre.
      */
     @Id
-    private String isbnLivre;
+    private String IsbnLivre;
     /**
      * code du thème du livre.
      */
@@ -29,7 +29,7 @@ public class Livre {
      * Auteur du livre.
      */
     @ManyToMany
-    @JoinTable(name = "Redaction",
+    @JoinTable(name = "redaction",
             joinColumns = @JoinColumn(name = "IsbnLivre"),
             inverseJoinColumns = @JoinColumn(name = "codAuteur"))
     private ArrayList<Auteur> auteur;
@@ -51,25 +51,25 @@ public class Livre {
      * @param auteur     the auteur
      */
     public Livre(String isbnLivre, Theme theme, String titreLivre, ArrayList<Auteur> auteur) {
-        this.isbnLivre = isbnLivre;
+        this.IsbnLivre = isbnLivre;
         this.theme = theme;
         this.titreLivre = titreLivre;
-        this.auteur = auteur;
+//        this.auteur = auteur;
     }
 
     public String getIsbnLivre() {
-        return isbnLivre;
+        return IsbnLivre;
     }
 
     public void setIsbnLivre(String isbnLivre) {
-        this.isbnLivre = isbnLivre;
+        this.IsbnLivre = isbnLivre;
     }
 
-    public fr.afpa.tumulte.entites.Theme getTheme() {
+    public Theme getTheme() {
         return theme;
     }
 
-    public void setTheme(fr.afpa.tumulte.entites.Theme theme) {
+    public void setTheme(Theme theme) {
         this.theme = theme;
     }
 

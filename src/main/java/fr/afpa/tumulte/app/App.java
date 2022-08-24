@@ -11,10 +11,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * Hello world!
- */
-// Salut
 public class App extends Application {
     public static void main(String[] args) {
         launch();
@@ -37,12 +33,6 @@ public class App extends Application {
             Utile.exitApp("Êtes-vous sûr ?");
         });
 
-        try {
-            doa.listTheme();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
 
 }

@@ -2,6 +2,7 @@ package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
+import fr.afpa.tumulte.outils.DaoAdherent;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -121,14 +122,14 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     void rechercherAdherent() {
 
-        Adherent jean = new Adherent(
-                1234,
-                "Neymar",
-                "Jean",
-                "1 rue du four - 59000 Marmusots",
-                "06.01.02.03.04", LocalDate.of(2022,07,17));
+//        Adherent jean = new Adherent(
+//                1234,
+//                "Neymar",
+//                "Jean",
+//                "1 rue du four - 59000 Marmusots",
+//                "06.01.02.03.04", LocalDate.of(2022,07,17));
 
-        afficherInfoAdherent(jean);
+        afficherInfoAdherent(DaoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
 
     }
 
@@ -168,7 +169,7 @@ public class ControllerRechercherAdherent implements Initializable {
     }
 
     private boolean numAdherentEstConnu(Adherent adherent) {
-        return txtNumAdherent.getText().equals(adherent.getNumAdherent());
+        return Integer.parseInt(txtNumAdherent.getText()) == (adherent.getNumAdherent());
     }
 
     private void afficherInfoAdherent(Adherent adherent) {
@@ -185,6 +186,7 @@ public class ControllerRechercherAdherent implements Initializable {
             } else {
                 lblCotisationAJour.setText("Oui");
                 lblCotisation.setVisible(false);
+                lblDateFinCotisation.setVisible(false);
             }
 
         } else {

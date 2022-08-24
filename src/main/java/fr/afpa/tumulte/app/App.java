@@ -17,8 +17,7 @@ import java.io.IOException;
 // Salut
 public class App extends Application {
     public static void main(String[] args) {
-        System.out.println("Adhérent : " + DaoAdherent.showAdherent(1).getPerimeLe());
-        //launch();
+        launch();
     }
 
     @Override

@@ -7,11 +7,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "emplacement")
 public class Emplacement {
-    @Id
+
+    @EmbeddedId
+    private Emplacement_pk id;
     @ManyToOne
     @JoinColumn(name = "codBibliotheque")
+    @MapsId("codBibliotheque")
     private Bibliotheque bibliotheque;
-    @Id
+    @MapsId("codEmplacement")
     private String codEmplacement;
     @ManyToOne
     @JoinColumn(name = "codTheme")

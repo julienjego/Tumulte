@@ -49,8 +49,9 @@ public class Utile {
     public static ArrayList<String> lireBib() {
         ArrayList<String> lstNomBib = new ArrayList<String>();
         List<Bibliotheque> lstBib = AccesStat.listBib();
-//        lstBib.forEach(bibliotheque -> lstNomBib.add(bibliotheque.getLibelBibliotheque()));
         lstNomBib.add(TOUTES_BIB);
+        lstBib.forEach(bibliotheque -> lstNomBib.add(bibliotheque.getLibelBibliotheque()));
+
         return lstNomBib;
     }
 

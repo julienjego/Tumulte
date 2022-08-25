@@ -3,8 +3,7 @@ package fr.afpa.tumulte.entites;
 import fr.afpa.tumulte.outils.Emprunt_pk;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 @IdClass(Emprunt_pk.class)
 @Entity
@@ -21,20 +20,34 @@ public class Emprunt {
     @JoinColumn(name = "numExemplaire")
     public Exemplaire numExemplaire;
     @Id
-    public Date datEmprunt;
-
-    public Date datRestitutionPrev;
-    public Date datRestitutionEff;
+    public LocalDate datEmprunt;
+    public LocalDate datRestitutionPrev;
+    public LocalDate datRestitutionEff;
 
     public Emprunt() {
     }
 
-    public Emprunt(Adherent numAdherent, Exemplaire numExemplaire, Date datEmprunt, Date datRestitutionPrev, Date datRestitutionEff) {
+    public Emprunt(Adherent numAdherent, Exemplaire numExemplaire, LocalDate datEmprunt, LocalDate datRestitutionPrev, LocalDate datRestitutionEff) {
         this.numAdherent = numAdherent;
         this.numExemplaire = numExemplaire;
         this.datEmprunt = datEmprunt;
         this.datRestitutionPrev = datRestitutionPrev;
         this.datRestitutionEff = datRestitutionEff;
+    }
+
+    @Override
+    public String toString() {
+        return "Emprunt{" +
+                "numAdherent=" + numAdherent +
+                ", numExemplaire=" + numExemplaire +
+                ", datEmprunt=" + datEmprunt +
+                ", datRestitutionPrev=" + datRestitutionPrev +
+                ", datRestitutionEff=" + datRestitutionEff +
+                '}';
+    }
+
+    public Emprunt_pk getId() {
+        return new Emprunt_pk(numAdherent.getNumAdherent(), numExemplaire.getNumExemplaire(), datEmprunt);
     }
 
     public Adherent getNumAdherent() {
@@ -53,27 +66,27 @@ public class Emprunt {
         this.numExemplaire = numExemplaire;
     }
 
-    public Date getDatEmprunt() {
+    public LocalDate getDatEmprunt() {
         return datEmprunt;
     }
 
-    public void setDatEmprunt(Date datEmprunt) {
+    public void setDatEmprunt(LocalDate datEmprunt) {
         this.datEmprunt = datEmprunt;
     }
 
-    public Date getDatRestitutionPrev() {
+    public LocalDate getDatRestitutionPrev() {
         return datRestitutionPrev;
     }
 
-    public void setDatRestitutionPrev(Date datRestitutionPrev) {
+    public void setDatRestitutionPrev(LocalDate datRestitutionPrev) {
         this.datRestitutionPrev = datRestitutionPrev;
     }
 
-    public Date getDatRestitutionEff() {
+    public LocalDate getDatRestitutionEff() {
         return datRestitutionEff;
     }
 
-    public void setDatRestitutionEff(Date datRestitutionEff) {
+    public void setDatRestitutionEff(LocalDate datRestitutionEff) {
         this.datRestitutionEff = datRestitutionEff;
     }
 }

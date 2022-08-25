@@ -2,9 +2,9 @@ package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
+import fr.afpa.tumulte.entites.Emprunt;
+import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
 import fr.afpa.tumulte.outils.DaoAdherent;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,18 +13,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -38,6 +37,7 @@ public class ControllerRechercherAdherent implements Initializable {
      */
     Stage stage;
     Scene scene;
+    final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
     @FXML
     private Button btnConsulterFicheAdherent;
     @FXML
@@ -61,13 +61,13 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     private Label lblCotisation;
     @FXML
-    private TableView<String[]> tablePretsEnCours;
+    private TableView<TableViewEmpruntsEnCours> tablePretsEnCours;
     @FXML
-    private TableColumn<String[], String> columnAuteur;
+    private TableColumn columnAuteur;
     @FXML
-    private TableColumn<String[], String> columnTitre;
+    private TableColumn columnTitre;
     @FXML
-    private TableColumn<String[], String> columnDateEmprunt;
+    private TableColumn columnDateEmprunt;
     @FXML
     private TitledPane titledPaneAdherent;
     @FXML
@@ -127,7 +127,8 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     void rechercherAdherent() {
         try {
-    afficherInfoAdherent(DaoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
+            DaoAdherent daoAdherent = new DaoAdherent();
+            afficherInfoAdherent(daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
         } catch (Exception e) {
             String headerTxt = "Ce numéro d'adhérent est inconnu !";
             String contentTxt = "Merci de vérifier et saisir un nouveau numéro d'adhérent.";
@@ -162,25 +163,19 @@ public class ControllerRechercherAdherent implements Initializable {
         lblDateFinCotisation.setVisible(false);
         //méthode fléchée qui permet d'activer les boutons dès que le texte change
         txtNumAdherent.textProperty().addListener(observable -> activerBoutons());
-    }
 
-    private boolean idAdherentEstValide() {
-        return !txtNumAdherent.getText().equals("") && txtNumAdherent.getLength() < 11;
-    }
+        columnTitre.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("titreLivre"));
+        columnDateEmprunt.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datEmprunt"));
+        columnAuteur.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomsAuteurs"));
 
-    private boolean abonnementEstPerime(Adherent adherent) {
-        return adherent.getPerimeLe().isBefore(LocalDate.now());
-    }
-
-    private boolean numAdherentEstConnu(Adherent adherent) {
-        return Integer.parseInt(txtNumAdherent.getText()) == (adherent.getNumAdherent());
+        tablePretsEnCours.setItems(data);
     }
 
     private void afficherInfoAdherent(Adherent adherent) {
         if (numAdherentEstConnu(adherent)) {
             lblNomAdherent.setText(adherent.getNomAdherent());
             lblPrenomAdherent.setText(adherent.getPrenomAdherent());
-            creerTableauEmpruntsJean();
+            creerTableauEmprunts(adherent);
 
             if (abonnementEstPerime(adherent)) {
                 lblCotisationAJour.setText("Non");
@@ -193,12 +188,13 @@ public class ControllerRechercherAdherent implements Initializable {
                 lblDateFinCotisation.setVisible(false);
             }
 
-        } else {
-            String headerTxt = "Ce numéro d'adhérent est inconnu !";
-            String contentTxt = "Merci de vérifier et saisir un nouveau numéro d'adhérent.";
-            fenetreErreur(headerTxt, contentTxt);
-            txtNumAdherent.setText("");
         }
+//        else {
+//            String headerTxt = "Ce numéro d'adhérent est inconnu !";
+//            String contentTxt = "Merci de vérifier et saisir un nouveau numéro d'adhérent.";
+//            fenetreErreur(headerTxt, contentTxt);
+//            txtNumAdherent.setText("");
+//        }
     }
 
     private void fenetreErreur(String headerTxt, String contentTxt) {
@@ -235,37 +231,27 @@ public class ControllerRechercherAdherent implements Initializable {
         }
     }
 
-    private void creerTableauEmpruntsJean() {
-        String[][] livresEmpruntes = {{"Java pour les nuls", "Barry Burd", "12/07/2022"},
-                {"Un autre livre", "BB", "12/07/2022"}};
-        ObservableList<String[]> data = FXCollections.observableArrayList();
-        data.addAll(Arrays.asList(livresEmpruntes));
+    private void creerTableauEmprunts(Adherent adherent) {
+        data.clear();
 
-        for (int i = 0; i < livresEmpruntes.length; i++) {
-            final int colNo = i;
+        for (Emprunt emprunt : adherent.getLstEmpruntsEnCours()) {
+            TableViewEmpruntsEnCours tv = new TableViewEmpruntsEnCours (emprunt.getNumExemplaire().getlivre().getTitreLivre(), emprunt.getNumExemplaire().getlivre().getAuteur(), emprunt.getDatEmprunt());
+            data.add(tv);
 
-            columnTitre.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
-                    return new SimpleStringProperty((p.getValue()[colNo - 1]));
-                }
-            });
-            columnAuteur.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
-                    return new SimpleStringProperty((p.getValue()[colNo]));
-                }
-            });
-            columnDateEmprunt.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String[], String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<String[], String> p) {
-                    return new SimpleStringProperty((p.getValue()[colNo + 1]));
-                }
-            });
         }
 
-        tablePretsEnCours.setItems(data);
+    }
 
+    private boolean idAdherentEstValide() {
+        return !txtNumAdherent.getText().equals("") && txtNumAdherent.getLength() < 11;
+    }
+
+    private boolean abonnementEstPerime(Adherent adherent) {
+        return adherent.getPerimeLe().isBefore(LocalDate.now());
+    }
+
+    private boolean numAdherentEstConnu(Adherent adherent) {
+        return Integer.parseInt(txtNumAdherent.getText()) == (adherent.getNumAdherent());
     }
 
     @FXML

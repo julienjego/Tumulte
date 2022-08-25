@@ -3,6 +3,7 @@ package fr.afpa.tumulte.entites;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Auteur.
@@ -16,13 +17,21 @@ public class Auteur {
 
     private String nomAuteur;
 
+    public List<Livre> getLivres() {
+        return livres;
+    }
+
+    public void setLivres(ArrayList<Livre> livres) {
+        this.livres = livres;
+    }
+
     private String prenomAuteur;
 
     @ManyToMany
     @JoinTable(name = "redaction",
             joinColumns = @JoinColumn(name = "codAuteur"),
             inverseJoinColumns = @JoinColumn(name = "IsbnLivre"))
-    private ArrayList<Livre> livres;
+    private List<Livre> livres = new ArrayList<>();
 
     public Auteur(int codAuteur, String nomAuteur, String prenomAuteur, ArrayList<Livre> livres) {
         this.codAuteur = codAuteur;

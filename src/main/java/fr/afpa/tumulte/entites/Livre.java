@@ -3,6 +3,7 @@ package fr.afpa.tumulte.entites;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Livre.
@@ -32,12 +33,13 @@ public class Livre {
     @JoinTable(name = "redaction",
             joinColumns = @JoinColumn(name = "IsbnLivre"),
             inverseJoinColumns = @JoinColumn(name = "codAuteur"))
-    private ArrayList<Auteur> auteur;
+    private List<Auteur> auteur = new ArrayList<>();
 
     /**
      * nombre d'emprunts de ce livre.
      */
     private int nbEmprunt;
+
 
     public Livre() {
     }
@@ -55,6 +57,14 @@ public class Livre {
         this.theme = theme;
         this.titreLivre = titreLivre;
 //        this.auteur = auteur;
+    }
+
+    public int getNbEmprunt() {
+        return nbEmprunt;
+    }
+
+    public void setNbEmprunt(int nbEmprunt) {
+        this.nbEmprunt = nbEmprunt;
     }
 
     public String getIsbnLivre() {
@@ -81,11 +91,11 @@ public class Livre {
         this.titreLivre = titreLivre;
     }
 
-    public ArrayList<Auteur> getAuteur() {
+    public List<Auteur> getAuteur() {
         return auteur;
     }
 
-    public void setAuteur(ArrayList<Auteur> auteur) {
+    public void setAuteur(List<Auteur> auteur) {
         this.auteur = auteur;
     }
 

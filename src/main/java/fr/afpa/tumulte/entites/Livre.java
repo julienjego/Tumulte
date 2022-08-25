@@ -63,14 +63,6 @@ public class Livre {
         this.auteur = auteur;
     }
 
-    public Livre(String isbnLivre, Theme theme, String titreLivre, List<Auteur> auteur, int nbEmprunt, int nbExemplaires) {
-        IsbnLivre = isbnLivre;
-        this.theme = theme;
-        this.titreLivre = titreLivre;
-        this.auteur = auteur;
-        this.nbEmprunt = nbEmprunt;
-        this.nbExemplaires = nbExemplaires;
-    }
 
     public String getIsbnLivre() {
         return IsbnLivre;

@@ -143,7 +143,7 @@ public class Utile {
     public static ObservableList<Theme> lireTheme(String nomBib) {
         try {
             Theme theme;
-            List<Theme> listTheme = AccesStat.listTheme(nomBib);
+            List<Theme> listTheme = AccesStat.listThemeBib(nomBib);
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

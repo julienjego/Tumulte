@@ -14,13 +14,12 @@ public class DaoAdherent {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
+        tx.begin();
         if (adherent.getNumAdherent() == null){
             em.persist(adherent);
         } else {
             em.merge(adherent);
         }
-
-        tx.begin();
         tx.commit();
 
     }

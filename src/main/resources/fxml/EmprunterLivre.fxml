@@ -104,9 +104,9 @@
                         <Button fx:id="btnAnnuler" layoutX="635.0" layoutY="285.0" mnemonicParsing="false" onAction="#annuler" prefHeight="40.0" prefWidth="100.0" text="Annuler" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="124.0" />
                         <Label fx:id="lblTitreExemplaire" layoutX="159.0" layoutY="59.0" prefHeight="25.0" prefWidth="285.0" />
                         <Label fx:id="lblAuteur" layoutX="159.0" layoutY="94.0" prefHeight="25.0" prefWidth="286.0" />
-                        <Label fx:id="lblTheme" layoutX="159.0" layoutY="129.0" prefHeight="25.0" prefWidth="76.0" />
-                        <Label fx:id="lblEtat" layoutX="159.0" layoutY="164.0" prefHeight="25.0" prefWidth="76.0" />
-                        <Label fx:id="lblDisponible" layoutX="159.0" layoutY="199.0" prefHeight="25.0" prefWidth="76.0" />
+                        <Label fx:id="lblTheme" layoutX="159.0" layoutY="129.0" prefHeight="25.0" prefWidth="284.0" />
+                        <Label fx:id="lblEtat" layoutX="159.0" layoutY="164.0" prefHeight="25.0" prefWidth="285.0" />
+                        <Label fx:id="lblDisponible" layoutX="159.0" layoutY="199.0" prefHeight="25.0" prefWidth="250.0" />
                         <Label fx:id="lblISBN" layoutX="552.0" layoutY="59.0" prefHeight="25.0" prefWidth="112.0" />
                         <Label fx:id="lblISSN" layoutX="552.0" layoutY="94.0" prefHeight="25.0" prefWidth="83.0" />
                         <Label fx:id="lblEmplacement" layoutX="552.0" layoutY="129.0" prefHeight="25.0" prefWidth="83.0" />

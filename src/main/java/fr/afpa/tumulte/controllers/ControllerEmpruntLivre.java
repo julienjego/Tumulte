@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -223,14 +224,15 @@ public class ControllerEmpruntLivre implements Initializable {
 
     private void afficherInfoExemplaire(Exemplaire exemplaire) {
         if (numExemplaireEstConnu(exemplaire)) {
-            lblTitreExemplaire.setText("JavaFX pour les nuls");
-            lblAuteur.setText("Doug Lowe");
-            lblTheme.setText("Autre");
-            lblEtat.setText("Neuf");
-            lblDisponible.setText("Oui");
-            lblISBN.setText("978-1-118-38534-0");
+            lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
+            //lblAuteur.setText(StringUtils.join(exemplaire.getlivre().getAuteur().get(0).getNomAuteur() +" "+ exemplaire.getlivre().getAuteur().get(0).getPrenomAuteur(), " "));
+            lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
+            lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
+            lblEtat.setText(exemplaire.getCommentExemplaire());
+            lblDisponible.setText(exemplaire.isDisponible() ? "Oui" : "Non");
+            lblISBN.setText(exemplaire.getlivre().getIsbnLivre());
             lblISSN.setText("NC");
-            lblEmplacement.setText("B1");
+            lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
 
         }
     }

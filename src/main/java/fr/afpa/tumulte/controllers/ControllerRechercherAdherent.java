@@ -126,6 +126,7 @@ public class ControllerRechercherAdherent implements Initializable {
      */
     @FXML
     void rechercherAdherent() {
+
         try {
     afficherInfoAdherent(DaoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
         } catch (Exception e) {
@@ -134,6 +135,7 @@ public class ControllerRechercherAdherent implements Initializable {
             fenetreErreur(headerTxt, contentTxt);
             txtNumAdherent.setText("");
         }
+
     }
 
     /**

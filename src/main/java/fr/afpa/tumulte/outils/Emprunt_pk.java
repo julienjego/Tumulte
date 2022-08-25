@@ -12,7 +12,7 @@ public class Emprunt_pk implements Serializable {
     //@ManyToOne
     Integer numAdherent;
     String numExemplaire;
-    Date datEmprunt;
+    LocalDate datEmprunt;
 
     public Emprunt_pk(Integer numAdherent, String numExemplaire, LocalDate datEmprunt) {
         this.numAdherent = numAdherent;

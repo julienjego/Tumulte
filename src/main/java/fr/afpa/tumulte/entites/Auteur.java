@@ -66,10 +66,6 @@ public class Auteur {
         this.prenomAuteur = prenomAuteur;
     }
 
-    public List<Livre> getLivres() {
-        return livres;
-    }
-
     public void setLivres(List<Livre> livres) {
         this.livres = livres;
     }

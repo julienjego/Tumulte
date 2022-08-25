@@ -43,6 +43,7 @@ public class ControllerStat implements Initializable {
      * Constante de "Graphique par thème".
      */
     private static final String GRAF_THEME = "Graphique par thème";
+    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     /**
      * Constante du nombre d'année consultable.
      */
@@ -261,7 +262,7 @@ public class ControllerStat implements Initializable {
                 tabLivres.setVisible(true);
                 tabTheme.setVisible(false);
                 grfTheme.setVisible(false);
-                ObservableList<Livre> listLivre = lireLivre();
+                ObservableList<Livre> listLivre = lireLivre(TOUTES_BIB);
                 colISBN.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("IsbnLivre"));
                 colTitre.setCellValueFactory(

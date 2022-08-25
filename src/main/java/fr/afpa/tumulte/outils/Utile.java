@@ -142,7 +142,6 @@ public class Utile {
      */
     public static ObservableList<Theme> lireTheme(String nomBib) {
         try {
-            Theme theme;
             List<Theme> listTheme = AccesStat.listThemeBib(nomBib);
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
@@ -154,9 +153,9 @@ public class Utile {
         return null;
     }
 
-    public static ObservableList<Livre> lireLivre() {
+    public static ObservableList<Livre> lireLivre(String nomBib) {
         try {
-            List<Livre> listLivre = accesLivre.listLivres();
+            List<Livre> listLivre = accesLivre.listLivres(nomBib);
             return FXCollections.observableArrayList(listLivre);
         } catch (Exception e) {
             System.out.println(e);

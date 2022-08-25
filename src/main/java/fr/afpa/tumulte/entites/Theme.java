@@ -123,6 +123,6 @@ public class Theme {
      */
     @Override
     public String toString() {
-        return String.format("code : %s %n theme : %s %n description : %s %n nbemprunt : %s %n", codTheme, libelTheme, descripTheme, nbEmprunt);
+        return String.format("%s", libelTheme);
     }
 }

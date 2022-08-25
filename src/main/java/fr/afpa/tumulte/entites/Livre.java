@@ -29,7 +29,7 @@ public class Livre {
     /**
      * Auteur du livre.
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "redaction",
             joinColumns = @JoinColumn(name = "IsbnLivre"),
             inverseJoinColumns = @JoinColumn(name = "codAuteur"))
@@ -39,6 +39,11 @@ public class Livre {
      * nombre d'emprunts de ce livre.
      */
     private int nbEmprunt;
+
+    /**
+     * nombre d'exemplaires de ce livre.
+     */
+    private int nbExemplaires;
 
     public Livre() {
     }
@@ -57,6 +62,7 @@ public class Livre {
         this.titreLivre = titreLivre;
         this.auteur = auteur;
     }
+
 
     public String getIsbnLivre() {
         return IsbnLivre;
@@ -90,4 +96,31 @@ public class Livre {
         this.auteur = auteur;
     }
 
+    public int getNbEmprunt() {
+        return nbEmprunt;
+    }
+
+    public void setNbEmprunt(int nbEmprunt) {
+        this.nbEmprunt = nbEmprunt;
+    }
+
+    public int getNbExemplaires() {
+        return nbExemplaires;
+    }
+
+    public void setNbExemplaires(int nbExemplaires) {
+        this.nbExemplaires = nbExemplaires;
+    }
+
+    @Override
+    public String toString() {
+        return "Livre{" +
+                "IsbnLivre='" + IsbnLivre + '\'' +
+                ", theme=" + theme +
+                ", titreLivre='" + titreLivre + '\'' +
+                ", auteur=" + auteur +
+                ", nbEmprunt=" + nbEmprunt +
+                ", nbExemplaires=" + nbExemplaires +
+                '}';
+    }
 }

@@ -1,6 +1,5 @@
 package fr.afpa.tumulte.outils;
 
-import fr.afpa.tumulte.entites.Auteur;
 import fr.afpa.tumulte.entites.Bibliotheque;
 import fr.afpa.tumulte.entites.Livre;
 import fr.afpa.tumulte.entites.Theme;
@@ -9,10 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,6 +18,7 @@ import java.util.List;
  */
 public class Utile {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
+    private static AccesLivre accesLivre = new AccesLivre();
 
     /**
      * Exit app.
@@ -63,7 +59,7 @@ public class Utile {
      * @return the observable list
      */
 
-    public static ObservableList<Livre> lireLivre() {
+/*    public static ObservableList<Livre> lireLivre() {
         try {
             FileReader fileReader = new FileReader(
                     "src/main/resources/csv/lstLivre.csv");
@@ -135,7 +131,7 @@ public class Utile {
         }
         return null;
 
-    }
+    }*/
 
     /**
      * Lire thème dans le fichier csv.
@@ -150,6 +146,20 @@ public class Utile {
             List<Theme> listTheme = AccesStat.listThemeBib(nomBib);
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(e.getMessage());
+            alert.setTitle("Erreur");
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    public static ObservableList<Livre> lireLivre() {
+        try {
+            List<Livre> listLivre = accesLivre.listLivres();
+            return FXCollections.observableArrayList(listLivre);
+        } catch (Exception e) {
+            System.out.println(e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(e.getMessage());
             alert.setTitle("Erreur");

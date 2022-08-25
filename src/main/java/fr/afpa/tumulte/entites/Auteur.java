@@ -25,14 +25,6 @@ public class Auteur {
             inverseJoinColumns = @JoinColumn(name = "IsbnLivre"))
     private List<Livre> livres = new ArrayList<>();
 
-    public List<Livre> getLivres() {
-        return livres;
-    }
-
-    public void setLivres(List<Livre> livres) {
-        this.livres = livres;
-    }
-
     public Auteur(int codAuteur, String nomAuteur, String prenomAuteur, List<Livre> livres) {
         this.codAuteur = codAuteur;
         this.nomAuteur = nomAuteur;
@@ -64,6 +56,14 @@ public class Auteur {
         this.codAuteur = codAuteur;
         this.nomAuteur = nomAuteur;
         this.prenomAuteur = prenomAuteur;
+    }
+
+    public List<Livre> getLivres() {
+        return livres;
+    }
+
+    public void setLivres(List<Livre> livres) {
+        this.livres = livres;
     }
 
     /**
@@ -118,14 +118,6 @@ public class Auteur {
      */
     public void setPrenomAuteur(String prenomAuteur) {
         this.prenomAuteur = prenomAuteur;
-    }
-
-    public List<Livre> getLivres() {
-        return livres;
-    }
-
-    public void setLivres(List<Livre> livres) {
-        this.livres = livres;
     }
 
     @Override

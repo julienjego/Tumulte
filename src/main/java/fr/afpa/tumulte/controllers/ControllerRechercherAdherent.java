@@ -86,12 +86,17 @@ public class ControllerRechercherAdherent implements Initializable {
      */
     @FXML
     void activerBoutons(KeyEvent e) {
-        btnRechercherAdherent.setDisable(!idAdherentEstValide());
-        btnConsulterFicheAdherent.setDisable(!idAdherentEstValide());
-        btnValiderAdherent.setDisable(!idAdherentEstValide());
+        activerBoutons();
         if (e.getCode().equals(KeyCode.ENTER) ) {
             rechercherAdherent();
         }
+
+    }
+    void activerBoutons() {
+        btnRechercherAdherent.setDisable(!idAdherentEstValide());
+        btnConsulterFicheAdherent.setDisable(!idAdherentEstValide());
+        btnValiderAdherent.setDisable(!idAdherentEstValide());
+
     }
 
     /**
@@ -121,16 +126,14 @@ public class ControllerRechercherAdherent implements Initializable {
      */
     @FXML
     void rechercherAdherent() {
-
-//        Adherent jean = new Adherent(
-//                1234,
-//                "Neymar",
-//                "Jean",
-//                "1 rue du four - 59000 Marmusots",
-//                "06.01.02.03.04", LocalDate.of(2022,07,17));
-
-        afficherInfoAdherent(DaoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
-
+        try {
+    afficherInfoAdherent(DaoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
+        } catch (Exception e) {
+            String headerTxt = "Ce numéro d'adhérent est inconnu !";
+            String contentTxt = "Merci de vérifier et saisir un nouveau numéro d'adhérent.";
+            fenetreErreur(headerTxt, contentTxt);
+            txtNumAdherent.setText("");
+        }
     }
 
     /**
@@ -157,7 +160,8 @@ public class ControllerRechercherAdherent implements Initializable {
         btnValiderAdherent.setDisable(true);
         lblCotisation.setVisible(false);
         lblDateFinCotisation.setVisible(false);
-
+        //méthode fléchée qui permet d'activer les boutons dès que le texte change
+        txtNumAdherent.textProperty().addListener(observable -> activerBoutons());
     }
 
     private boolean idAdherentEstValide() {

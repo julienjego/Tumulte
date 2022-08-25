@@ -178,6 +178,55 @@ public class ControllerStat implements Initializable {
     private BarChart grfTheme;
 
     /**
+     * initialise la page.
+     */
+    @Override
+    public void initialize(final URL url, final ResourceBundle resourceBundle) {
+        init();
+    }
+
+    /**
+     * initialise les Combo box.
+     * avec la list des bibliothèque grace a l'appel
+     * de la fonction lireBib() dans la classe Utile
+     * avec les 5 dernieres années (presente incluse)
+     * avec les types de vue possibles
+     * rend visible les boutons voulus
+     * rend invisible les boutons non voulus
+     */
+    private void init() {
+        ArrayList<String> lstBib = lireBib();
+        cbxBib.getItems().addAll(lstBib);
+        cbxBib.setValue(cbxBib.getItems().get(0));
+
+        int anneeEnCour = LocalDate.now().getYear();
+        ArrayList<Integer> lstAnnee = new ArrayList<>();
+        for (int i = 0; i < NB_ANNEE; i++) {
+            lstAnnee.add(anneeEnCour - i);
+        }
+        cbxAnnee.getItems().addAll(lstAnnee);
+        cbxAnnee.setValue(cbxAnnee.getItems().get(0));
+
+        ArrayList<String> lstVue = new ArrayList<>();
+        lstVue.add(TAB_THEME);
+        lstVue.add(TAB_LIVRE);
+        lstVue.add(GRAF_THEME);
+        cbxVue.getItems().addAll(lstVue);
+        cbxVue.setValue(cbxVue.getItems().get(0));
+
+        grfTheme.setVisible(false);
+        panResu.setVisible(false);
+        btnImprimer.setVisible(false);
+        btnAnnuler.setVisible(false);
+        btnValiderTop.setVisible(false);
+        tabTheme.setVisible(false);
+        tabLivres.setVisible(false);
+        DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        lblDate.setText(LocalDate.now().format(frformat));
+
+    }
+
+    /**
      * On click valider.
      * rend visible les boutons voulus et le paneau de résultat
      * rempli selon le choix de vue le tableau correspondant
@@ -203,8 +252,7 @@ public class ControllerStat implements Initializable {
                 colTheme.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("libelTheme"));
                 colDescription.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>(
-                                "descripTheme"));
+                        new PropertyValueFactory<Theme, String>("descripTheme"));
                 colNbEmpruntTheme.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("nbEmprunt"));
                 tabTheme.setItems(listTheme);
@@ -270,55 +318,6 @@ public class ControllerStat implements Initializable {
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();
-    }
-
-    /**
-     * initialise la page.
-     */
-    @Override
-    public void initialize(final URL url, final ResourceBundle resourceBundle) {
-        init();
-    }
-
-    /**
-     * initialise les Combo box.
-     * avec la list des bibliothèque grace a l'appel
-     * de la fonction lireBib() dans la classe Utile
-     * avec les 5 dernieres années (presente incluse)
-     * avec les types de vue possibles
-     * rend visible les boutons voulus
-     * rend invisible les boutons non voulus
-     */
-    private void init() {
-        ArrayList<String> lstBib = lireBib();
-        cbxBib.getItems().addAll(lstBib);
-        cbxBib.setValue(cbxBib.getItems().get(0));
-
-        int anneeEnCour = LocalDate.now().getYear();
-        ArrayList<Integer> lstAnnee = new ArrayList<>();
-        for (int i = 0; i < NB_ANNEE; i++) {
-            lstAnnee.add(anneeEnCour - i);
-        }
-        cbxAnnee.getItems().addAll(lstAnnee);
-        cbxAnnee.setValue(cbxAnnee.getItems().get(0));
-
-        ArrayList<String> lstVue = new ArrayList<>();
-        lstVue.add(TAB_THEME);
-        lstVue.add(TAB_LIVRE);
-        lstVue.add(GRAF_THEME);
-        cbxVue.getItems().addAll(lstVue);
-        cbxVue.setValue(cbxVue.getItems().get(0));
-
-        grfTheme.setVisible(false);
-        panResu.setVisible(false);
-        btnImprimer.setVisible(false);
-        btnAnnuler.setVisible(false);
-        btnValiderTop.setVisible(false);
-        tabTheme.setVisible(false);
-        tabLivres.setVisible(false);
-        DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        lblDate.setText(LocalDate.now().format(frformat));
-
     }
 
     /**

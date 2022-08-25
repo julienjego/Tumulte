@@ -8,9 +8,11 @@ public class Exemplaire {
 
     @Id
     private String numExemplaire;
+
     @ManyToOne
     @JoinColumn(name = "codBibliotheque")
     private Bibliotheque bibliotheque;
+
     @ManyToOne
     @JoinColumn(name = "codEmplacement")
     private Emplacement emplacement;
@@ -18,8 +20,10 @@ public class Exemplaire {
     @ManyToOne
     @JoinColumn(name = "IsbnLivre")
     private Livre IsbnLivre;
+
     @Basic(fetch = FetchType.LAZY)
     private String commentExemplaire;
+
     private boolean disponible = true;
 
     public Exemplaire(String numExemplaire, Bibliotheque bibliotheque, Emplacement emplacement, Livre IsbnLivre, String commentExemplaire, boolean disponible) {
@@ -85,12 +89,12 @@ public class Exemplaire {
     @Override
     public String toString() {
         return "Exemplaire{" +
-                       "numExemplaire='" + numExemplaire + '\'' +
-                       ", Bibliotheque='" + bibliotheque + '\'' +
-                       ", emplacement=" + emplacement +
-                       ", livre=" + IsbnLivre +
-                       ", commentExemplaire='" + commentExemplaire + '\'' +
-                       ", disponible=" + disponible +
-                       '}';
+                "numExemplaire='" + numExemplaire + '\'' +
+                ", Bibliotheque='" + bibliotheque + '\'' +
+                ", emplacement=" + emplacement +
+                ", livre=" + IsbnLivre +
+                ", commentExemplaire='" + commentExemplaire + '\'' +
+                ", disponible=" + disponible +
+                '}';
     }
 }

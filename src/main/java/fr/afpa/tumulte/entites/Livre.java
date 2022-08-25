@@ -35,7 +35,7 @@ public class Livre {
     private ArrayList<Auteur> auteur;
 
     /**
-     * nombre d'emprunt de ce livre.
+     * nombre d'emprunts de ce livre.
      */
     private int nbEmprunt;
 

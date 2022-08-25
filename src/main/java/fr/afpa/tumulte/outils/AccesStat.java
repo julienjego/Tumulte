@@ -5,14 +5,12 @@ import fr.afpa.tumulte.entites.Theme;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccesStat {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
-    private static final Theme TOUS_LES_THEMES = new Theme("0", "Tous les thèmes", "", 0);
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
 
     public static List<Bibliotheque> listBib() {
@@ -28,29 +26,42 @@ public class AccesStat {
         }
     }
 
-    public static List<Theme> listTheme(String nomBib) {
+    public static List<Theme> listThemeBib(String nomBib) {
+        String requete = "select exemplaire.numExemplaire \n" +
+                                 "FROM theme t\n" +
+                                 "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme\n" +
+                                 "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement\n" +
+                                 "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n";
+        if (nomBib.equals(TOUTES_BIB)) {
+            return listTheme(requete
+                                     + "where t.codTheme=");
+        } else {
+            return listTheme(requete
+                                     + "INNER JOIN bibliotheque b ON b.codBibliotheque = emplacement.codBibliotheque\n"
+                                     + "where b.libelBibliotheque = \"" + nomBib + "\"\n"
+                                     + "and t.codTheme = ");
+
+        }
+    }
+
+    private static List<Theme> listTheme(String requete) {
         EntityManager eM = null;
         List<Theme> themes = new ArrayList<>();
-        Theme T0 = TOUS_LES_THEMES;
         int nbEmpruntTotal = 0;
         try {
             eM = entityManagerFactory.createEntityManager();
             themes = eM.createQuery("from Theme", Theme.class).getResultList();
-
             for (int i = 0; i < themes.size(); i++) {
                 int nbEmprunt;
-                nbEmprunt = eM.createNativeQuery("select exemplaire.numExemplaire \n" +
-                                                         "FROM theme t\n" +
-                                                         "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme\n" +
-                                                         "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement\n" +
-                                                         "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n" +
-                                                         "where t.codTheme=" + themes.get(i).getCodTheme(), String.class).getResultList().size();
+                nbEmprunt = eM.createNativeQuery(requete + themes.get(i).getCodTheme(),
+                        String.class).getResultList().size();
 
                 nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
                 themes.get(i).setNbEmprunt(nbEmprunt);
             }
+            Theme T0 = new Theme("0", "Tous les thèmes", "", 0);
+            T0.setNbEmprunt(nbEmpruntTotal);
             themes.add(0, T0);
-            themes.get(0).setNbEmprunt(nbEmpruntTotal);
         } catch (Exception e) {
             System.out.println(e.getCause());
 
@@ -60,6 +71,6 @@ public class AccesStat {
             }
         }
         return themes;
-    }
 
+    }
 }

@@ -48,7 +48,6 @@ public class AccesStat {
 
                 nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
                 themes.get(i).setNbEmprunt(nbEmprunt);
-                System.out.println(nbEmprunt);
             }
             themes.add(0, T0);
             themes.get(0).setNbEmprunt(nbEmpruntTotal);

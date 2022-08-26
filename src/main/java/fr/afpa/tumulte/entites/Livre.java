@@ -29,7 +29,7 @@ public class Livre {
     /**
      * Auteur du livre.
      */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "redaction",
             joinColumns = @JoinColumn(name = "IsbnLivre"),
             inverseJoinColumns = @JoinColumn(name = "codAuteur"))
@@ -48,6 +48,22 @@ public class Livre {
     public Livre() {
     }
 
+    public int getNbEmprunt() {
+        return nbEmprunt;
+    }
+
+    public void setNbEmprunt(int nbEmprunt) {
+        this.nbEmprunt = nbEmprunt;
+    }
+
+    public int getNbExemplaires() {
+        return nbExemplaires;
+    }
+
+    public void setNbExemplaires(int nbExemplaires) {
+        this.nbExemplaires = nbExemplaires;
+    }
+
     /**
      * Instantiates a new Livre.
      *
@@ -56,13 +72,12 @@ public class Livre {
      * @param titreLivre the titre livre
      * @param auteur     the auteur
      */
-    public Livre(String isbnLivre, Theme theme, String titreLivre, List<Auteur> auteur) {
+    public Livre(String isbnLivre, Theme theme, String titreLivre, ArrayList<Auteur> auteur) {
         this.IsbnLivre = isbnLivre;
         this.theme = theme;
         this.titreLivre = titreLivre;
-        this.auteur = auteur;
+//        this.auteur = auteur;
     }
-
 
     public String getIsbnLivre() {
         return IsbnLivre;
@@ -92,35 +107,8 @@ public class Livre {
         return auteur;
     }
 
-    public void setAuteur(List<Auteur> auteur) {
+    public void setAuteur(ArrayList<Auteur> auteur) {
         this.auteur = auteur;
     }
 
-    public int getNbEmprunt() {
-        return nbEmprunt;
-    }
-
-    public void setNbEmprunt(int nbEmprunt) {
-        this.nbEmprunt = nbEmprunt;
-    }
-
-    public int getNbExemplaires() {
-        return nbExemplaires;
-    }
-
-    public void setNbExemplaires(int nbExemplaires) {
-        this.nbExemplaires = nbExemplaires;
-    }
-
-    @Override
-    public String toString() {
-        return "Livre{" +
-                "IsbnLivre='" + IsbnLivre + '\'' +
-                ", theme=" + theme +
-                ", titreLivre='" + titreLivre + '\'' +
-                ", auteur=" + auteur +
-                ", nbEmprunt=" + nbEmprunt +
-                ", nbExemplaires=" + nbExemplaires +
-                '}';
-    }
 }

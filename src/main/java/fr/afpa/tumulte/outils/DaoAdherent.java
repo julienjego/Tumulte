@@ -7,7 +7,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
 public class DaoAdherent {
-    static EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
 
     // Créer ou mettre à jour un adhérent
     public void saveAdherent(Adherent adherent) {
@@ -25,7 +25,7 @@ public class DaoAdherent {
     }
 
     // Afficher un adhérent présent dans la BDD
-    public static Adherent showAdherent(Integer id) {
+    public Adherent showAdherent(Integer id) {
         EntityManager em = emf.createEntityManager();
         return em.find(Adherent.class, id);
 

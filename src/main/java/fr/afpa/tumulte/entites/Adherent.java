@@ -28,34 +28,29 @@ public class Adherent {
     private LocalDate perimeLe;
     @Column (name = "pwdAdherent",nullable = true, length = 10)
     private String pwdAdherent;
-//    @OneToMany
-//    private List<Emprunt> lstEmpruntsEnCours = new ArrayList<>();
+    @OneToMany(mappedBy = "numAdherent")
+    private List<Emprunt> lstEmpruntsEnCours = new ArrayList<>();
 
     public Adherent() {
     }
 
-    /**
-     * Instantiates a new Adherent.
-     *
-     * @param numAdherent    the num adherent
-     * @param nomAdherent    the nom adherent
-     * @param prenomAdherent the prenom adherent
-     * @param adrAdherent    the adr adherent
-     * @param teleAdherent   the tele adherent
-     * @param perimeLe       the perime le
-     */
-    public Adherent(final Integer numAdherent,
-                    final String nomAdherent,
-                    final String prenomAdherent,
-                    final String adrAdherent,
-                    final String teleAdherent,
-                    final LocalDate perimeLe) {
+    public Adherent(Integer numAdherent, String nomAdherent, String prenomAdherent, String adrAdherent, String teleAdherent, LocalDate perimeLe, String pwdAdherent, List<Emprunt> lstEmpruntsEnCours) {
         this.numAdherent = numAdherent;
         this.nomAdherent = nomAdherent;
         this.prenomAdherent = prenomAdherent;
         this.adrAdherent = adrAdherent;
         this.teleAdherent = teleAdherent;
         this.perimeLe = perimeLe;
+        this.pwdAdherent = pwdAdherent;
+        this.lstEmpruntsEnCours = lstEmpruntsEnCours;
+    }
+
+    public List<Emprunt> getLstEmpruntsEnCours() {
+        return lstEmpruntsEnCours;
+    }
+
+    public void setLstEmpruntsEnCours(List<Emprunt> lstEmpruntsEnCours) {
+        this.lstEmpruntsEnCours = lstEmpruntsEnCours;
     }
 
     /**

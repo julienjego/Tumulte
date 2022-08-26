@@ -271,9 +271,9 @@ public class ControllerStat implements Initializable {
                         new PropertyValueFactory<Theme, String>("auteur"));
                 colThemeLivre.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("theme"));
-//                colNbExemplaire.setCellValueFactory(
-//                        new PropertyValueFactory<Theme, Integer>(
-//                                "nbExemplaire"));
+                colNbExemplaire.setCellValueFactory(
+                        new PropertyValueFactory<Theme, Integer>(
+                                "nbExemplaires"));
                 colNbEmpruntLivre.setCellValueFactory(
                         new PropertyValueFactory<Theme, Integer>("nbEmprunt"));
                 tabLivres.setItems(listLivre);

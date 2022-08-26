@@ -17,6 +17,14 @@ public class Auteur {
 
     private String nomAuteur;
 
+    public List<Livre> getLivres() {
+        return livres;
+    }
+
+    public void setLivres(ArrayList<Livre> livres) {
+        this.livres = livres;
+    }
+
     private String prenomAuteur;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -56,10 +64,6 @@ public class Auteur {
         this.codAuteur = codAuteur;
         this.nomAuteur = nomAuteur;
         this.prenomAuteur = prenomAuteur;
-    }
-
-    public List<Livre> getLivres() {
-        return livres;
     }
 
     public void setLivres(List<Livre> livres) {

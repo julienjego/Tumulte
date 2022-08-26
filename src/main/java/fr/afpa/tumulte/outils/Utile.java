@@ -52,98 +52,15 @@ public class Utile {
     }
 
     /**
-     * Lire livre dans le fichier csv.
-     * lit le fichier csv contenant les livres
-     * et renvoie un ObservableList de tous les livres
-     *
-     * @return the observable list
-     */
-
-/*    public static ObservableList<Livre> lireLivre() {
-        try {
-            FileReader fileReader = new FileReader(
-                    "src/main/resources/csv/lstLivre.csv");
-            LineNumberReader lineNumberReader
-                    = new LineNumberReader(fileReader);
-            String ligneLue;
-            String isbnLivre;
-            String codTheme;
-            String titreLivre;
-            Auteur auteur;
-            int nbExemplaire;
-            int nbEmprunt;
-
-            Livre livre;
-            ArrayList<Livre> listLivre = new ArrayList<>();
-            do {
-                ligneLue = lineNumberReader.readLine();
-                if (ligneLue != null) {
-                    isbnLivre = ligneLue.substring(0, ligneLue.indexOf(","));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    titreLivre = ligneLue.substring(0, ligneLue.indexOf(","));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    auteur = new Auteur(ligneLue.substring(0, ligneLue.indexOf(",")));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    codTheme = ligneLue.substring(0, ligneLue.indexOf(","));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    nbExemplaire = Integer.parseInt(
-                            ligneLue.substring(0, ligneLue.indexOf(",")));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    nbEmprunt = Integer.parseInt(ligneLue);
-
-//                    livre = new Livre(isbnLivre,
-//                            codTheme,
-//                            titreLivre,
-//                            auteur,
-//                            nbExemplaire,
-//                            nbEmprunt);
-//                    listLivre.add(livre);
-                }
-            } while (ligneLue != null);
-
-            return FXCollections.observableArrayList(listLivre);
-        } catch (NullPointerException npe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(npe.getMessage());
-            alert.showAndWait();
-        } catch (FileNotFoundException fnfe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(fnfe.getMessage());
-            alert.setContentText("fichier non trouvé !");
-            alert.showAndWait();
-
-        } catch (IOException ioe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.showAndWait();
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(e.getMessage());
-            alert.setTitle("Erreur");
-            alert.showAndWait();
-        }
-        return null;
-
-    }*/
-
-    /**
-     * Lire thème dans le fichier csv.
-     * lit le fichier csv contenant les thèmes
+     * Lire thème dans la BDD.
+     * lit la BDD contenant les thèmes
      * et renvoie un ObservableList de tous les thèmes
      *
      * @return the observable list
      */
     public static ObservableList<Theme> lireTheme(String nomBib) {
         try {
-            Theme theme;
-            List<Theme> listTheme = AccesStat.listThemeBib(nomBib);
+            List<Theme> listTheme = AccesStat.listTheme(nomBib);
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -154,9 +71,16 @@ public class Utile {
         return null;
     }
 
-    public static ObservableList<Livre> lireLivre() {
+    /**
+     * Lire livre dans la BDD..
+     * lit la BDD contenant les livres
+     * et renvoie un ObservableList de tous les livres
+     *
+     * @return the observable list
+     */
+    public static ObservableList<Livre> lireLivre(String nomBib) {
         try {
-            List<Livre> listLivre = accesLivre.listLivres();
+            List<Livre> listLivre = accesLivre.listLivres(nomBib);
             return FXCollections.observableArrayList(listLivre);
         } catch (Exception e) {
             System.out.println(e);

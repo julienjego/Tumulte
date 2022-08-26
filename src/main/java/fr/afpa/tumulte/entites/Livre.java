@@ -19,7 +19,7 @@ public class Livre {
     /**
      * code du thème du livre.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codTheme")
     private Theme theme;
     /**
@@ -29,7 +29,7 @@ public class Livre {
     /**
      * Auteur du livre.
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "redaction",
             joinColumns = @JoinColumn(name = "IsbnLivre"),
             inverseJoinColumns = @JoinColumn(name = "codAuteur"))
@@ -38,30 +38,16 @@ public class Livre {
     /**
      * nombre d'emprunts de ce livre.
      */
+    @Transient
     private int nbEmprunt;
 
     /**
      * nombre d'exemplaires de ce livre.
      */
+    @Transient
     private int nbExemplaires;
 
     public Livre() {
-    }
-
-    public int getNbEmprunt() {
-        return nbEmprunt;
-    }
-
-    public void setNbEmprunt(int nbEmprunt) {
-        this.nbEmprunt = nbEmprunt;
-    }
-
-    public int getNbExemplaires() {
-        return nbExemplaires;
-    }
-
-    public void setNbExemplaires(int nbExemplaires) {
-        this.nbExemplaires = nbExemplaires;
     }
 
     /**
@@ -111,4 +97,31 @@ public class Livre {
         this.auteur = auteur;
     }
 
+    public int getNbEmprunt() {
+        return nbEmprunt;
+    }
+
+    public void setNbEmprunt(int nbEmprunt) {
+        this.nbEmprunt = nbEmprunt;
+    }
+
+    public int getNbExemplaires() {
+        return nbExemplaires;
+    }
+
+    public void setNbExemplaires(int nbExemplaires) {
+        this.nbExemplaires = nbExemplaires;
+    }
+
+    @Override
+    public String toString() {
+        return "Livre{" +
+                       "IsbnLivre='" + IsbnLivre + '\'' +
+                       ", theme=" + theme +
+                       ", titreLivre='" + titreLivre + '\'' +
+                       ", auteur=" + auteur +
+                       ", nbEmprunt=" + nbEmprunt +
+                       ", nbExemplaires=" + nbExemplaires +
+                       '}';
+    }
 }

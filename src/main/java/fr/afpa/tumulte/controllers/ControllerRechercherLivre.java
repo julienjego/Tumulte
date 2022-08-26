@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 import static fr.afpa.tumulte.outils.Utile.lireLivre;
 
 public class ControllerRechercherLivre implements Initializable {
-
+    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     @FXML
     private Button btnAnnuler;
 
@@ -74,7 +74,7 @@ public class ControllerRechercherLivre implements Initializable {
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
         init();
         tabLivres.setVisible(true);
-        ObservableList<Livre> listLivre = lireLivre();
+        ObservableList<Livre> listLivre = lireLivre(TOUTES_BIB);
         colISBN.setCellValueFactory(
                 new PropertyValueFactory<Livre, String>("IsbnLivre"));
         colTitre.setCellValueFactory(
@@ -93,7 +93,6 @@ public class ControllerRechercherLivre implements Initializable {
     private void init() {
 
     }
-
 
     @FXML
     void onClickAnnuler(MouseEvent event) {

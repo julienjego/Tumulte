@@ -1,31 +1,66 @@
 package fr.afpa.tumulte.outils;
 
 import fr.afpa.tumulte.entites.Livre;
+import fr.afpa.tumulte.entites.Theme;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccesLivre {
-
+    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
 
-    public List<Livre> listLivres() {
-        EntityManager em = null;
-        try {
-            em = emf.createEntityManager();
-            EntityTransaction trans = em.getTransaction();
-            trans.begin();
-            List<Livre> livres = em.createQuery("from Livre", Livre.class).getResultList();
-            trans.commit();
-            return livres;
-        } finally {
-            if (em != null && em.isOpen()) {
-                em.close();
-            }
+    public List<Livre> listLivres(String nomBib) {
+
+        String requete = "select exemplaire.numExemplaire \n" +
+                                 "FROM livre l\n" +
+                                 "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n" +
+                                 "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n";
+        if (nomBib.equals(TOUTES_BIB)) {
+            return listLivresBib(requete
+                                         + "where l.IsbnLivre= \"");
+        } else {
+            return listLivresBib(requete
+                                         + "INNER JOIN bibliotheque b ON b.codBibliotheque = exemplaire.codBibliotheque\n"
+                                         + "where b.libelBibliotheque = \"" + nomBib + "\"\n"
+                                         + "and l.IsbnLivre= \"");
 
         }
     }
+
+    public List<Livre> listLivresBib(String requete) {
+        EntityManager eM = null;
+        List<Livre> livres = new ArrayList<>();
+        int nbEmpruntTotal = 0;
+        try {
+            eM = emf.createEntityManager();
+            EntityTransaction trans = eM.getTransaction();
+            trans.begin();
+            livres = eM.createQuery("from Livre", Livre.class).getResultList();
+
+            for (int i = 0; i < livres.size(); i++) {
+                System.out.println("ICI OK ");
+                int nbEmprunt;
+                nbEmprunt = eM.createNativeQuery(requete + livres.get(i).getIsbnLivre() + "\"\n",
+                        String.class).getResultList().size();
+                nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
+                livres.get(i).setNbEmprunt(nbEmprunt);
+            }
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+
+        } finally {
+            if (eM != null && eM.isOpen()) {
+                eM.close();
+            }
+        }
+        return livres;
+
+    }
+
 }

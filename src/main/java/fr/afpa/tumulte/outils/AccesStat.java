@@ -27,8 +27,7 @@ public class AccesStat {
     }
 
     public static List<Theme> listTheme(String nomBib) {
-        String requete = "select exemplaire.numExemplaire \n" +
-                                 "FROM theme t\n" +
+        String requete = "FROM theme t\n" +
                                  "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme\n" +
                                  "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement\n" +
                                  "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n";
@@ -53,12 +52,13 @@ public class AccesStat {
             themes = eM.createQuery("from Theme", Theme.class).getResultList();
             for (int i = 0; i < themes.size(); i++) {
                 int nbEmprunt;
-                nbEmprunt = eM.createNativeQuery(requete + themes.get(i).getCodTheme(),
+                nbEmprunt = eM.createNativeQuery("select exemplaire.numExemplaire \n" + requete + themes.get(i).getCodTheme(),
                         String.class).getResultList().size();
 
                 nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
                 themes.get(i).setNbEmprunt(nbEmprunt);
             }
+
             Theme T0 = new Theme("0", "Tous les thèmes", "", 0);
             T0.setNbEmprunt(nbEmpruntTotal);
             themes.add(0, T0);

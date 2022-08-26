@@ -60,26 +60,16 @@ public class Utile {
     }
 
     /**
-     * Lire livre dans le fichier csv.
-     * lit le fichier csv contenant les livres
-     * et renvoie un ObservableList de tous les livres
-     *
-     * @return the observable list
-     */
-
-
-
-    /**
-     * Lire thème dans le fichier csv.
-     * lit le fichier csv contenant les thèmes
+     * Lire thème dans la BDD.
+     * lit la BDD contenant les thèmes
      * et renvoie un ObservableList de tous les thèmes
      *
      * @return the observable list
      */
+
     public static ObservableList<Theme> lireTheme(String nomBib) {
         try {
-            Theme theme;
-            List<Theme> listTheme = AccesStat.listThemeBib(nomBib);
+            List<Theme> listTheme = AccesStat.listTheme(nomBib);
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -90,9 +80,30 @@ public class Utile {
         return null;
     }
 
-    public static ObservableList<Livre> lireLivre() {
+    /**
+     * Lire livre dans la BDD..
+     * lit la BDD contenant les livres
+     * et renvoie un ObservableList de tous les livres
+     *
+     * @return the observable list
+     */
+    public static ObservableList<Livre> lireLivre(String nomBib) {
         try {
-            List<Livre> listLivre = accesLivre.listLivres();
+            List<Livre> listLivre = accesLivre.listLivres(nomBib);
+            return FXCollections.observableArrayList(listLivre);
+        } catch (Exception e) {
+            System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(e.getMessage());
+            alert.setTitle("Erreur");
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    public static ObservableList<Livre> updateLireLivre(String requete) {
+        try {
+            List<Livre> listLivre = accesLivre.filteredListLivres(requete);
             return FXCollections.observableArrayList(listLivre);
         } catch (Exception e) {
             System.out.println(e);

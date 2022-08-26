@@ -43,6 +43,7 @@ public class ControllerStat implements Initializable {
      * Constante de "Graphique par thème".
      */
     private static final String GRAF_THEME = "Graphique par thème";
+    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     /**
      * Constante du nombre d'année consultable.
      */
@@ -261,7 +262,7 @@ public class ControllerStat implements Initializable {
                 tabLivres.setVisible(true);
                 tabTheme.setVisible(false);
                 grfTheme.setVisible(false);
-                ObservableList<Livre> listLivre = lireLivre();
+                ObservableList<Livre> listLivre = lireLivre(cbxBib.getValue().toString());
                 colISBN.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("IsbnLivre"));
                 colTitre.setCellValueFactory(
@@ -269,12 +270,12 @@ public class ControllerStat implements Initializable {
                 colAuteur.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("auteur"));
                 colThemeLivre.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("codTheme"));
+                        new PropertyValueFactory<Theme, String>("theme"));
                 colNbExemplaire.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>(
-                                "nbExemplaire"));
+                        new PropertyValueFactory<Theme, Integer>(
+                                "nbExemplaires"));
                 colNbEmpruntLivre.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("nbEmprunt"));
+                        new PropertyValueFactory<Theme, Integer>("nbEmprunt"));
                 tabLivres.setItems(listLivre);
             }
             case GRAF_THEME -> {

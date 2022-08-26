@@ -4,21 +4,27 @@ import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Livre;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import static fr.afpa.tumulte.outils.Utile.lireLivre;
+import static fr.afpa.tumulte.outils.Utile.updateLireLivre;
 
 public class ControllerRechercherLivre implements Initializable {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
@@ -88,16 +94,75 @@ public class ControllerRechercherLivre implements Initializable {
         colNbEmpruntLivre.setCellValueFactory(
                 new PropertyValueFactory<Livre, String>("nbEmprunt"));
         tabLivres.setItems(listLivre);
+
     }
 
     private void init() {
+        DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        lblDate.setText(LocalDate.now().format(frformat));
 
+        btnRecherche.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                onClickRecherche();
+            }
+        });
+
+        txtRecherche.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    onClickRecherche();
+                }
+            }
+        });
     }
 
     @FXML
     void onClickAnnuler(MouseEvent event) {
 
     }
+
+
+    @FXML
+    void onClickRecherche() {
+        ObservableList<Livre> listLivre = updateLireLivre(txtRecherche.getText());
+        colISBN.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("IsbnLivre"));
+        colTitre.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("titreLivre"));
+        colAuteur.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("auteur"));
+        colThemeLivre.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("theme"));
+        colNbExemplaire.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("nbExemplaires"));
+        colNbEmpruntLivre.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("nbEmprunt"));
+        tabLivres.setItems(listLivre);
+
+    }
+
+    @FXML
+    void onClickRestartListe(ActionEvent event) {
+
+        ObservableList<Livre> listLivre = lireLivre(TOUTES_BIB);
+        colISBN.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("IsbnLivre"));
+        colTitre.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("titreLivre"));
+        colAuteur.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("auteur"));
+        colThemeLivre.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("theme"));
+        colNbExemplaire.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("nbExemplaires"));
+        colNbEmpruntLivre.setCellValueFactory(
+                new PropertyValueFactory<Livre, String>("nbEmprunt"));
+        tabLivres.setItems(listLivre);
+
+    }
+
 
     @FXML
     public void onClickMenuPrincipal() throws IOException {

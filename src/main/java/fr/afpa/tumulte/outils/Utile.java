@@ -92,6 +92,20 @@ public class Utile {
         return null;
     }
 
+    public static ObservableList<Livre> updateLireLivre(String requete) {
+        try {
+            List<Livre> listLivre = accesLivre.filteredListLivres(requete);
+            return FXCollections.observableArrayList(listLivre);
+        } catch (Exception e) {
+            System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(e.getMessage());
+            alert.setTitle("Erreur");
+            alert.showAndWait();
+        }
+        return null;
+    }
+
     /**
      * Gets date time.
      *

@@ -131,6 +131,7 @@ public class ControllerRechercherAdherent implements Initializable {
             DaoAdherent daoAdherent = new DaoAdherent();
             afficherInfoAdherent(daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
         } catch (Exception e) {
+            System.out.println(e);
             String headerTxt = "Ce numéro d'adhérent est inconnu !";
             String contentTxt = "Merci de vérifier et saisir un nouveau numéro d'adhérent.";
             fenetreErreur(headerTxt, contentTxt);

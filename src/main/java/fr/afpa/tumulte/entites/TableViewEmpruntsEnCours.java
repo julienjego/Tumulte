@@ -1,12 +1,13 @@
 package fr.afpa.tumulte.entites;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class TableViewEmpruntsEnCours {
 
     private String titreLivre;
-    private Date datEmprunt;
+    private LocalDate datEmprunt;
     private String nomsAuteurs;
 
 
@@ -22,7 +23,7 @@ public class TableViewEmpruntsEnCours {
 
     }
 
-    public TableViewEmpruntsEnCours(String titreLivre, List<Auteur> nomAuteur, Date datEmprunt) {
+    public TableViewEmpruntsEnCours(String titreLivre, List<Auteur> nomAuteur, LocalDate datEmprunt) {
         this.titreLivre = titreLivre;
         format(nomAuteur);
         this.datEmprunt = datEmprunt;
@@ -44,11 +45,11 @@ public class TableViewEmpruntsEnCours {
         this.nomsAuteurs = nomsAuteurs;
     }
 
-    public Date getDatEmprunt() {
+    public LocalDate getDatEmprunt() {
         return datEmprunt;
     }
 
-    public void setDatEmprunt(Date datEmprunt) {
+    public void setDatEmprunt(LocalDate datEmprunt) {
         this.datEmprunt = datEmprunt;
     }
 

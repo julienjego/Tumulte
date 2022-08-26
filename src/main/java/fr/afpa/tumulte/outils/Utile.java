@@ -8,9 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +26,7 @@ import java.util.List;
  */
 public class Utile {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
-    private static AccesLivre accesLivre = new AccesLivre();
+    private static final AccesLivre accesLivre = new AccesLivre();
 
     /**
      * Exit app.
@@ -59,79 +67,7 @@ public class Utile {
      * @return the observable list
      */
 
-/*    public static ObservableList<Livre> lireLivre() {
-        try {
-            FileReader fileReader = new FileReader(
-                    "src/main/resources/csv/lstLivre.csv");
-            LineNumberReader lineNumberReader
-                    = new LineNumberReader(fileReader);
-            String ligneLue;
-            String isbnLivre;
-            String codTheme;
-            String titreLivre;
-            Auteur auteur;
-            int nbExemplaire;
-            int nbEmprunt;
 
-            Livre livre;
-            ArrayList<Livre> listLivre = new ArrayList<>();
-            do {
-                ligneLue = lineNumberReader.readLine();
-                if (ligneLue != null) {
-                    isbnLivre = ligneLue.substring(0, ligneLue.indexOf(","));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    titreLivre = ligneLue.substring(0, ligneLue.indexOf(","));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    auteur = new Auteur(ligneLue.substring(0, ligneLue.indexOf(",")));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    codTheme = ligneLue.substring(0, ligneLue.indexOf(","));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    nbExemplaire = Integer.parseInt(
-                            ligneLue.substring(0, ligneLue.indexOf(",")));
-
-                    ligneLue = ligneLue.substring(ligneLue.indexOf(",") + 1);
-                    nbEmprunt = Integer.parseInt(ligneLue);
-
-//                    livre = new Livre(isbnLivre,
-//                            codTheme,
-//                            titreLivre,
-//                            auteur,
-//                            nbExemplaire,
-//                            nbEmprunt);
-//                    listLivre.add(livre);
-                }
-            } while (ligneLue != null);
-
-            return FXCollections.observableArrayList(listLivre);
-        } catch (NullPointerException npe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(npe.getMessage());
-            alert.showAndWait();
-        } catch (FileNotFoundException fnfe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText(fnfe.getMessage());
-            alert.setContentText("fichier non trouvé !");
-            alert.showAndWait();
-
-        } catch (IOException ioe) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.showAndWait();
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(e.getMessage());
-            alert.setTitle("Erreur");
-            alert.showAndWait();
-        }
-        return null;
-
-    }*/
 
     /**
      * Lire thème dans le fichier csv.
@@ -194,4 +130,15 @@ public class Utile {
         return String.format("Le %s à %s ", formatDateTimeJ, formatDateTimeH);
 
     }
+
+    public static LocalDate calcDateRetour(){
+
+       return  LocalDate.now().plusDays(15);
+
+
+    }
+
+
+
+
 }

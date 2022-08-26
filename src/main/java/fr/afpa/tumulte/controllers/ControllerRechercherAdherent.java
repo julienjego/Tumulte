@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
  * The type Controller rechercher adherent.
  */
 public class ControllerRechercherAdherent implements Initializable {
-
+public Adherent adherent;
     public Label lblDate;
     /**
      * The Stage.
@@ -130,6 +130,7 @@ public class ControllerRechercherAdherent implements Initializable {
         try {
             DaoAdherent daoAdherent = new DaoAdherent();
             afficherInfoAdherent(daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
+            adherent = daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText()));
         } catch (Exception e) {
             System.out.println(e);
             String headerTxt = "Ce numéro d'adhérent est inconnu !";
@@ -149,6 +150,8 @@ public class ControllerRechercherAdherent implements Initializable {
                 App.class.getResource("/fxml/EmprunterLivre.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
+        ControllerEmpruntLivre ctrlEMprLivre = fxmlLoader.getController();
+        ctrlEMprLivre.taxiAdherent(adherent);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);

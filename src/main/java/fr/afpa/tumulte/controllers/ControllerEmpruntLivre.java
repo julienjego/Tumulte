@@ -1,7 +1,9 @@
 package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
+import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.Exemplaire;
+import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.DaoEmprunt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static fr.afpa.tumulte.outils.DaoEmprunt.showExemplaire;
+
 
 /**
  * The type Controller emprunt livre.
@@ -32,7 +34,16 @@ public class ControllerEmpruntLivre implements Initializable {
 
     public Label lblDate;
 
-    /**
+    public Adherent adherentEmprunt;
+
+
+    public void taxiAdherent(Adherent adherent) {
+         adherentEmprunt = adherent;
+               lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
+        lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
+        lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
+
+    }    /**
      * Bouton annuler.
      */
     @FXML
@@ -159,7 +170,8 @@ public class ControllerEmpruntLivre implements Initializable {
      */
     @FXML
     void emprunterLivre() {
-        confEmpruntLivre();
+
+       confEmpruntLivre();
         effacer();
     }
 
@@ -218,7 +230,8 @@ public class ControllerEmpruntLivre implements Initializable {
      * le bouton rechercher.
      */
     private void afficherLabels() {
- afficherInfoExemplaire(DaoEmprunt.showExemplaire(txtCodeExemplaire.getText()));
+        DaoEmprunt daoE = new DaoEmprunt();
+ afficherInfoExemplaire(daoE.showExemplaire(txtCodeExemplaire.getText()));
 
     }
 
@@ -235,32 +248,12 @@ public class ControllerEmpruntLivre implements Initializable {
             lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
 
         }
+        else {
+            System.out.println("exemplaire inconnu");
+
+        }
     }
-//    private void afficherLabels() {
-//        if (txtCodeExemplaire.getText().equals("666")){
-//            String messageErreur1 = "Numéro d'exemplaire erroné.";
-//            String messageErreur2 = "Merci de vérifier et saisir à nouveau.";
-//            afficherMessageErreur(messageErreur1, messageErreur2);
-//        } else if (txtCodeExemplaire.getText().equals("6666")) {
-//            lblTitreExemplaire.setText("JavaFX pour les nuls");
-//            lblAuteur.setText("Doug Lowe");
-//            lblTheme.setText("Autre");
-//            lblEtat.setText("Neuf");
-//            lblDisponible.setText("Non");
-//            lblISBN.setText("978-1-118-38534-0");
-//            lblISSN.setText("NC");
-//            lblEmplacement.setText("B1");
-//        } else {
-//            lblTitreExemplaire.setText("JavaFX pour les nuls");
-//            lblAuteur.setText("Doug Lowe");
-//            lblTheme.setText("Autre");
-//            lblEtat.setText("Neuf");
-//            lblDisponible.setText("Oui");
-//            lblISBN.setText("978-1-118-38534-0");
-//            lblISSN.setText("NC");
-//            lblEmplacement.setText("B1");
-//        }
-//    }
+
 
     private void effacer() {
         txtCodeExemplaire.setText("");
@@ -275,19 +268,23 @@ public class ControllerEmpruntLivre implements Initializable {
     }
 
     private void confEmpruntLivre() {
+        DaoEmprunt daoE = new DaoEmprunt();
 
-        if (txtCodeExemplaire.getText().equals("6666")){
+        if (!(daoE.showExemplaire(txtCodeExemplaire.getText()).isDisponible())){
             String messageErreur1 = "Le livre n'est pas disponible.";
-            String messageErreur2 = "Le Livre JavaFX pour les nuls est déjà emprunté\r"
+            String messageErreur2 = "Le Livre " + (daoE.showExemplaire(txtCodeExemplaire.getText())).getlivre().getTitreLivre() + "  pour les nuls est déjà emprunté\r"
                     + "Vous pouvez passer au suivant ou quitter";
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else {
+            daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()),txtCodeExemplaire.getText()); ;
             String message1 = "Le livre est emprunté.";
             String message2 = "Merci de nous laisser tranquille.";
             afficherMessage(message1, message2);
         }
 
     }
+
+
 
     private void afficherMessageErreur(String messageErreur1, String messageErreur2) {
         Alert alert = new Alert(Alert.AlertType.WARNING);

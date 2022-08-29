@@ -8,9 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,7 +26,7 @@ import java.util.List;
  */
 public class Utile {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
-    private static AccesLivre accesLivre = new AccesLivre();
+    private static final AccesLivre accesLivre = new AccesLivre();
 
     /**
      * Exit app.
@@ -58,6 +66,7 @@ public class Utile {
      *
      * @return the observable list
      */
+
     public static ObservableList<Theme> lireTheme(String nomBib) {
         try {
             List<Theme> listTheme = AccesStat.listTheme(nomBib);
@@ -81,6 +90,20 @@ public class Utile {
     public static ObservableList<Livre> lireLivre(String nomBib) {
         try {
             List<Livre> listLivre = accesLivre.listLivres(nomBib);
+            return FXCollections.observableArrayList(listLivre);
+        } catch (Exception e) {
+            System.out.println(e);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(e.getMessage());
+            alert.setTitle("Erreur");
+            alert.showAndWait();
+        }
+        return null;
+    }
+
+    public static ObservableList<Livre> updateLireLivre(String requete) {
+        try {
+            List<Livre> listLivre = accesLivre.filteredListLivres(requete);
             return FXCollections.observableArrayList(listLivre);
         } catch (Exception e) {
             System.out.println(e);
@@ -118,4 +141,15 @@ public class Utile {
         return String.format("Le %s à %s ", formatDateTimeJ, formatDateTimeH);
 
     }
+
+    public static LocalDate calcDateRetour(){
+
+       return  LocalDate.now().plusDays(15);
+
+
+    }
+
+
+
+
 }

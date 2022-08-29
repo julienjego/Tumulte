@@ -64,9 +64,26 @@ public class AccesLivre {
             if (eM != null && eM.isOpen()) {
                 eM.close();
             }
+
         }
         return livres;
+    }
 
+    public List<Livre> filteredListLivres(String requete) {
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            EntityTransaction trans = em.getTransaction();
+            trans.begin();
+            List<Livre> livres = em.createQuery("select l " + "from Livre l " + "where l.titreLivre like '%" + requete + "%'", Livre.class).getResultList();
+            trans.commit();
+            return livres;
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+
+        }
     }
 
 }

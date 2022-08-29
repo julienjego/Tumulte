@@ -4,6 +4,7 @@ import fr.afpa.tumulte.outils.Emprunt_pk;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @IdClass(Emprunt_pk.class)
 @Entity
@@ -34,6 +35,10 @@ public class Emprunt {
         this.datRestitutionPrev = datRestitutionPrev;
         this.datRestitutionEff = datRestitutionEff;
     }
+
+
+
+
 
     @Override
     public String toString() {

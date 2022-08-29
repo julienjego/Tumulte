@@ -42,6 +42,37 @@ public class TableViewEmpruntsEnCours {
         this.numExemplaire = numExemplaire;
     }
 
+    public String getNomBibliotheque() {
+        return nomBibliotheque;
+    }
+
+    public void setNomBibliotheque(String nomBibliotheque) {
+        this.nomBibliotheque = nomBibliotheque;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public LocalDate getDatRetour() {
+        return datRetour;
+    }
+
+    public void setDatRetour(LocalDate datRetour) {
+        this.datRetour = datRetour;
+    }
+
+    public String getNumExemplaire() {
+        return numExemplaire;
+    }
+
+    public void setNumExemplaire(String numExemplaire) {
+        this.numExemplaire = numExemplaire;
+    }
 
     public String getTitreLivre() {
         return titreLivre;
@@ -67,12 +98,17 @@ public class TableViewEmpruntsEnCours {
         this.datEmprunt = datEmprunt;
     }
 
+
     @Override
     public String toString() {
         return "TableViewEmpruntsEnCours{" +
                 "titreLivre='" + titreLivre + '\'' +
-                ", nomAuteur='" + nomsAuteurs + '\'' +
                 ", datEmprunt=" + datEmprunt +
+                ", nomsAuteurs='" + nomsAuteurs + '\'' +
+                ", nomBibliotheque='" + nomBibliotheque + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", datRetour=" + datRetour +
+                ", numExemplaire='" + numExemplaire + '\'' +
                 '}';
     }
 }

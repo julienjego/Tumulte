@@ -41,17 +41,17 @@ public class ControllerAfficherAdherent implements Initializable {
     @FXML
     private Button btnRetour;
     @FXML
-    private TableColumn<TableViewEmpruntsEnCours, String> colTtlBbl;
+    private TableColumn colTtlBbl;
     @FXML
-    private TableColumn<TableViewEmpruntsEnCours, String> colTtlCodeExemplaire;
+    private TableColumn colTtlCodeExemplaire;
     @FXML
-    private TableColumn<TableViewEmpruntsEnCours, String> colTtlDatepret;
+    private TableColumn colTtlDatepret;
     @FXML
-    private TableColumn<TableViewEmpruntsEnCours, String> colTtlIsbn;
+    private TableColumn colTtlIsbn;
     @FXML
-    private TableColumn<TableViewEmpruntsEnCours, String> colTtlTitre;
+    private TableColumn colTtlTitre;
     @FXML
-    private TableColumn<TableViewEmpruntsEnCours, String> colTtldateRetour;
+    private TableColumn colTtldateRetour;
     @FXML
     private Label lblAdresse;
     @FXML
@@ -145,23 +145,16 @@ public class ControllerAfficherAdherent implements Initializable {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lblDate.setText(LocalDate.now().format(frformat));
 
-        // @TODO"taper ds la bdd pour avoir livre + exemplaire + emprunt"
-        final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList(
-       );
-
         tblPretEnCours.setEditable(true);
 
-        colTtlTitre.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("titre"));
-
-        colTtlBbl.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("codBibliotheque"));
-
-        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datePret"));
-        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("IsbnLivre"));
-        colTtldateRetour.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("dateRetour"));
+        colTtlTitre.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("titreLivre"));
+        colTtlBbl.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomBibliotheque"));
+        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datEmprunt"));
+        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("isbn"));
+        colTtldateRetour.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datRetour"));
         colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("numExemplaire"));
 
         tblPretEnCours.setItems(data);
-        //@todo remettre le nouveau tableau à la place de data ------------ >>>   tblPretEnCours.setItems(data);   <<<------------------//
     }
 
     public void taxiAdherent(Adherent adherent){

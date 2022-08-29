@@ -215,16 +215,6 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     private void afficherFicheAdherent() {
         try {
-/*            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/afficherAdherent.fxml"));
-
-            Scene scene2 = new Scene(fxmlLoader.load());
-            Stage stage2 = new Stage();
-            stage2.setScene(scene2);
-            stage2.initModality(Modality.APPLICATION_MODAL);
-            stage2.initOwner(stage);
-
-            stage2.show();*/
 
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
             Stage stage = (Stage) (menuBar.getScene().getWindow());

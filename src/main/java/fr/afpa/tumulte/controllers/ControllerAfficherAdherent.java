@@ -1,6 +1,7 @@
 package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
+import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.Exemplaire;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
+
+    private Adherent adherentAff;
 
     public Label lblDate;
     private Stage stage;
@@ -103,6 +106,8 @@ public class ControllerAfficherAdherent implements Initializable {
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
+        ControllerRechercherAdherent ctrlRechAdh = fxmlLoader.getController();
+        ctrlRechAdh.taxiAdherent(adherentAff);
         stage.show();
 
     }
@@ -152,6 +157,15 @@ public class ControllerAfficherAdherent implements Initializable {
         colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("numExemplaire"));
 
         //@todo remettre le nouveau tableau à la place de data ------------ >>>   tblPretEnCours.setItems(data);   <<<------------------//
+    }
+
+    public void taxiAdherent(Adherent adherent){
+        adherentAff = adherent;
+        lblNom.setText(adherentAff.getNomAdherent());
+        lblPrenom.setText(adherentAff.getPrenomAdherent());
+        lblTel.setText(adherentAff.getTeleAdherent());
+        lblAdresse.setText(adherentAff.getAdrAdherent());
+        lblNumAdherent.setText(String.valueOf(adherentAff.getNumAdherent()));
     }
 
     @FXML

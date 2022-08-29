@@ -230,11 +230,19 @@ public Adherent adherent;
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Menu principal");
             stage.setScene(scene);
+            ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
+            ctrlAfficherAdherent.taxiAdherent(adherent);
             stage.show();
 
         } catch (IOException e) {
             System.out.println("Impossible d'ouvrir la fenêtre !");
         }
+    }
+
+    public void taxiAdherent(Adherent adherent) {
+        txtNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
+        afficherInfoAdherent(adherent);
+
     }
 
     private void creerTableauEmprunts(Adherent adherent) {

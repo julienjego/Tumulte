@@ -39,7 +39,7 @@ public class ControllerEmpruntLivre implements Initializable {
 
     public void taxiAdherent(Adherent adherent) {
          adherentEmprunt = adherent;
-               lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
+         lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
         lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
         lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
 

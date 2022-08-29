@@ -5,6 +5,7 @@ import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.Exemplaire;
 import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.DaoEmprunt;
+import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,15 +36,20 @@ public class ControllerEmpruntLivre implements Initializable {
     public Label lblDate;
 
     public Adherent adherentEmprunt;
-
+    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    private Integer empruntsEncours = 0;
 
     public void taxiAdherent(Adherent adherent) {
          adherentEmprunt = adherent;
-               lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
+         lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
         lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
         lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
 
-    }    /**
+
+    }
+
+
+    /**
      * Bouton annuler.
      */
     @FXML
@@ -280,11 +286,12 @@ public class ControllerEmpruntLivre implements Initializable {
             String message1 = "Le livre est emprunté.";
             String message2 = "Merci de nous laisser tranquille.";
             afficherMessage(message1, message2);
-        }
+
+            empruntsEncours += 1;
+            btnEmprunter.setDisable(nbMaxEmpruntsEstAtteint(empruntsEncours));
+            }
 
     }
-
-
 
     private void afficherMessageErreur(String messageErreur1, String messageErreur2) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -317,5 +324,26 @@ public class ControllerEmpruntLivre implements Initializable {
 
     private boolean numExemplaireEstConnu(Exemplaire exemplaire){
         return Objects.equals(txtCodeExemplaire.getText(), exemplaire.getNumExemplaire());
+    }
+
+    public Integer getEmpruntsEncours() {
+        return empruntsEncours;
+    }
+
+    public void setEmpruntsEncours(Integer empruntsEncours) {
+        this.empruntsEncours = empruntsEncours;
+    }
+
+    public boolean nbMaxEmpruntsEstAtteint (Integer nbEmpruntsEnCours) {
+
+        if (nbEmpruntsEnCours < 3) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void taxiEmprunts(Integer nbEmpruntsEnCours) {
+        this.empruntsEncours = nbEmpruntsEnCours;
     }
 }

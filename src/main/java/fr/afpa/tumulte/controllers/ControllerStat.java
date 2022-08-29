@@ -219,8 +219,10 @@ public class ControllerStat implements Initializable {
         cbxVue.getItems().addAll(lstVue);
         cbxVue.setValue(cbxVue.getItems().get(0));
 
+        /*@TODO A supprimer quand année géré*/
         cbxAnnee.setVisible(false);
         lblAnnee.setVisible(false);
+
         grfTheme.setVisible(false);
         panResu.setVisible(false);
         btnImprimer.setVisible(false);

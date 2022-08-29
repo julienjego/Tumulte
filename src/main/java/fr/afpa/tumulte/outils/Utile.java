@@ -8,17 +8,10 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +30,7 @@ public class Utile {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Quitter ?");
         alert.setHeaderText(message);
-        alert.setContentText("Êtes-vous sur de vouloir quitter l'application");
+        alert.setContentText("Êtes-vous sur de vouloir quitter l'application ?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             System.exit(0);
@@ -73,7 +66,7 @@ public class Utile {
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText("Une erreur inattendue s'est produite, veuillez réessayer plus tard");
             alert.setTitle("Erreur");
             alert.showAndWait();
         }
@@ -94,7 +87,7 @@ public class Utile {
         } catch (Exception e) {
             System.out.println(e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText("Une erreur inattendue s'est produite, veuillez réessayer plus tard");
             alert.setTitle("Erreur");
             alert.showAndWait();
         }
@@ -108,7 +101,7 @@ public class Utile {
         } catch (Exception e) {
             System.out.println(e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(e.getMessage());
+            alert.setHeaderText("Impossible de mettre à jour la liste des livres");
             alert.setTitle("Erreur");
             alert.showAndWait();
         }
@@ -142,14 +135,12 @@ public class Utile {
 
     }
 
-    public static LocalDate calcDateRetour(){
+    public static LocalDate calcDateRetour() {
 
-       return  LocalDate.now().plusDays(15);
+        return LocalDate.now().plusDays(15);
 
 
     }
-
-
 
 
 }

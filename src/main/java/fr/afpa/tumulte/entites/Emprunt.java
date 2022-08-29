@@ -36,10 +36,6 @@ public class Emprunt {
         this.datRestitutionEff = datRestitutionEff;
     }
 
-
-
-
-
     @Override
     public String toString() {
         return "Emprunt{" +

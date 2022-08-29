@@ -2,9 +2,9 @@ package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
-import fr.afpa.tumulte.entites.Emprunt;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
 import fr.afpa.tumulte.outils.DaoAdherent;
+import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,8 +30,10 @@ import java.util.ResourceBundle;
  * The type Controller rechercher adherent.
  */
 public class ControllerRechercherAdherent implements Initializable {
-public Adherent adherent;
+    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    public Adherent adherent;
     public Label lblDate;
+    public Integer nbEmpruntsEnCours;
     /**
      * The Stage.
      */
@@ -72,6 +74,8 @@ public Adherent adherent;
     private TitledPane titledPaneAdherent;
     @FXML
     private TextField txtNumAdherent;
+    @FXML
+    private Label lblTropDePrets;
     @FXML
     private Font x3;
 
@@ -152,6 +156,7 @@ public Adherent adherent;
         Scene scene = new Scene(fxmlLoader.load());
         ControllerEmpruntLivre ctrlEMprLivre = fxmlLoader.getController();
         ctrlEMprLivre.taxiAdherent(adherent);
+        ctrlEMprLivre.taxiEmprunts(nbEmpruntsEnCours);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
@@ -167,6 +172,7 @@ public Adherent adherent;
         btnValiderAdherent.setDisable(true);
         lblCotisation.setVisible(false);
         lblDateFinCotisation.setVisible(false);
+        lblTropDePrets.setVisible(false);
         //méthode fléchée qui permet d'activer les boutons dès que le texte change
         txtNumAdherent.textProperty().addListener(observable -> activerBoutons());
 
@@ -175,6 +181,7 @@ public Adherent adherent;
         columnAuteur.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomsAuteurs"));
 
         tablePretsEnCours.setItems(data);
+
     }
 
     private void afficherInfoAdherent(Adherent adherent) {
@@ -182,6 +189,10 @@ public Adherent adherent;
             lblNomAdherent.setText(adherent.getNomAdherent());
             lblPrenomAdherent.setText(adherent.getPrenomAdherent());
             creerTableauEmprunts(adherent);
+            if (nbEmpruntsEnCours >= 3) {
+                lblTropDePrets.setVisible(true);
+                btnValiderAdherent.setDisable(true);
+            }
 
             if (abonnementEstPerime(adherent)) {
                 lblCotisationAJour.setText("Non");
@@ -214,22 +225,14 @@ public Adherent adherent;
     @FXML
     private void afficherFicheAdherent() {
         try {
-/*            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/afficherAdherent.fxml"));
-
-            Scene scene2 = new Scene(fxmlLoader.load());
-            Stage stage2 = new Stage();
-            stage2.setScene(scene2);
-            stage2.initModality(Modality.APPLICATION_MODAL);
-            stage2.initOwner(stage);
-
-            stage2.show();*/
 
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
             Stage stage = (Stage) (menuBar.getScene().getWindow());
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("Menu principal");
             stage.setScene(scene);
+            ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
+            ctrlAfficherAdherent.taxiAdherent(adherent);
             stage.show();
 
         } catch (IOException e) {
@@ -237,16 +240,16 @@ public Adherent adherent;
         }
     }
 
+    public void taxiAdherent(Adherent adherent) {
+        txtNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
+        rechercherAdherent();
+    }
+
     private void creerTableauEmprunts(Adherent adherent) {
         data.clear();
-
-        for (Emprunt emprunt : adherent.getLstEmpruntsEnCours()) {
-            TableViewEmpruntsEnCours tv = new TableViewEmpruntsEnCours (emprunt.getNumExemplaire().getlivre().getTitreLivre(), emprunt.getNumExemplaire().getlivre().getAuteur(), emprunt.getDatEmprunt());
-            data.add(tv);
-
+        data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
+        nbEmpruntsEnCours = data.size();
         }
-
-    }
 
     private boolean idAdherentEstValide() {
         return !txtNumAdherent.getText().equals("") && txtNumAdherent.getLength() < 11;

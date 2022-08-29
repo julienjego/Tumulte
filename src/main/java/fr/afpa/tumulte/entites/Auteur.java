@@ -1,21 +1,47 @@
 package fr.afpa.tumulte.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Auteur.
  */
 @Entity
+@Table(name = "auteur")
 public class Auteur {
     @Id
-    //Ah!
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String codeAuteur;
+    private int codAuteur;
+
     private String nomAuteur;
+
+    public List<Livre> getLivres() {
+        return livres;
+    }
+
+    public void setLivres(ArrayList<Livre> livres) {
+        this.livres = livres;
+    }
+
     private String prenomAuteur;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "redaction",
+            joinColumns = @JoinColumn(name = "codAuteur"),
+            inverseJoinColumns = @JoinColumn(name = "IsbnLivre"))
+    private List<Livre> livres = new ArrayList<>();
+
+    public Auteur(int codAuteur, String nomAuteur, String prenomAuteur, List<Livre> livres) {
+        this.codAuteur = codAuteur;
+        this.nomAuteur = nomAuteur;
+        this.prenomAuteur = prenomAuteur;
+        this.livres = livres;
+    }
+
+    public Auteur() {
+    }
 
     /**
      * Instantiates a new Auteur.
@@ -23,7 +49,6 @@ public class Auteur {
      * @param nomPrenomAuteur the nom prenom auteur
      */
     public Auteur(String nomPrenomAuteur) {
-        codeAuteur = " ";
         prenomAuteur = nomPrenomAuteur.substring(0, nomPrenomAuteur.indexOf(" "));
         nomAuteur = nomPrenomAuteur.substring(nomPrenomAuteur.indexOf(" "));
     }
@@ -31,14 +56,18 @@ public class Auteur {
     /**
      * Instantiates a new Auteur.
      *
-     * @param codeAuteur   the code auteur
+     * @param codAuteur    the code auteur
      * @param nomAuteur    the nom auteur
      * @param prenomAuteur the prenom auteur
      */
-    public Auteur(String codeAuteur, String nomAuteur, String prenomAuteur) {
-        this.codeAuteur = codeAuteur;
+    public Auteur(int codAuteur, String nomAuteur, String prenomAuteur) {
+        this.codAuteur = codAuteur;
         this.nomAuteur = nomAuteur;
         this.prenomAuteur = prenomAuteur;
+    }
+
+    public void setLivres(List<Livre> livres) {
+        this.livres = livres;
     }
 
     /**
@@ -46,17 +75,17 @@ public class Auteur {
      *
      * @return the code auteur
      */
-    public String getCodeAuteur() {
-        return codeAuteur;
+    public int getCodAuteur() {
+        return codAuteur;
     }
 
     /**
      * Sets code auteur.
      *
-     * @param codeAuteur the code auteur
+     * @param codAuteur the code auteur
      */
-    public void setCodeAuteur(String codeAuteur) {
-        this.codeAuteur = codeAuteur;
+    public void setCodAuteur(int codAuteur) {
+        this.codAuteur = codAuteur;
     }
 
     /**
@@ -98,6 +127,7 @@ public class Auteur {
     @Override
     public String toString() {
 
-        return String.format("%s %s %s", codeAuteur, nomAuteur, prenomAuteur);
+        return String.format("%s %s", prenomAuteur, nomAuteur);
+
     }
 }

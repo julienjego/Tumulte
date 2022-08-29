@@ -1,39 +1,56 @@
 package fr.afpa.tumulte.entites;
 
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The type Adherent.
  */
+@Entity
+@Table(name = "adherent")
 public class Adherent {
-    private String numAdherent;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "numAdherent",nullable = false, length = 11)
+    private Integer numAdherent;
+    @Column (name = "nomAdherent",nullable = false, length = 50)
     private String nomAdherent;
+    @Column (name = "prenomAdherent",nullable = false, length = 50)
     private String prenomAdherent;
+    @Column (name = "adrAdherent",nullable = false, length = 50)
     private String adrAdherent;
+    @Column (name = "telAdherent",nullable = false, length = 20)
     private String teleAdherent;
-    private String perimeLe;
+    @Column (name = "perimeLe",nullable = false)
+    private LocalDate perimeLe;
+    @Column (name = "pwdAdherent",nullable = true, length = 10)
     private String pwdAdherent;
+    @OneToMany(mappedBy = "numAdherent")
+    private List<Emprunt> lstEmpruntsEnCours = new ArrayList<>();
 
-    /**
-     * Instantiates a new Adherent.
-     *
-     * @param numAdherent    the num adherent
-     * @param nomAdherent    the nom adherent
-     * @param prenomAdherent the prenom adherent
-     * @param adrAdherent    the adr adherent
-     * @param teleAdherent   the tele adherent
-     * @param perimeLe       the perime le
-     */
-    public Adherent(final String numAdherent,
-                    final String nomAdherent,
-                    final String prenomAdherent,
-                    final String adrAdherent,
-                    final String teleAdherent,
-                    final String perimeLe) {
+    public Adherent() {
+    }
+
+    public Adherent(Integer numAdherent, String nomAdherent, String prenomAdherent, String adrAdherent, String teleAdherent, LocalDate perimeLe, String pwdAdherent, List<Emprunt> lstEmpruntsEnCours) {
         this.numAdherent = numAdherent;
         this.nomAdherent = nomAdherent;
         this.prenomAdherent = prenomAdherent;
         this.adrAdherent = adrAdherent;
         this.teleAdherent = teleAdherent;
         this.perimeLe = perimeLe;
+        this.pwdAdherent = pwdAdherent;
+        this.lstEmpruntsEnCours = lstEmpruntsEnCours;
+    }
+
+    public List<Emprunt> getLstEmpruntsEnCours() {
+        return lstEmpruntsEnCours;
+    }
+
+    public void setLstEmpruntsEnCours(List<Emprunt> lstEmpruntsEnCours) {
+        this.lstEmpruntsEnCours = lstEmpruntsEnCours;
     }
 
     /**
@@ -41,7 +58,7 @@ public class Adherent {
      *
      * @return the num adherent
      */
-    public String getNumAdherent() {
+    public Integer getNumAdherent() {
         return numAdherent;
     }
 
@@ -50,8 +67,8 @@ public class Adherent {
      *
      * @param numAdherent the num adherent
      */
-    public void setNumAdherent(final String numAdherent) {
-        this.numAdherent = numAdherent.trim();
+    public void setNumAdherent(final Integer numAdherent) {
+        this.numAdherent = numAdherent;
     }
 
     /**
@@ -131,7 +148,7 @@ public class Adherent {
      *
      * @return the perime le
      */
-    public String getPerimeLe() {
+    public LocalDate getPerimeLe() {
         return perimeLe;
     }
 
@@ -140,7 +157,7 @@ public class Adherent {
      *
      * @param perimeLe the perime le
      */
-    public void setPerimeLe(final String perimeLe) {
+    public void setPerimeLe(final LocalDate perimeLe) {
         this.perimeLe = perimeLe;
     }
 

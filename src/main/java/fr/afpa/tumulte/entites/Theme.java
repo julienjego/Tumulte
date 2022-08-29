@@ -12,13 +12,12 @@ public class Theme {
      * Code du thème.
      */
     @Id
-    @Column(name="codTheme")
-    private String codeTheme;
+    @Column(name = "codTheme")
+    private String codTheme;
     /**
      * Nom du thème.
      */
-    @Column(name="libelTheme")
-    private String theme;
+    private String libelTheme;
     /**
      * Description du thème.
      */
@@ -38,14 +37,13 @@ public class Theme {
      * @param nbEmprunt    the nb emprunt
      */
     public Theme(String codeTheme, String theme, String descripTheme, int nbEmprunt) {
-        this.codeTheme = codeTheme;
-        this.theme = theme;
+        this.codTheme = codeTheme;
+        this.libelTheme = theme;
         this.descripTheme = descripTheme;
         this.nbEmprunt = nbEmprunt;
     }
 
     public Theme() {
-
     }
 
     /**
@@ -71,17 +69,17 @@ public class Theme {
      *
      * @return the code theme
      */
-    public String getCodeTheme() {
-        return codeTheme;
+    public String getCodTheme() {
+        return codTheme;
     }
 
     /**
      * Sets code theme.
      *
-     * @param codeTheme the code theme
+     * @param codTheme the code theme
      */
-    public void setCodeTheme(String codeTheme) {
-        this.codeTheme = codeTheme;
+    public void setCodTheme(String codTheme) {
+        this.codTheme = codTheme;
     }
 
     /**
@@ -89,17 +87,17 @@ public class Theme {
      *
      * @return the theme
      */
-    public String getTheme() {
-        return theme;
+    public String getLibelTheme() {
+        return libelTheme;
     }
 
     /**
      * Sets theme.
      *
-     * @param theme the theme
+     * @param libelTheme the theme
      */
-    public void setTheme(String theme) {
-        this.theme = theme;
+    public void setLibelTheme(String libelTheme) {
+        this.libelTheme = libelTheme;
     }
 
     /**
@@ -125,6 +123,6 @@ public class Theme {
      */
     @Override
     public String toString() {
-        return String.format("code : %s %n theme : %s %n description : %s %n nbemprunt : %s %n", codeTheme, theme, descripTheme, nbEmprunt);
+        return String.format("%s", libelTheme);
     }
 }

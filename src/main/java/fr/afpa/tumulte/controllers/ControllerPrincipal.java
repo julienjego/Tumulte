@@ -52,7 +52,8 @@ public class ControllerPrincipal implements Initializable {
     @FXML
     void ouvrirPageEmprunt(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
-        stage = (Stage) (menuBar.getScene().getWindow());stage.setMinHeight(600);
+        stage = (Stage) (menuBar.getScene().getWindow());
+        stage.setMinHeight(600);
         stage.setMinWidth(900);
         scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
@@ -63,13 +64,13 @@ public class ControllerPrincipal implements Initializable {
 
     @FXML
     void ouvrirPageFonds(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/menuPrincipal.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherLivre.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
         stage.setMinHeight(600);
         stage.setMinWidth(900);
         scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-        stage.setTitle("Menu Principal");
+        stage.setTitle("Consultation du fonds");
         stage.setScene(scene);
         stage.show();
     }

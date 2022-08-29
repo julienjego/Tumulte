@@ -6,16 +6,29 @@
 
     <persistence-unit name="fr.afpa.tumulte">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>fr.afpa.tumulte.entites.Adherent</class>
+        <class>fr.afpa.tumulte.entites.Auteur</class>
+        <class>fr.afpa.tumulte.entites.Bibliotheque</class>
+        <class>fr.afpa.tumulte.entites.Emplacement</class>
+        <class>fr.afpa.tumulte.entites.Emprunt_pk</class>
+        <class>fr.afpa.tumulte.entites.Emprunt</class>
+        <class>fr.afpa.tumulte.entites.Exemplaire</class>
+        <class>fr.afpa.tumulte.entites.Livre</class>
         <class>fr.afpa.tumulte.entites.Theme</class>
+        <class>fr.afpa.tumulte.entites.Redaction_pk</class>
+<!--        <class>fr.afpa.tumulte.entites.Redaction</class>-->
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- value permet d'update ou de create -->
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.show_sql" value="true"/>
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:mysql://172.16.130.140:3306/tumult?serverTimezone=UTC"/>
             <property name="jakarta.persistence.jdbc.user" value="CDA"/>
             <property name="jakarta.persistence.jdbc.password" value="hello"/>
+            <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
 

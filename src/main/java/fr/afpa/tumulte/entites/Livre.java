@@ -1,17 +1,27 @@
 package fr.afpa.tumulte.entites;
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The type Livre.
  */
+@Entity
+@Table(name = "livre")
 public class Livre {
     /**
      * l'isbn du livre.
      */
+    @Id
     private String IsbnLivre;
     /**
      * code du thème du livre.
      */
-    private String codTheme;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "codTheme")
+    private Theme theme;
     /**
      * Titre du livre.
      */
@@ -19,141 +29,99 @@ public class Livre {
     /**
      * Auteur du livre.
      */
-    private Auteur auteur;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "redaction",
+            joinColumns = @JoinColumn(name = "IsbnLivre"),
+            inverseJoinColumns = @JoinColumn(name = "codAuteur"))
+    private List<Auteur> auteur = new ArrayList<>();
+
     /**
-     * nombre d'exemplaire de ce livre.
+     * nombre d'emprunts de ce livre.
      */
-    private int nbExemplaire;
-    /**
-     * nombre d'emprunt de ce livre.
-     */
+    @Transient
     private int nbEmprunt;
+
+    /**
+     * nombre d'exemplaires de ce livre.
+     */
+    @Transient
+    private int nbExemplaires;
+
+    public Livre() {
+    }
 
     /**
      * Instantiates a new Livre.
      *
-     * @param isbnLivre    the isbn livre
-     * @param codTheme     the cod theme
-     * @param titreLivre   the titre livre
-     * @param auteur       the auteur
-     * @param nbExemplaire the nb exemplaire
-     * @param nbEmprunt    the nb emprunt
+     * @param isbnLivre  the isbn livre
+     * @param theme      the cod theme
+     * @param titreLivre the titre livre
+     * @param auteur     the auteur
      */
-    public Livre(String isbnLivre, String codTheme, String titreLivre, Auteur auteur, int nbExemplaire, int nbEmprunt) {
-        IsbnLivre = isbnLivre;
-        this.codTheme = codTheme;
+    public Livre(String isbnLivre, Theme theme, String titreLivre, ArrayList<Auteur> auteur) {
+        this.IsbnLivre = isbnLivre;
+        this.theme = theme;
         this.titreLivre = titreLivre;
-        this.auteur = auteur;
-        this.nbExemplaire = nbExemplaire;
-        this.nbEmprunt = nbEmprunt;
+//        this.auteur = auteur;
     }
 
-    /**
-     * Gets nb exemplaire.
-     *
-     * @return the nb exemplaire
-     */
-    public int getNbExemplaire() {
-        return nbExemplaire;
-    }
-
-    /**
-     * Sets nb exemplaire.
-     *
-     * @param nbExemplaire the nb exemplaire
-     */
-    public void setNbExemplaire(int nbExemplaire) {
-        this.nbExemplaire = nbExemplaire;
-    }
-
-    /**
-     * Gets nb emprunt.
-     *
-     * @return the nb emprunt
-     */
-    public int getNbEmprunt() {
-        return nbEmprunt;
-    }
-
-    /**
-     * Sets nb emprunt.
-     *
-     * @param nbEmprunt the nb emprunt
-     */
-    public void setNbEmprunt(int nbEmprunt) {
-        this.nbEmprunt = nbEmprunt;
-    }
-
-    /**
-     * Gets isbn livre.
-     *
-     * @return the isbn livre
-     */
     public String getIsbnLivre() {
         return IsbnLivre;
     }
 
-    /**
-     * Sets isbn livre.
-     *
-     * @param isbnLivre the isbn livre
-     */
     public void setIsbnLivre(String isbnLivre) {
-        IsbnLivre = isbnLivre;
+        this.IsbnLivre = isbnLivre;
     }
 
-    /**
-     * Gets cod theme.
-     *
-     * @return the cod theme
-     */
-    public String getCodTheme() {
-        return codTheme;
+    public Theme getTheme() {
+        return theme;
     }
 
-    /**
-     * Sets cod theme.
-     *
-     * @param codTheme the cod theme
-     */
-    public void setCodTheme(String codTheme) {
-        this.codTheme = codTheme;
+    public void setTheme(Theme theme) {
+        this.theme = theme;
     }
 
-    /**
-     * Gets titre livre.
-     *
-     * @return the titre livre
-     */
     public String getTitreLivre() {
         return titreLivre;
     }
 
-    /**
-     * Sets titre livre.
-     *
-     * @param titreLivre the titre livre
-     */
     public void setTitreLivre(String titreLivre) {
         this.titreLivre = titreLivre;
     }
 
-    /**
-     * Gets auteur.
-     *
-     * @return the auteur
-     */
-    public Auteur getAuteur() {
+    public List<Auteur> getAuteur() {
         return auteur;
     }
 
-    /**
-     * Sets auteur.
-     *
-     * @param auteur the auteur
-     */
-    public void setAuteur(Auteur auteur) {
+    public void setAuteur(ArrayList<Auteur> auteur) {
         this.auteur = auteur;
     }
 
+    public int getNbEmprunt() {
+        return nbEmprunt;
+    }
+
+    public void setNbEmprunt(int nbEmprunt) {
+        this.nbEmprunt = nbEmprunt;
+    }
+
+    public int getNbExemplaires() {
+        return nbExemplaires;
+    }
+
+    public void setNbExemplaires(int nbExemplaires) {
+        this.nbExemplaires = nbExemplaires;
+    }
+
+    @Override
+    public String toString() {
+        return "Livre{" +
+                       "IsbnLivre='" + IsbnLivre + '\'' +
+                       ", theme=" + theme +
+                       ", titreLivre='" + titreLivre + '\'' +
+                       ", auteur=" + auteur +
+                       ", nbEmprunt=" + nbEmprunt +
+                       ", nbExemplaires=" + nbExemplaires +
+                       '}';
+    }
 }

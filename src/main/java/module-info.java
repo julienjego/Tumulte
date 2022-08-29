@@ -4,6 +4,8 @@ module fr.afpa.app {
     requires java.sql;
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
+    requires org.apache.commons.lang3;
+
 
 
     opens fr.afpa.tumulte.app to javafx.fxml;

@@ -1,5 +1,7 @@
 package fr.afpa.tumulte.app;
 
+import fr.afpa.tumulte.entites.Adherent;
+import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.Utile;
 import fr.afpa.tumulte.outils.doa;
 import javafx.application.Application;
@@ -9,13 +11,15 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
-/**
- * Hello world!
- */
-// Salut
 public class App extends Application {
     public static void main(String[] args) {
+
+//        Adherent adherent = new Adherent(10,"BEBERT", "Al", "14 rue du four", "06.00.00.00.00", LocalDate.of(2022,02,22));
+//        DaoAdherent daoAdherent = new DaoAdherent();
+//        daoAdherent.saveAdherent(adherent);
+
         launch();
     }
 
@@ -36,12 +40,6 @@ public class App extends Application {
             Utile.exitApp("Êtes-vous sûr ?");
         });
 
-        try {
-            doa.listTheme();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
 
 }

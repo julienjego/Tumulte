@@ -43,6 +43,7 @@ public class ControllerStat implements Initializable {
      * Constante de "Graphique par thème".
      */
     private static final String GRAF_THEME = "Graphique par thème";
+    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     /**
      * Constante du nombre d'année consultable.
      */
@@ -62,6 +63,8 @@ public class ControllerStat implements Initializable {
      */
     @FXML
     private ComboBox cbxVue;
+    @FXML
+    private Label lblAnnee;
     /**
      * combo box pour choisir l'année .
      */
@@ -176,101 +179,8 @@ public class ControllerStat implements Initializable {
     private TableColumn colNbEmpruntLivre;
     @FXML
     private BarChart grfTheme;
-
-    /**
-     * On click valider.
-     * rend visible les boutons voulus et le paneau de résultat
-     * rempli selon le choix de vue le tableau correspondant
-     */
     @FXML
-    public void onClickValider() {
-        lblTitre.setText(String.format("%s pour %s : %s",
-                cbxBib.getValue(), cbxAnnee.getValue(), cbxVue.getValue()));
-        panResu.setVisible(true);
-        btnImprimer.setVisible(true);
-        btnAnnuler.setVisible(true);
-        btnValiderTop.setVisible(true);
-
-        String vue = (String) cbxVue.getValue();
-        switch (vue) {
-            case TAB_THEME -> {
-                tabTheme.setVisible(true);
-                tabLivres.setVisible(false);
-                grfTheme.setVisible(false);
-                ObservableList<Theme> listTheme = lireTheme();
-                colCodeTheme.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("codeTheme"));
-                colTheme.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("theme"));
-                colDescription.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>(
-                                "descripTheme"));
-                colNbEmpruntTheme.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("nbEmprunt"));
-                tabTheme.setItems(listTheme);
-            }
-            case TAB_LIVRE -> {
-                tabLivres.setVisible(true);
-                tabTheme.setVisible(false);
-                grfTheme.setVisible(false);
-                ObservableList<Livre> listLivre = lireLivre();
-                colISBN.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("IsbnLivre"));
-                colTitre.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("titreLivre"));
-                colAuteur.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("auteur"));
-                colThemeLivre.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("codTheme"));
-                colNbExemplaire.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>(
-                                "nbExemplaire"));
-                colNbEmpruntLivre.setCellValueFactory(
-                        new PropertyValueFactory<Theme, String>("nbEmprunt"));
-                tabLivres.setItems(listLivre);
-            }
-            case GRAF_THEME -> {
-                tabLivres.setVisible(false);
-                tabTheme.setVisible(false);
-
-                ObservableList<Theme> listTheme = lireTheme();
-                ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
-
-                for (int i = 1; i < listTheme.size(); i++) {
-                    String item = listTheme.get(i).getTheme();
-                    int count = listTheme.get(i).getNbEmprunt();
-                    data.add(new BarChart.Data(item + "(" + count + ")", count));
-                }
-                XYChart.Series<String, Number> series = new XYChart.Series<>("Thèmes", data);
-                grfTheme.getData().setAll(series);
-
-                for (Node n : grfTheme.lookupAll(".default-color0.chart-bar")) {
-                    n.setStyle("-fx-bar-fill: #00008b ");
-                }
-                grfTheme.setLegendVisible(false);
-                grfTheme.setAnimated(false);
-                grfTheme.setVisible(true);
-            }
-        }
-    }
-
-    /**
-     * On click menu principal.
-     * retour au menu principal
-     *
-     * @throws IOException the io exception
-     */
-    @FXML
-    public void onClickMenuPrincipal() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(
-                App.class.getResource("/fxml/menuPrincipal.fxml"));
-        Stage stage = (Stage) (menuBar.getScene().getWindow());
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-        stage.setTitle("Emprunter");
-        stage.setScene(scene);
-        stage.show();
-    }
+    private MenuItem itmAbout;
 
     /**
      * initialise la page.
@@ -309,6 +219,10 @@ public class ControllerStat implements Initializable {
         cbxVue.getItems().addAll(lstVue);
         cbxVue.setValue(cbxVue.getItems().get(0));
 
+        /*@TODO A supprimer quand année géré*/
+        cbxAnnee.setVisible(false);
+        lblAnnee.setVisible(false);
+
         grfTheme.setVisible(false);
         panResu.setVisible(false);
         btnImprimer.setVisible(false);
@@ -319,6 +233,100 @@ public class ControllerStat implements Initializable {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lblDate.setText(LocalDate.now().format(frformat));
 
+    }
+
+    /**
+     * On click valider.
+     * rend visible les boutons voulus et le paneau de résultat
+     * rempli selon le choix de vue le tableau correspondant
+     */
+    @FXML
+    public void onClickValider() {
+        lblTitre.setText(String.format("%s pour %s : %s",
+                cbxBib.getValue(), cbxAnnee.getValue(), cbxVue.getValue()));
+        panResu.setVisible(true);
+        btnImprimer.setVisible(true);
+        btnAnnuler.setVisible(true);
+        btnValiderTop.setVisible(true);
+
+        String vue = (String) cbxVue.getValue();
+        switch (vue) {
+            case TAB_THEME -> {
+                tabTheme.setVisible(true);
+                tabLivres.setVisible(false);
+                grfTheme.setVisible(false);
+                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString());
+                colCodeTheme.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("codTheme"));
+                colTheme.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("libelTheme"));
+                colDescription.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("descripTheme"));
+                colNbEmpruntTheme.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("nbEmprunt"));
+                tabTheme.setItems(listTheme);
+            }
+            case TAB_LIVRE -> {
+                tabLivres.setVisible(true);
+                tabTheme.setVisible(false);
+                grfTheme.setVisible(false);
+                ObservableList<Livre> listLivre = lireLivre(cbxBib.getValue().toString());
+                colISBN.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("IsbnLivre"));
+                colTitre.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("titreLivre"));
+                colAuteur.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("auteur"));
+                colThemeLivre.setCellValueFactory(
+                        new PropertyValueFactory<Theme, String>("theme"));
+                colNbExemplaire.setCellValueFactory(
+                        new PropertyValueFactory<Theme, Integer>(
+                                "nbExemplaires"));
+                colNbEmpruntLivre.setCellValueFactory(
+                        new PropertyValueFactory<Theme, Integer>("nbEmprunt"));
+                tabLivres.setItems(listLivre);
+            }
+            case GRAF_THEME -> {
+                tabLivres.setVisible(false);
+                tabTheme.setVisible(false);
+
+                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString());
+                ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
+
+                for (int i = 1; i < listTheme.size(); i++) {
+                    String item = listTheme.get(i).getLibelTheme();
+                    int count = listTheme.get(i).getNbEmprunt();
+                    data.add(new BarChart.Data(item + "(" + count + ")", count));
+                }
+                XYChart.Series<String, Number> series = new XYChart.Series<>("Thèmes", data);
+                grfTheme.getData().setAll(series);
+
+                for (Node n : grfTheme.lookupAll(".default-color0.chart-bar")) {
+                    n.setStyle("-fx-bar-fill: #00008b ");
+                }
+                grfTheme.setLegendVisible(false);
+                grfTheme.setAnimated(false);
+                grfTheme.setVisible(true);
+            }
+        }
+    }
+
+    /**
+     * On click menu principal.
+     * retour au menu principal
+     *
+     * @throws IOException the io exception
+     */
+    @FXML
+    public void onClickMenuPrincipal() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                App.class.getResource("/fxml/menuPrincipal.fxml"));
+        Stage stage = (Stage) (menuBar.getScene().getWindow());
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        stage.setTitle("Emprunter");
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**

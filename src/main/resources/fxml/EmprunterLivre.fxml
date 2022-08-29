@@ -91,7 +91,7 @@
                         <TextField fx:id="txtCodeExemplaire" layoutX="140.0" layoutY="12.0" onKeyPressed="#activerBtnRechercher" AnchorPane.leftAnchor="149.0" AnchorPane.topAnchor="14.0" />
                         <Button fx:id="btnRechercherLivre" layoutX="309.0" layoutY="12.0" mnemonicParsing="false" onAction="#rechercherLivre" prefHeight="25.0" prefWidth="126.0" text="Rechercher" AnchorPane.leftAnchor="309.0" AnchorPane.topAnchor="14.0" />
                         <Label layoutX="17.0" layoutY="59.0" prefHeight="25.0" prefWidth="76.0" text="Titre :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="49.0" />
-                        <Label layoutX="17.0" layoutY="96.0" prefHeight="25.0" prefWidth="76.0" text="Auteur :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="84.0" />
+                        <Label layoutX="17.0" layoutY="96.0" prefHeight="25.0" prefWidth="76.0" text="Auteur(s) :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="84.0" />
                         <Label layoutX="17.0" layoutY="121.0" prefHeight="25.0" prefWidth="76.0" text="Thème :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="119.0" />
                         <Label layoutX="17.0" layoutY="170.0" prefHeight="25.0" prefWidth="76.0" text="Etat :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="154.0" />
                         <Label layoutX="17.0" layoutY="195.0" prefHeight="25.0" prefWidth="76.0" text="Disponible :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="189.0" />
@@ -104,9 +104,9 @@
                         <Button fx:id="btnAnnuler" layoutX="635.0" layoutY="285.0" mnemonicParsing="false" onAction="#annuler" prefHeight="40.0" prefWidth="100.0" text="Annuler" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="124.0" />
                         <Label fx:id="lblTitreExemplaire" layoutX="159.0" layoutY="59.0" prefHeight="25.0" prefWidth="285.0" />
                         <Label fx:id="lblAuteur" layoutX="159.0" layoutY="94.0" prefHeight="25.0" prefWidth="286.0" />
-                        <Label fx:id="lblTheme" layoutX="159.0" layoutY="129.0" prefHeight="25.0" prefWidth="76.0" />
-                        <Label fx:id="lblEtat" layoutX="159.0" layoutY="164.0" prefHeight="25.0" prefWidth="76.0" />
-                        <Label fx:id="lblDisponible" layoutX="159.0" layoutY="199.0" prefHeight="25.0" prefWidth="76.0" />
+                        <Label fx:id="lblTheme" layoutX="159.0" layoutY="129.0" prefHeight="25.0" prefWidth="284.0" />
+                        <Label fx:id="lblEtat" layoutX="159.0" layoutY="164.0" prefHeight="25.0" prefWidth="285.0" />
+                        <Label fx:id="lblDisponible" layoutX="159.0" layoutY="199.0" prefHeight="25.0" prefWidth="250.0" />
                         <Label fx:id="lblISBN" layoutX="552.0" layoutY="59.0" prefHeight="25.0" prefWidth="112.0" />
                         <Label fx:id="lblISSN" layoutX="552.0" layoutY="94.0" prefHeight="25.0" prefWidth="83.0" />
                         <Label fx:id="lblEmplacement" layoutX="552.0" layoutY="129.0" prefHeight="25.0" prefWidth="83.0" />

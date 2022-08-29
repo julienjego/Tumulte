@@ -1,0 +1,42 @@
+package fr.afpa.tumulte.outils;
+
+import fr.afpa.tumulte.entites.Adherent;
+import fr.afpa.tumulte.entites.Emprunt;
+import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProjectionTableauEmprunt {
+
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    Adherent adherent;
+
+    public List<TableViewEmpruntsEnCours> tableViewEmpruntsEnCours(Integer numAdherent) {
+        List<TableViewEmpruntsEnCours> output = new ArrayList<>();
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        adherent = em.find(Adherent.class, numAdherent);
+
+        for (Emprunt emprunt : adherent.getLstEmpruntsEnCours()) {
+            TableViewEmpruntsEnCours tv = new TableViewEmpruntsEnCours(
+                    emprunt.getNumExemplaire().getlivre().getTitreLivre(),
+                    emprunt.getDatEmprunt(),
+                    emprunt.getNumExemplaire().getlivre().getAuteur(),
+                    emprunt.getNumExemplaire().getBibliotheque().getLibelBibliotheque(),
+                    emprunt.getNumExemplaire().getlivre().getIsbnLivre(),
+                    emprunt.getDatRestitutionPrev(),
+                    emprunt.getNumExemplaire().getNumExemplaire()
+            );
+            output.add(tv);
+        }
+        em.getTransaction().commit();
+        return output;
+
+    }
+}

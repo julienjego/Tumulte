@@ -3,6 +3,8 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.Exemplaire;
+import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
+import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +27,8 @@ import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
 
+    final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
+    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     private Adherent adherentAff;
 
     public Label lblDate;
@@ -37,17 +41,17 @@ public class ControllerAfficherAdherent implements Initializable {
     @FXML
     private Button btnRetour;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlBbl;
+    private TableColumn<TableViewEmpruntsEnCours, String> colTtlBbl;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlCodeExemplaire;
+    private TableColumn<TableViewEmpruntsEnCours, String> colTtlCodeExemplaire;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlDatepret;
+    private TableColumn<TableViewEmpruntsEnCours, String> colTtlDatepret;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlIsbn;
+    private TableColumn<TableViewEmpruntsEnCours, String> colTtlIsbn;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlTitre;
+    private TableColumn<TableViewEmpruntsEnCours, String> colTtlTitre;
     @FXML
-    private TableColumn<Exemplaire, String> colTtldateRetour;
+    private TableColumn<TableViewEmpruntsEnCours, String> colTtldateRetour;
     @FXML
     private Label lblAdresse;
     @FXML
@@ -65,7 +69,7 @@ public class ControllerAfficherAdherent implements Initializable {
     @FXML
     private Label lblTel;
     @FXML
-    private TableView<Exemplaire> tblPretEnCours;
+    private TableView<TableViewEmpruntsEnCours> tblPretEnCours;
     @FXML
     private Font x3;
     @FXML
@@ -142,20 +146,21 @@ public class ControllerAfficherAdherent implements Initializable {
         lblDate.setText(LocalDate.now().format(frformat));
 
         // @TODO"taper ds la bdd pour avoir livre + exemplaire + emprunt"
-        final ObservableList<?> data = FXCollections.observableArrayList(
+        final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList(
        );
 
         tblPretEnCours.setEditable(true);
 
-        colTtlTitre.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("titre"));
+        colTtlTitre.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("titre"));
 
-        colTtlBbl.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codBibliotheque"));
+        colTtlBbl.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("codBibliotheque"));
 
-        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("datePret"));
-        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("IsbnLivre"));
-        colTtldateRetour.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("dateRetour"));
-        colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("numExemplaire"));
+        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datePret"));
+        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("IsbnLivre"));
+        colTtldateRetour.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("dateRetour"));
+        colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("numExemplaire"));
 
+        tblPretEnCours.setItems(data);
         //@todo remettre le nouveau tableau à la place de data ------------ >>>   tblPretEnCours.setItems(data);   <<<------------------//
     }
 
@@ -166,6 +171,14 @@ public class ControllerAfficherAdherent implements Initializable {
         lblTel.setText(adherentAff.getTeleAdherent());
         lblAdresse.setText(adherentAff.getAdrAdherent());
         lblNumAdherent.setText(String.valueOf(adherentAff.getNumAdherent()));
+        creerTableauEmprunts(adherent);
+    }
+
+    private void creerTableauEmprunts(Adherent adherent) {
+        data.clear();
+
+        data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
+        System.out.println(data);
     }
 
     @FXML

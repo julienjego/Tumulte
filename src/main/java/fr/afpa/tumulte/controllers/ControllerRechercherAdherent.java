@@ -2,9 +2,9 @@ package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
-import fr.afpa.tumulte.entites.Emprunt;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
 import fr.afpa.tumulte.outils.DaoAdherent;
+import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,7 +30,8 @@ import java.util.ResourceBundle;
  * The type Controller rechercher adherent.
  */
 public class ControllerRechercherAdherent implements Initializable {
-public Adherent adherent;
+    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    public Adherent adherent;
     public Label lblDate;
     /**
      * The Stage.
@@ -248,13 +249,8 @@ public Adherent adherent;
     private void creerTableauEmprunts(Adherent adherent) {
         data.clear();
 
-        for (Emprunt emprunt : adherent.getLstEmpruntsEnCours()) {
-            TableViewEmpruntsEnCours tv = new TableViewEmpruntsEnCours (emprunt.getNumExemplaire().getlivre().getTitreLivre(), emprunt.getNumExemplaire().getlivre().getAuteur(), emprunt.getDatEmprunt());
-            data.add(tv);
-
+        data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
         }
-
-    }
 
     private boolean idAdherentEstValide() {
         return !txtNumAdherent.getText().equals("") && txtNumAdherent.getLength() < 11;

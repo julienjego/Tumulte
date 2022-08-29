@@ -26,8 +26,13 @@ public class DaoAdherent {
 
     // Afficher un adhérent présent dans la BDD
     public Adherent showAdherent(Integer id) {
+        Adherent adhTemp;
         EntityManager em = emf.createEntityManager();
-        return em.find(Adherent.class, id);
+        em.getTransaction().begin();
+        adhTemp = em.find(Adherent.class, id);
+        adhTemp.getLstEmpruntsEnCours();
+        em.getTransaction().commit();
+        return adhTemp;
 
     }
 

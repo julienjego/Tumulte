@@ -8,6 +8,10 @@ public class TableViewEmpruntsEnCours {
     private String titreLivre;
     private LocalDate datEmprunt;
     private String nomsAuteurs;
+    private String nomBibliotheque;
+    private String isbn;
+    private LocalDate datRetour;
+    private String numExemplaire;
 
 
     public void format (List<Auteur> auteurs) {
@@ -22,11 +26,22 @@ public class TableViewEmpruntsEnCours {
 
     }
 
-    public TableViewEmpruntsEnCours(String titreLivre, List<Auteur> nomAuteur, LocalDate datEmprunt) {
+    public TableViewEmpruntsEnCours(String titreLivre,
+                                    LocalDate datEmprunt,
+                                    List<Auteur> nomAuteur,
+                                    String nomBibliotheque,
+                                    String isbn,
+                                    LocalDate datRetour,
+                                    String numExemplaire) {
         this.titreLivre = titreLivre;
-        format(nomAuteur);
         this.datEmprunt = datEmprunt;
+        format(nomAuteur);
+        this.nomBibliotheque = nomBibliotheque;
+        this.isbn = isbn;
+        this.datRetour = datRetour;
+        this.numExemplaire = numExemplaire;
     }
+
 
     public String getTitreLivre() {
         return titreLivre;

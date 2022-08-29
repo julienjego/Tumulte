@@ -147,14 +147,19 @@ public class ControllerAfficherAdherent implements Initializable {
 
         tblPretEnCours.setEditable(true);
 
-        colTtlTitre.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("titreLivre"));
-        colTtlBbl.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomBibliotheque"));
-        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datEmprunt"));
-        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("isbn"));
-        colTtldateRetour.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datRetour"));
-        colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("numExemplaire"));
+        colTtlTitre.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("titreLivre"));
+        colTtlBbl.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomBibliotheque"));
+        colTtlDatepret.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datEmprunt"));
+        colTtlIsbn.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("isbn"));
+        colTtldateRetour.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datRetour"));
+        colTtlCodeExemplaire.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("numExemplaire"));
         tblPretEnCours.setItems(data);
-        //System.out.println("data size : " + data.size());
     }
 
     public void taxiAdherent(Adherent adherent){
@@ -166,13 +171,14 @@ public class ControllerAfficherAdherent implements Initializable {
         lblNumAdherent.setText(String.valueOf(adherentAff.getNumAdherent()));
         creerTableauEmprunts(adherent);
         lblNbPretEnCours.setText(String.valueOf(data.size()));
-
+        lblPretRetard.setText(String.valueOf(projectionTableauEmprunt.nbEmpruntsEnRetard(adherentAff.getNumAdherent())));
     }
 
     private void creerTableauEmprunts(Adherent adherent) {
         data.clear();
+        data.addAll(
+                projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
 
-        data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
     }
 
     @FXML

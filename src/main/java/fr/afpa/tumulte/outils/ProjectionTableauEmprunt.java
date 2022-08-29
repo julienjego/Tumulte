@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,30 @@ public class ProjectionTableauEmprunt {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
     Adherent adherent;
+    Integer empruntsEnRetard;
+
+    public Integer getEmpruntsEnRetard() {
+        return empruntsEnRetard;
+    }
+
+    public void setEmpruntsEnRetard(Integer empruntsEnRetard) {
+        this.empruntsEnRetard = empruntsEnRetard;
+    }
+
+    public Integer nbEmpruntsEnRetard (Integer numAdherent){
+        empruntsEnRetard = 0;
+
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        for (Emprunt emprunt : adherent.getLstEmpruntsEnCours()) {
+            if(emprunt.getDatRestitutionPrev().isBefore(LocalDate.now())) {
+                empruntsEnRetard += 1;
+            }
+        }
+        em.getTransaction().commit();
+        return empruntsEnRetard;
+    }
 
     public List<TableViewEmpruntsEnCours> tableViewEmpruntsEnCours(Integer numAdherent) {
         List<TableViewEmpruntsEnCours> output = new ArrayList<>();
@@ -33,6 +58,7 @@ public class ProjectionTableauEmprunt {
                     emprunt.getDatRestitutionPrev(),
                     emprunt.getNumExemplaire().getNumExemplaire()
             );
+
             output.add(tv);
         }
         em.getTransaction().commit();

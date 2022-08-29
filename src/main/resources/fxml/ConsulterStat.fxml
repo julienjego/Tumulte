@@ -64,7 +64,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Consulter l'aide" />
+                        <MenuItem mnemonicParsing="false" onAction="#openHelp" text="Consulter l'aide" />
                         <MenuItem fx:id="itmAbout" mnemonicParsing="false" onAction="#openAbout" text="A propos" />
                     </items>
                 </Menu>

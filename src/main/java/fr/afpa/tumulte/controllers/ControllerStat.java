@@ -361,4 +361,20 @@ public class ControllerStat implements Initializable {
         alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
+
+    @FXML
+    void openHelp(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Aide");
+        alert.setHeaderText("Aide de la page Statistiques");
+        alert.setContentText("""
+                - Depuis le menu déroulant « Bibliothèques », vous pouvez sélectionnez la bibliothèque pour laquelle vous souhaitez afficher les statistiques.
+                - Choisissez dans « Vue » la mise en forme et l’objet des statistiques à afficher.
+                - Enfin cliquez sur « Valider » pour afficher les statistiques.
+                - Une fois les statistiques voulues affichées vous pouvez les imprimer en cliquant sur « Imprimer ».
+                                
+                Merci d'avoir pris le temps de consulter cette extraordinaire fenêtre d'aide.""");
+        alert.showAndWait();
+
+    }
 }

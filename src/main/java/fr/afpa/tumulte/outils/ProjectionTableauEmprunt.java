@@ -16,6 +16,7 @@ public class ProjectionTableauEmprunt {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
     Adherent adherent;
     Integer empruntsEnRetard;
+    Integer empruntsEnCours;
 
     public Integer getEmpruntsEnRetard() {
         return empruntsEnRetard;
@@ -38,6 +39,19 @@ public class ProjectionTableauEmprunt {
         }
         em.getTransaction().commit();
         return empruntsEnRetard;
+    }
+
+    public Integer nbEmpruntsEnCours(Adherent adherent) {
+        empruntsEnCours = 0;
+        System.out.println();
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        for (Emprunt emprunt : adherent.getLstEmpruntsEnCours()) {
+            empruntsEnCours += 1;
+        }
+        em.getTransaction().commit();
+        return empruntsEnCours;
     }
 
     public List<TableViewEmpruntsEnCours> tableViewEmpruntsEnCours(Integer numAdherent) {

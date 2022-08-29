@@ -178,7 +178,7 @@ public class ControllerAfficherAdherent implements Initializable {
         data.clear();
         data.addAll(
                 projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
-
+        //System.out.println(data.size());
     }
 
     @FXML

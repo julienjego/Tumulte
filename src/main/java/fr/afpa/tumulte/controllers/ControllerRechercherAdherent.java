@@ -33,6 +33,7 @@ public class ControllerRechercherAdherent implements Initializable {
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     public Adherent adherent;
     public Label lblDate;
+    public Integer nbEmpruntsEnCours;
     /**
      * The Stage.
      */
@@ -73,6 +74,8 @@ public class ControllerRechercherAdherent implements Initializable {
     private TitledPane titledPaneAdherent;
     @FXML
     private TextField txtNumAdherent;
+    @FXML
+    private Label lblTropDePrets;
     @FXML
     private Font x3;
 
@@ -153,6 +156,7 @@ public class ControllerRechercherAdherent implements Initializable {
         Scene scene = new Scene(fxmlLoader.load());
         ControllerEmpruntLivre ctrlEMprLivre = fxmlLoader.getController();
         ctrlEMprLivre.taxiAdherent(adherent);
+        ctrlEMprLivre.taxiEmprunts(nbEmpruntsEnCours);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
@@ -168,6 +172,7 @@ public class ControllerRechercherAdherent implements Initializable {
         btnValiderAdherent.setDisable(true);
         lblCotisation.setVisible(false);
         lblDateFinCotisation.setVisible(false);
+        lblTropDePrets.setVisible(false);
         //méthode fléchée qui permet d'activer les boutons dès que le texte change
         txtNumAdherent.textProperty().addListener(observable -> activerBoutons());
 
@@ -176,6 +181,7 @@ public class ControllerRechercherAdherent implements Initializable {
         columnAuteur.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomsAuteurs"));
 
         tablePretsEnCours.setItems(data);
+
     }
 
     private void afficherInfoAdherent(Adherent adherent) {
@@ -183,6 +189,10 @@ public class ControllerRechercherAdherent implements Initializable {
             lblNomAdherent.setText(adherent.getNomAdherent());
             lblPrenomAdherent.setText(adherent.getPrenomAdherent());
             creerTableauEmprunts(adherent);
+            if (nbEmpruntsEnCours >= 3) {
+                lblTropDePrets.setVisible(true);
+                btnValiderAdherent.setDisable(true);
+            }
 
             if (abonnementEstPerime(adherent)) {
                 lblCotisationAJour.setText("Non");
@@ -232,14 +242,13 @@ public class ControllerRechercherAdherent implements Initializable {
 
     public void taxiAdherent(Adherent adherent) {
         txtNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
-        afficherInfoAdherent(adherent);
-
+        rechercherAdherent();
     }
 
     private void creerTableauEmprunts(Adherent adherent) {
         data.clear();
-
         data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
+        nbEmpruntsEnCours = data.size();
         }
 
     private boolean idAdherentEstValide() {

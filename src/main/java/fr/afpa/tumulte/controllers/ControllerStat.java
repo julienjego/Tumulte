@@ -63,6 +63,8 @@ public class ControllerStat implements Initializable {
      */
     @FXML
     private ComboBox cbxVue;
+    @FXML
+    private Label lblAnnee;
     /**
      * combo box pour choisir l'année .
      */
@@ -177,6 +179,8 @@ public class ControllerStat implements Initializable {
     private TableColumn colNbEmpruntLivre;
     @FXML
     private BarChart grfTheme;
+    @FXML
+    private MenuItem itmAbout;
 
     /**
      * initialise la page.
@@ -215,6 +219,8 @@ public class ControllerStat implements Initializable {
         cbxVue.getItems().addAll(lstVue);
         cbxVue.setValue(cbxVue.getItems().get(0));
 
+        cbxAnnee.setVisible(false);
+        lblAnnee.setVisible(false);
         grfTheme.setVisible(false);
         panResu.setVisible(false);
         btnImprimer.setVisible(false);

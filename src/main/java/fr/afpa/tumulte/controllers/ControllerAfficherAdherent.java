@@ -153,8 +153,8 @@ public class ControllerAfficherAdherent implements Initializable {
         colTtlIsbn.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("isbn"));
         colTtldateRetour.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datRetour"));
         colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("numExemplaire"));
-
         tblPretEnCours.setItems(data);
+        //System.out.println("data size : " + data.size());
     }
 
     public void taxiAdherent(Adherent adherent){
@@ -165,13 +165,14 @@ public class ControllerAfficherAdherent implements Initializable {
         lblAdresse.setText(adherentAff.getAdrAdherent());
         lblNumAdherent.setText(String.valueOf(adherentAff.getNumAdherent()));
         creerTableauEmprunts(adherent);
+        lblNbPretEnCours.setText(String.valueOf(data.size()));
+
     }
 
     private void creerTableauEmprunts(Adherent adherent) {
         data.clear();
 
         data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
-        System.out.println(data);
     }
 
     @FXML

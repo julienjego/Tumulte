@@ -246,7 +246,9 @@ public class ControllerRechercherAdherent implements Initializable {
 
     @FXML
     private void afficherFicheAdherent() {
-
+        // Si le numéro d'adhérent dans la barre de saisie est bien le numéro d'adhérent "chargé",
+        // on passe à la fenêtre Fiche Adhérent, sinon on lance la recherche sur le numéro d'adhérent
+        // saisi puis on affiche la fiche adhérent
         if (isBtnRechercheUtilisé && adherent.getNumAdherent() == Integer.parseInt(txtNumAdherent.getText())) {
             try {
 
@@ -257,6 +259,7 @@ public class ControllerRechercherAdherent implements Initializable {
                 stage.setScene(scene);
                 ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
                 ctrlAfficherAdherent.taxiAdherent(adherent);
+                AccesImpression.setAdherent(adherent);
                 stage.show();
 
             } catch (IOException e) {

@@ -15,17 +15,19 @@ public class App extends Application {
 
 
         launch();
+
+
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/menuPrincipal.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setMinHeight(600);
         stage.setMinWidth(900);
         stage.setTitle("TUMULTE");
-        Image icon = new Image(Objects.requireNonNull(App.class.getResource("/image/livreicone.png")).toExternalForm());
+        Image icon = new Image(App.class.getResource("/image/livreicone.png").toExternalForm());
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();

@@ -5,7 +5,6 @@ import fr.afpa.tumulte.entites.Emprunt;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 
 public class ProjectionTableauEmprunt {
 
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    EntityManagerFactory emf = UtileEmf.ENTITY_MANAGER_FACTORY.getEmf();
     Adherent adherent;
     Integer empruntsEnRetard;
 
@@ -26,21 +25,20 @@ public class ProjectionTableauEmprunt {
         this.empruntsEnRetard = empruntsEnRetard;
     }
 
-    public Integer nbEmpruntsEnRetard (Integer numAdherent){
+    public Integer nbEmpruntsEnRetard(Integer numAdherent) {
         empruntsEnRetard = 0;
 
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
         for (Emprunt emprunt : adherent.getLstEmpruntsEnCours()) {
-            if(emprunt.getDatRestitutionPrev().isBefore(LocalDate.now())) {
+            if (emprunt.getDatRestitutionPrev().isBefore(LocalDate.now())) {
                 empruntsEnRetard += 1;
             }
         }
         em.getTransaction().commit();
         return empruntsEnRetard;
     }
-
 
 
     public List<TableViewEmpruntsEnCours> tableViewEmpruntsEnCours(Integer numAdherent) {

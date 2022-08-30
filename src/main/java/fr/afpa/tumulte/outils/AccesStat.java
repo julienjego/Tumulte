@@ -4,7 +4,6 @@ import fr.afpa.tumulte.entites.Bibliotheque;
 import fr.afpa.tumulte.entites.Theme;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Objects;
 
 public class AccesStat {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    private static final EntityManagerFactory emf = UtileEmf.ENTITY_MANAGER_FACTORY.getEmf();
 
     public static List<Bibliotheque> listBib() {
         EntityManager entityManager = null;
@@ -28,18 +27,18 @@ public class AccesStat {
 
     public static List<Theme> listTheme(String nomBib, String annee) {
         String requete = "select exemplaire.numExemplaire " +
-                                 "FROM theme t " +
-                                 "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme " +
-                                 "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement " +
-                                 "INNER JOIN emprunt e ON exemplaire.numExemplaire = e.numExemplaire ";
+                "FROM theme t " +
+                "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme " +
+                "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement " +
+                "INNER JOIN emprunt e ON exemplaire.numExemplaire = e.numExemplaire ";
         if (nomBib.equals(TOUTES_BIB)) {
             return listThemeBiblio(requete
-                                           + "where t.codTheme=", annee);
+                    + "where t.codTheme=", annee);
         } else {
             return listThemeBiblio(requete
-                                           + "INNER JOIN bibliotheque b ON b.codBibliotheque = emplacement.codBibliotheque "
-                                           + "where b.libelBibliotheque = \"" + nomBib + "\" "
-                                           + "and t.codTheme = ", annee);
+                    + "INNER JOIN bibliotheque b ON b.codBibliotheque = emplacement.codBibliotheque "
+                    + "where b.libelBibliotheque = \"" + nomBib + "\" "
+                    + "and t.codTheme = ", annee);
 
         }
     }
@@ -55,9 +54,9 @@ public class AccesStat {
                 int nbEmprunt;
                 if (!Objects.equals(annee, "toutes")) {
                     nbEmprunt = eM.createNativeQuery(requete
-                                                             + themes.get(i).getCodTheme()
-                                                             + " and YEAR(e.datEmprunt) = "
-                                                             + annee).getResultList().size();
+                            + themes.get(i).getCodTheme()
+                            + " and YEAR(e.datEmprunt) = "
+                            + annee).getResultList().size();
                 } else nbEmprunt = eM.createNativeQuery(requete + themes.get(i).getCodTheme()).getResultList().size();
                 nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
                 themes.get(i).setNbEmprunt(nbEmprunt);

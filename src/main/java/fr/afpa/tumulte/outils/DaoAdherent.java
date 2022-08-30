@@ -4,13 +4,12 @@ import fr.afpa.tumulte.entites.Adherent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class DaoAdherent {
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    EntityManagerFactory emf = UtileEmf.ENTITY_MANAGER_FACTORY.getEmf();
     PreparedStatement pstmt = null;
     ResultSet rs = null;
 

@@ -358,9 +358,9 @@ public class ControllerStat implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

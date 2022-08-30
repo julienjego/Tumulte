@@ -23,6 +23,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static fr.afpa.tumulte.outils.Utile.*;
@@ -220,10 +221,7 @@ public class ControllerStat implements Initializable {
         cbxVue.getItems().addAll(lstVue);
         cbxVue.setValue(cbxVue.getItems().get(0));
 
-        /* a dev */
-//        cbxAnnee.setVisible(false);
-//        lblAnnee.setVisible(false);
-        /*-------*/
+
 
         grfTheme.setVisible(false);
         panResu.setVisible(false);
@@ -295,7 +293,7 @@ public class ControllerStat implements Initializable {
                 ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString(), String.valueOf(cbxAnnee.getValue()));
                 ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
 
-                for (int i = 1; i < listTheme.size(); i++) {
+                for (int i = 1; i < Objects.requireNonNull(listTheme).size(); i++) {
                     String item = listTheme.get(i).getLibelTheme();
                     int count = listTheme.get(i).getNbEmprunt();
                     data.add(new BarChart.Data(item + "(" + count + ")", count));
@@ -325,7 +323,7 @@ public class ControllerStat implements Initializable {
                 App.class.getResource("/fxml/menuPrincipal.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();

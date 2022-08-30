@@ -30,14 +30,26 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+
 /**
  * The type Controller emprunt livre.
  */
 public class ControllerEmpruntLivre implements Initializable {
 
-    public Label lblDate;
-    public Adherent adherentEmprunt;
     Adherent adherent;
+
+    public Label lblDate;
+
+    public Adherent getAdherent() {
+        return adherent;
+    }
+
+    public void setAdherent(Adherent adherent) {
+        this.adherent = adherent;
+    }
+
+
+
     private Integer empruntsEncours = 0;
     /**
      * Bouton annuler.
@@ -135,23 +147,16 @@ public class ControllerEmpruntLivre implements Initializable {
     @FXML
     private Color x4;
 
-    public Adherent getAdherent() {
-        return adherent;
-    }
-
-    public void setAdherent(Adherent adherent) {
-        this.adherent = adherent;
-    }
-
     public void taxiAdherent(Adherent adherentT) {
         lblNumAdherent.setText(String.valueOf(adherentT.getNumAdherent()));
         lblNomAdherent.setText(String.valueOf(adherentT.getNomAdherent()));
         lblPrenomAdherent.setText(String.valueOf(adherentT.getPrenomAdherent()));
         adherent = adherentT;
 
+
     }
 
-    public void demanderConfirmation() throws IOException {
+    public  void demanderConfirmation() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Encore ?");
         alert.setHeaderText("Le livre est emprunté.");
@@ -159,10 +164,11 @@ public class ControllerEmpruntLivre implements Initializable {
         ButtonType oui = new ButtonType("Oui");
         ButtonType non = new ButtonType("Non");
         alert.getButtonTypes().clear();
-        alert.getButtonTypes().addAll(oui, non);
+        alert.getButtonTypes().addAll( oui, non);
         Window window = alert.getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(e -> alert.hide());
         Optional<ButtonType> option = alert.showAndWait();
+
 
         if (option.get() == non) {
 
@@ -170,8 +176,9 @@ public class ControllerEmpruntLivre implements Initializable {
 
             retourVersPageEmprunt();
 
-        }
-        effacer();
+
+        }effacer();
+
 
     }
 
@@ -211,7 +218,7 @@ public class ControllerEmpruntLivre implements Initializable {
                 App.class.getResource("/fxml/menuPrincipal.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();
@@ -269,7 +276,6 @@ public class ControllerEmpruntLivre implements Initializable {
         try {
             if (numExemplaireEstConnu(exemplaire)) {
                 lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
-                //lblAuteur.setText(StringUtils.join(exemplaire.getlivre().getAuteur().get(0).getNomAuteur() +" "+ exemplaire.getlivre().getAuteur().get(0).getPrenomAuteur(), " "));
                 lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
                 lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
                 lblEtat.setText(exemplaire.getCommentExemplaire());
@@ -290,6 +296,7 @@ public class ControllerEmpruntLivre implements Initializable {
         }
     }
 
+
     private void effacer() {
         txtCodeExemplaire.setText("");
         lblTitreExemplaire.setText("");
@@ -308,18 +315,18 @@ public class ControllerEmpruntLivre implements Initializable {
         if (!(daoE.showExemplaire(txtCodeExemplaire.getText()).isDisponible())) {
             String messageErreur1 = "Le livre n'est pas disponible.";
             String messageErreur2 = "Le Livre " + (daoE.showExemplaire(txtCodeExemplaire.getText())).getlivre().getTitreLivre() + " est déjà emprunté\r"
-                                            + "Vous pouvez passer au suivant ou quitter";
+                    + "Vous pouvez passer au suivant ou quitter";
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else {
 
             daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()), txtCodeExemplaire.getText());
             empruntsEncours += 1;
             btnEmprunter.setDisable(nbMaxEmpruntsEstAtteint(empruntsEncours));
-            if (empruntsEncours >= 3) {
+            if(empruntsEncours >= 3){
                 alertEmpruntMax();
                 imprimer();
                 retourVersPageEmprunt();
-            } else {
+            }else {
 
                 demanderConfirmation();
             }
@@ -352,9 +359,9 @@ public class ControllerEmpruntLivre implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 
@@ -372,11 +379,7 @@ public class ControllerEmpruntLivre implements Initializable {
 
     public boolean nbMaxEmpruntsEstAtteint(Integer nbEmpruntsEnCours) {
 
-        if (nbEmpruntsEnCours < 3) {
-            return false;
-        } else {
-            return true;
-        }
+        return nbEmpruntsEnCours >= 3;
     }
 
     public void taxiEmprunts(Integer nbEmpruntsEnCours) {
@@ -389,42 +392,27 @@ public class ControllerEmpruntLivre implements Initializable {
         stage.setMinHeight(600);
         stage.setMinWidth(900);
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();
     }
 
-    void retourRechercherAdherent() throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
-        Stage stage = (Stage) (menuBar.getScene().getWindow());
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-        stage.setTitle("Emprunter");
-        stage.setScene(scene);
-
-        stage.show();
-
-    }
 
     private void imprimer() {
         try {
             String numAdherent = String.valueOf(adherent.getNumAdherent());
             AccesImpression.setAdherent(adherent);
-
             ListSommeEmprunt listSommeEmprunt = new ListSommeEmprunt();
             listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
             AccesImpression.setListSommeEmprunt(listSommeEmprunt);
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
-
             Scene scene2 = new Scene(fxmlLoader.load());
             Stage stage2 = new Stage();
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
-
             stage2.initModality(Modality.APPLICATION_MODAL);
             Window stage = null;
             stage2.initOwner(stage);
@@ -432,18 +420,20 @@ public class ControllerEmpruntLivre implements Initializable {
             stage2.show();
 
         } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenetre");
+            System.out.println("Impossible d'ouvrir la fenêtre");
         }
 
     }
 
-    private void alertEmpruntMax() {
+    private void alertEmpruntMax(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Maximum d'emprunt atteint.");
         alert.setHeaderText("Le livre est emprunté.");
         alert.setContentText("Le nombre maximum d'emprunt a été atteint.");
         alert.showAndWait();
     }
+
+
 
 }
 

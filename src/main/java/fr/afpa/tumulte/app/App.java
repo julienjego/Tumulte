@@ -8,13 +8,12 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class App extends Application {
     public static void main(String[] args) {
 
-/*        Adherent adherent = new Adherent("BEBERT", "Al", "14 rue du four", "06.00.00.00.00", LocalDate.of(2022, 02, 22));
-        DaoAdherent daoAdherent = new DaoAdherent();
-        daoAdherent.saveAdherent(adherent);*/
+
         launch();
 
 

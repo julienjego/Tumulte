@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -122,7 +123,7 @@ public class ControllerRechercherAdherent implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/menuPrincipal.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
         scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();
@@ -163,7 +164,7 @@ public class ControllerRechercherAdherent implements Initializable {
 
 
         ctrlEMprLivre.taxiEmprunts(nbEmpruntsEnCours);
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();

@@ -17,7 +17,7 @@ public class TableViewEmpruntsEnCours {
     public void format (List<Auteur> auteurs) {
         nomsAuteurs = "";
         for (Auteur auteur : auteurs) {
-            if (nomsAuteurs != "") {
+            if (!"".equals(nomsAuteurs)) {
                 nomsAuteurs += ", " + auteur.getNomAuteur();
             } else {
                 nomsAuteurs += auteur.getNomAuteur();

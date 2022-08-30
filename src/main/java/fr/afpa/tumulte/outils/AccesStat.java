@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AccesStat {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
@@ -16,8 +17,7 @@ public class AccesStat {
         EntityManager entityManager = null;
         try {
             entityManager = emf.createEntityManager();
-            List<Bibliotheque> bibliotheques = entityManager.createQuery("from Bibliotheque", Bibliotheque.class).getResultList();
-            return bibliotheques;
+            return entityManager.createQuery("from Bibliotheque", Bibliotheque.class).getResultList();
         } finally {
             if (entityManager != null && entityManager.isOpen()) {
                 entityManager.close();
@@ -52,7 +52,7 @@ public class AccesStat {
             themes = eM.createQuery("from Theme", Theme.class).getResultList();
             for (int i = 0; i < themes.size(); i++) {
                 int nbEmprunt;
-                if (annee != "toutes") {
+                if (!Objects.equals(annee, "toutes")) {
                     nbEmprunt = eM.createNativeQuery(requete
                             + themes.get(i).getCodTheme()
                             + " and YEAR(e.datEmprunt) = "

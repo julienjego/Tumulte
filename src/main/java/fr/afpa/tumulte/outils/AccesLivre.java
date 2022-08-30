@@ -94,6 +94,8 @@ public class AccesLivre {
                                                         + "where l.titreLivre like '%" + requete + "%' "
                                                         + "or a.nomAuteur like '%" + requete + "%' "
                                                         + "or a.prenomAuteur like '%" + requete + "%' "
+                                                        + "or l.theme.libelTheme like '%" + requete + "%' "
+                                                        + "or l.IsbnLivre like '%" + requete + "%' "
                                                         + "Group by  l.IsbnLivre"
                     , Livre.class).getResultList();
             for (int i = 0; i < livres.size(); i++) {

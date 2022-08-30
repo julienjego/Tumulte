@@ -72,7 +72,7 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #a4dbed;">
                               <children>
                                   <Label layoutX="60.0" layoutY="27.0" prefHeight="25.0" text="Numéro d'identification de l'adhérent :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-                                  <TextField fx:id="txtNumAdherent" layoutX="277.0" layoutY="23.0" onKeyPressed="#activerBoutons" prefHeight="25.0" AnchorPane.topAnchor="14.0" />
+                                  <TextField fx:id="txtNumAdherent" layoutX="277.0" layoutY="23.0" onKeyPressed="#activerBoutons" prefHeight="25.0" promptText="Entrez un numéro d'adérent" AnchorPane.topAnchor="14.0" />
                                   <Button fx:id="btnRechercherAdherent" layoutX="450.0" layoutY="23.0" mnemonicParsing="false" onAction="#rechercherAdherent" prefHeight="25.0" prefWidth="114.0" text="Rechercher" AnchorPane.topAnchor="14.0" />
                                   <Label layoutX="33.6" layoutY="68.6" prefHeight="25.0" prefWidth="33.0" text="Nom :" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="49.0" />
                                   <Label fx:id="lblNomAdherent" layoutX="97.0" layoutY="69.0" prefHeight="25.0" prefWidth="114.0" AnchorPane.leftAnchor="57.0" AnchorPane.topAnchor="49.0" />

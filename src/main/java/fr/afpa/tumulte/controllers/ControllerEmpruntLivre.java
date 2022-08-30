@@ -37,6 +37,19 @@ public class ControllerEmpruntLivre implements Initializable {
     public Adherent adherentEmprunt;
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     private Integer empruntsEncours = 0;
+
+    public void taxiAdherent(Adherent adherent) {
+        lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
+        lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
+        lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
+
+//    public void setAdherentEmprunt(Adherent adherentEmprunt) {
+//        this.adherentEmprunt = adherentEmprunt;
+//    }
+
+    }
+
+
     /**
      * Bouton annuler.
      */
@@ -231,19 +244,27 @@ public class ControllerEmpruntLivre implements Initializable {
     }
 
     private void afficherInfoExemplaire(Exemplaire exemplaire) {
-        if (numExemplaireEstConnu(exemplaire)) {
-            lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
-            //lblAuteur.setText(StringUtils.join(exemplaire.getlivre().getAuteur().get(0).getNomAuteur() +" "+ exemplaire.getlivre().getAuteur().get(0).getPrenomAuteur(), " "));
-            lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
-            lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
-            lblEtat.setText(exemplaire.getCommentExemplaire());
-            lblDisponible.setText(exemplaire.isDisponible() ? "Oui" : "Non");
-            lblISBN.setText(exemplaire.getlivre().getIsbnLivre());
-            lblISSN.setText("NC");
-            lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
 
-        } else {
-            System.out.println("exemplaire inconnu");
+        try {
+            if (numExemplaireEstConnu(exemplaire)) {
+                lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
+                //lblAuteur.setText(StringUtils.join(exemplaire.getlivre().getAuteur().get(0).getNomAuteur() +" "+ exemplaire.getlivre().getAuteur().get(0).getPrenomAuteur(), " "));
+                lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
+                lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
+                lblEtat.setText(exemplaire.getCommentExemplaire());
+                lblDisponible.setText(exemplaire.isDisponible() ? "Oui" : "Non");
+                lblISBN.setText(exemplaire.getlivre().getIsbnLivre());
+                lblISSN.setText("NC");
+                lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
+
+            }
+            else {
+                System.out.println("exemplaire inconnu");
+                afficherMessageErreur("Erreur de letcure", "Exemplaire non reconnu");
+
+            }
+        } catch (Exception e) {
+            afficherMessageErreur("Erreur de letcure", "Exemplaire non reconnu");
 
         }
     }
@@ -270,8 +291,8 @@ public class ControllerEmpruntLivre implements Initializable {
                     + "Vous pouvez passer au suivant ou quitter";
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else {
-            daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()), txtCodeExemplaire.getText());
-            ;
+
+            daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()),txtCodeExemplaire.getText());
             String message1 = "Le livre est emprunté.";
             String message2 = "Merci de nous laisser tranquille.";
             afficherMessage(message1, message2);

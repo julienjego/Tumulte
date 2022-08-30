@@ -15,8 +15,9 @@ public class App extends Application {
 /*        Adherent adherent = new Adherent("BEBERT", "Al", "14 rue du four", "06.00.00.00.00", LocalDate.of(2022, 02, 22));
         DaoAdherent daoAdherent = new DaoAdherent();
         daoAdherent.saveAdherent(adherent);*/
-
         launch();
+
+
     }
 
     @Override

@@ -205,9 +205,10 @@ public class ControllerStat implements Initializable {
         cbxBib.setValue(cbxBib.getItems().get(0));
 
         int anneeEnCour = LocalDate.now().getYear();
-        ArrayList<Integer> lstAnnee = new ArrayList<>();
+        ArrayList<String> lstAnnee = new ArrayList<>();
+        lstAnnee.add("toutes");
         for (int i = 0; i < NB_ANNEE; i++) {
-            lstAnnee.add(anneeEnCour - i);
+            lstAnnee.add(String.valueOf(anneeEnCour - i));
         }
         cbxAnnee.getItems().addAll(lstAnnee);
         cbxAnnee.setValue(cbxAnnee.getItems().get(0));
@@ -219,9 +220,10 @@ public class ControllerStat implements Initializable {
         cbxVue.getItems().addAll(lstVue);
         cbxVue.setValue(cbxVue.getItems().get(0));
 
-        /*@TODO A supprimer quand année géré*/
-        cbxAnnee.setVisible(false);
-        lblAnnee.setVisible(false);
+        /* a dev */
+//        cbxAnnee.setVisible(false);
+//        lblAnnee.setVisible(false);
+        /*-------*/
 
         grfTheme.setVisible(false);
         panResu.setVisible(false);
@@ -255,7 +257,7 @@ public class ControllerStat implements Initializable {
                 tabTheme.setVisible(true);
                 tabLivres.setVisible(false);
                 grfTheme.setVisible(false);
-                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString());
+                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString(), String.valueOf(cbxAnnee.getValue()));
                 colCodeTheme.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("codTheme"));
                 colTheme.setCellValueFactory(
@@ -270,7 +272,7 @@ public class ControllerStat implements Initializable {
                 tabLivres.setVisible(true);
                 tabTheme.setVisible(false);
                 grfTheme.setVisible(false);
-                ObservableList<Livre> listLivre = lireLivre(cbxBib.getValue().toString());
+                ObservableList<Livre> listLivre = lireLivre(cbxBib.getValue().toString(), String.valueOf(cbxAnnee.getValue()));
                 colISBN.setCellValueFactory(
                         new PropertyValueFactory<Theme, String>("IsbnLivre"));
                 colTitre.setCellValueFactory(
@@ -290,7 +292,7 @@ public class ControllerStat implements Initializable {
                 tabLivres.setVisible(false);
                 tabTheme.setVisible(false);
 
-                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString());
+                ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString(), String.valueOf(cbxAnnee.getValue()));
                 ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
 
                 for (int i = 1; i < listTheme.size(); i++) {

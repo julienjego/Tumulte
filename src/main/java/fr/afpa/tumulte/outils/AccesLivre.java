@@ -13,19 +13,19 @@ public class AccesLivre {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
 
-    public List<Livre> listLivres(String nomBib) {
+    public List<Livre> listLivres(String nomBib, String annee) {
 
         if (nomBib.equals(TOUTES_BIB)) {
-            return listLivresBib("where l.IsbnLivre= \"");
+            return listLivresBib("where l.IsbnLivre= \"", annee);
         } else {
             return listLivresBib("INNER JOIN bibliotheque b ON b.codBibliotheque = exemplaire.codBibliotheque\n"
-                    + "where b.libelBibliotheque = \"" + nomBib + "\"\n"
-                    + "and l.IsbnLivre= \"");
+                                         + "where b.libelBibliotheque = \"" + nomBib + "\"\n"
+                                         + "and l.IsbnLivre= \"", annee);
 
         }
     }
 
-    public List<Livre> listLivresBib(String requete) {
+    public List<Livre> listLivresBib(String requete, String annee) {
         EntityManager eM = null;
         List<Livre> livres = new ArrayList<>();
         int nbEmpruntTotal = 0;
@@ -36,21 +36,35 @@ public class AccesLivre {
             livres = eM.createQuery("from Livre", Livre.class).getResultList();
             for (int i = 0; i < livres.size(); i++) {
                 int nbEmprunt;
-                nbEmprunt = eM.createNativeQuery("select exemplaire.numExemplaire \n"
-                                + "FROM livre l\n"
-                                + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
-                                + "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n"
-                                + requete + livres.get(i).getIsbnLivre() + "\"\n",
-                        String.class).getResultList().size();
+                int nbExemplaire;
+                if (annee != "toutes") {
+                    nbEmprunt = eM.createNativeQuery("select exemplaire.numExemplaire \n"
+                                                             + "FROM livre l\n"
+                                                             + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
+                                                             + "INNER JOIN emprunt e ON exemplaire.numExemplaire = e.numExemplaire\n"
+                                                             + requete + livres.get(i).getIsbnLivre() + "\"\n"
+                                                             + " and YEAR(e.datEmprunt) = " + annee,
+                            String.class).getResultList().size();
+                    nbExemplaire = eM.createNativeQuery("select exemplaire.numExemplaire \n"
+                                                                + "FROM livre l\n"
+                                                                + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
+                                                                + requete + livres.get(i).getIsbnLivre() + "\"\n",
+                            String.class).getResultList().size();
+                } else {
+                    nbEmprunt = eM.createNativeQuery("select exemplaire.numExemplaire \n"
+                                                             + "FROM livre l\n"
+                                                             + "INNER JOIN exemplaire ON l.IsbnLivre = exemplaire.IsbnLivre\n"
+                                                             + "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n"
+                                                             + requete + livres.get(i).getIsbnLivre() + "\"\n",
+                            String.class).getResultList().size();
+                    nbExemplaire = eM.createNativeQuery("select exemplaire.numExemplaire \n"
+                                                                + "FROM livre l\n"
+                                                                + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
+                                                                + requete + livres.get(i).getIsbnLivre() + "\"\n",
+                            String.class).getResultList().size();
+                }
                 nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
                 livres.get(i).setNbEmprunt(nbEmprunt);
-
-                int nbExemplaire;
-                nbExemplaire = eM.createNativeQuery("select exemplaire.numExemplaire \n"
-                                + "FROM livre l\n"
-                                + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
-                                + requete + livres.get(i).getIsbnLivre() + "\"\n",
-                        String.class).getResultList().size();
                 livres.get(i).setNbExemplaires(nbExemplaire);
 
             }
@@ -79,19 +93,19 @@ public class AccesLivre {
             for (int i = 0; i < livres.size(); i++) {
                 int nbEmprunt;
                 nbEmprunt = em.createNativeQuery("select exemplaire.numExemplaire \n"
-                                + "FROM livre l\n"
-                                + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
-                                + "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n"
-                                + "WHERE l.IsbnLivre=\"" + livres.get(i).getIsbnLivre() + "\"\n",
+                                                         + "FROM livre l\n"
+                                                         + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
+                                                         + "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n"
+                                                         + "WHERE l.IsbnLivre=\"" + livres.get(i).getIsbnLivre() + "\"\n",
                         String.class).getResultList().size();
                 nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
                 livres.get(i).setNbEmprunt(nbEmprunt);
 
                 int nbExemplaire;
                 nbExemplaire = em.createNativeQuery("select exemplaire.numExemplaire \n"
-                                + "FROM livre l\n"
-                                + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
-                                + "WHERE l.IsbnLivre=\"" + livres.get(i).getIsbnLivre() + "\"\n",
+                                                            + "FROM livre l\n"
+                                                            + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
+                                                            + "WHERE l.IsbnLivre=\"" + livres.get(i).getIsbnLivre() + "\"\n",
                         String.class).getResultList().size();
                 livres.get(i).setNbExemplaires(nbExemplaire);
 

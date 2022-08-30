@@ -3,6 +3,7 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
+import fr.afpa.tumulte.outils.AccesImpression;
 import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
@@ -156,6 +157,8 @@ public class ControllerRechercherAdherent implements Initializable {
         Scene scene = new Scene(fxmlLoader.load());
         ControllerEmpruntLivre ctrlEMprLivre = fxmlLoader.getController();
         ctrlEMprLivre.taxiAdherent(adherent);
+
+
         ctrlEMprLivre.taxiEmprunts(nbEmpruntsEnCours);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Menu principal");
@@ -233,6 +236,7 @@ public class ControllerRechercherAdherent implements Initializable {
             stage.setScene(scene);
             ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
             ctrlAfficherAdherent.taxiAdherent(adherent);
+            AccesImpression.setAdherent(adherent);
             stage.show();
 
         } catch (IOException e) {

@@ -1,9 +1,11 @@
 package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.entites.Adherent;
-import fr.afpa.tumulte.entites.Emprunt;
 import fr.afpa.tumulte.entites.EmpruntTicketImpression;
-import fr.afpa.tumulte.outils.*;
+import fr.afpa.tumulte.outils.AccesImpression;
+import fr.afpa.tumulte.outils.DaoAdherent;
+import fr.afpa.tumulte.outils.ListSommeEmprunt;
+import fr.afpa.tumulte.outils.Utile;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -19,12 +21,65 @@ import java.util.ResourceBundle;
  */
 public class ControllerImpressionTicket implements Initializable {
 
+    public Adherent adherentImpression;
+    public EmpruntTicketImpression empruntTicketImpression;
+    public ListSommeEmprunt listSommeEmprunt;
+    @FXML
+    private Label lblDatePret1;
+    @FXML
+    private Label lblBibliotheque2;
+    @FXML
+    private Label lblBibliotheque3;
+    @FXML
+    private Label lblDatePret2;
+    @FXML
+    private Label lblDatePret3;
+    @FXML
+    private Label lblDateRetour1;
+    @FXML
+    private Label lblDateRetour2;
+    @FXML
+    private Label lblDateRetour3;
+    @FXML
+    private Label lblDateValidite;
+    @FXML
+    private Label lblIsbn1;
+    @FXML
+    private Label lblIsbn2;
+    @FXML
+    private Label lblIsbn3;
+    @FXML
+    private Label lblNumAdherent;
+    @FXML
+    private Label lblNumeroExemplaire1;
+    @FXML
+    private Label lblNumeroExemplaire2;
+    @FXML
+    private Label lblNumeroExemplaire3;
+    @FXML
+    private Label lblPrenomNom;
+    @FXML
+    private Label lblQuand;
+    @FXML
+    private Label lblTitre1;
+    @FXML
+    private Label lblTitre2;
+    @FXML
+    private Label lblTitre3;
+    @FXML
+    private Pane pane0;
+    @FXML
+    private Pane pane1;
+    @FXML
+    private Label lblBibliotheque1;
+    @FXML
+    private Pane pane2;
+    @FXML
+    private Pane pane3;
+
     public void setAdherentImpression(Adherent adherentImpression) {
         this.adherentImpression = adherentImpression;
     }
-
-    public Adherent adherentImpression;
-    public EmpruntTicketImpression empruntTicketImpression;
 
     public void taxiAdherentImpression(Adherent adherentImpression) {
         setAdherentImpression(adherentImpression);
@@ -33,92 +88,9 @@ public class ControllerImpressionTicket implements Initializable {
 
     }
 
-    public ListSommeEmprunt listSommeEmprunt;
-
     public void setListSommeEmprunt(ListSommeEmprunt listSommeEmprunt) {
         this.listSommeEmprunt = listSommeEmprunt;
     }
-
-    @FXML
-    private Label lblDatePret1;
-
-    @FXML
-    private Label lblBibliotheque2;
-
-    @FXML
-    private Label lblBibliotheque3;
-
-    @FXML
-    private Label lblDatePret2;
-
-    @FXML
-    private Label lblDatePret3;
-
-    @FXML
-    private Label lblDateRetour1;
-
-    @FXML
-    private Label lblDateRetour2;
-
-    @FXML
-    private Label lblDateRetour3;
-
-    @FXML
-    private Label lblDateValidite;
-
-    @FXML
-    private Label lblIsbn1;
-
-    @FXML
-    private Label lblIsbn2;
-
-    @FXML
-    private Label lblIsbn3;
-
-    @FXML
-    private Label lblNumAdherent;
-
-    @FXML
-    private Label lblNumeroExemplaire1;
-
-    @FXML
-    private Label lblNumeroExemplaire2;
-
-    @FXML
-    private Label lblNumeroExemplaire3;
-
-    @FXML
-    private Label lblPrenomNom;
-
-    @FXML
-    private Label lblQuand;
-
-    @FXML
-    private Label lblTitre1;
-
-    @FXML
-    private Label lblTitre2;
-
-    @FXML
-    private Label lblTitre3;
-
-    @FXML
-    private Pane pane0;
-
-    @FXML
-    private Pane pane1;
-
-    @FXML
-    private Label lblBibliotheque1;
-
-
-
-    @FXML
-    private Pane pane2;
-
-    @FXML
-    private Pane pane3;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -132,16 +104,16 @@ public class ControllerImpressionTicket implements Initializable {
 
 
         lblNumAdherent.setText(String.valueOf(adherentImpression.getNumAdherent()));
-     lblPrenomNom.setText(adherentImpression.getPrenomAdherent() + " " + adherentImpression.getNomAdherent());
+        lblPrenomNom.setText(adherentImpression.getPrenomAdherent() + " " + adherentImpression.getNomAdherent());
         lblDateValidite.setText(adherentImpression.getPerimeLe().format(DateTimeFormatter
                 .ofLocalizedDate(FormatStyle.SHORT)));
         lblNumeroExemplaire1.setText("#3");
 
         ListSommeEmprunt lstEmp = new ListSommeEmprunt();
-pane1.setVisible(false);
-pane2.setVisible(false);
-pane3.setVisible(false);
-        if( ((lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).size())>=1) {
+        pane1.setVisible(false);
+        pane2.setVisible(false);
+        pane3.setVisible(false);
+        if (((lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).size()) >= 1) {
             pane1.setVisible(true);
             pane0.setMaxHeight(380);
             pane0.setMinHeight(379);
@@ -155,10 +127,10 @@ pane3.setVisible(false);
                     .ofLocalizedDate(FormatStyle.SHORT)));
             lblDateRetour1.setText(emprunt1.getDeteDeRetourLimite().format(DateTimeFormatter
                     .ofLocalizedDate(FormatStyle.SHORT)));
-            lblNumeroExemplaire1.setText("#"+emprunt1.getNumExemplaire().substring(14));
+            lblNumeroExemplaire1.setText("#" + emprunt1.getNumExemplaire().substring(14));
         }
 
-        if( ((lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).size())>=2) {
+        if (((lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).size()) >= 2) {
             pane2.setVisible(true);
             pane0.setMaxHeight(500);
             pane0.setMinHeight(499);
@@ -172,10 +144,10 @@ pane3.setVisible(false);
                     .ofLocalizedDate(FormatStyle.SHORT)));
             lblDateRetour2.setText(emprunt2.getDeteDeRetourLimite().format(DateTimeFormatter
                     .ofLocalizedDate(FormatStyle.SHORT)));
-            lblNumeroExemplaire1.setText("#"+emprunt2.getNumExemplaire().substring(14));
+            lblNumeroExemplaire2.setText("#" + emprunt2.getNumExemplaire().substring(14));
 
         }
-        if( ((lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).size())>=3) {
+        if (((lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).size()) >= 3) {
             pane3.setVisible(true);
             pane0.setMaxHeight(600);
             pane0.setMinHeight(599);
@@ -189,14 +161,10 @@ pane3.setVisible(false);
                     .ofLocalizedDate(FormatStyle.SHORT)));
             lblDateRetour3.setText(emprunt3.getDeteDeRetourLimite().format(DateTimeFormatter
                     .ofLocalizedDate(FormatStyle.SHORT)));
-            lblNumeroExemplaire1.setText("#"+emprunt3.getNumExemplaire().substring(14));
+            lblNumeroExemplaire3.setText("#" + emprunt3.getNumExemplaire().substring(14));
 
 
         }
-
-
-
-
 
 
     }

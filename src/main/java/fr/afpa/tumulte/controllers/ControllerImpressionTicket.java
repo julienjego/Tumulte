@@ -3,7 +3,6 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.EmpruntTicketImpression;
 import fr.afpa.tumulte.outils.AccesImpression;
-import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.ListSommeEmprunt;
 import fr.afpa.tumulte.outils.Utile;
 import javafx.fxml.FXML;
@@ -22,7 +21,7 @@ import java.util.ResourceBundle;
 public class ControllerImpressionTicket implements Initializable {
 
     public Adherent adherentImpression;
-    public EmpruntTicketImpression empruntTicketImpression;
+
     public ListSommeEmprunt listSommeEmprunt;
     @FXML
     private Label lblDatePret1;
@@ -77,20 +76,9 @@ public class ControllerImpressionTicket implements Initializable {
     @FXML
     private Pane pane3;
 
-    public void setAdherentImpression(Adherent adherentImpression) {
-        this.adherentImpression = adherentImpression;
-    }
-
-    public void taxiAdherentImpression(Adherent adherentImpression) {
-        setAdherentImpression(adherentImpression);
-        DaoAdherent daoAdherent = new DaoAdherent();
 
 
-    }
 
-    public void setListSommeEmprunt(ListSommeEmprunt listSommeEmprunt) {
-        this.listSommeEmprunt = listSommeEmprunt;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

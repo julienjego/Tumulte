@@ -44,7 +44,7 @@ public class Utile {
      * @return the array list
      */
     public static ArrayList<String> lireBib() {
-        ArrayList<String> lstNomBib = new ArrayList<String>();
+        ArrayList<String> lstNomBib = new ArrayList<>();
         List<Bibliotheque> lstBib = AccesStat.listBib();
         lstNomBib.add(TOUTES_BIB);
         lstBib.forEach(bibliotheque -> lstNomBib.add(bibliotheque.getLibelBibliotheque()));
@@ -108,15 +108,8 @@ public class Utile {
         return null;
     }
 
-    /**
-     * Gets date time.
-     *
-     * @return the date time
-     */
-    public static LocalDateTime getDateTime() {
-        return LocalDateTime.now();
 
-    }
+
 
     /**
      * Gets date time string.

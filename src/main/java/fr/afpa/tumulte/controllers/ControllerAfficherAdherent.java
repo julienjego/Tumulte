@@ -82,18 +82,14 @@ public class ControllerAfficherAdherent implements Initializable {
     @FXML
     private MenuBar menuBar;
 
-    /**
-     * @param event
-     */
+
     @FXML
     void imprimerTicket(ActionEvent event) {
         imprimer();
 
     }
 
-    /**
-     * @param event
-     */
+
     @FXML
     void modifierAdherent(ActionEvent event) {
 
@@ -124,7 +120,7 @@ public class ControllerAfficherAdherent implements Initializable {
             listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
             AccesImpression.setListSommeEmprunt(listSommeEmprunt);
 
-//            System.out.println(listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent)));
+
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
@@ -140,7 +136,7 @@ public class ControllerAfficherAdherent implements Initializable {
             stage2.show();
 
         } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenetre");
+            System.out.println("Impossible d'ouvrir la fenêtre");
         }
 
     }
@@ -193,9 +189,9 @@ public class ControllerAfficherAdherent implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

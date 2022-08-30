@@ -41,7 +41,7 @@ public class ControllerRechercherAdherent implements Initializable {
      */
     Stage stage;
     Scene scene;
-    private boolean isBtnRechercheUtilisé = false;
+    private boolean isBtnRechercheUtilise = false;
     @FXML
     private Button btnConsulterFicheAdherent;
     @FXML
@@ -225,7 +225,7 @@ public class ControllerRechercherAdherent implements Initializable {
         }
 
 
-        isBtnRechercheUtilisé = true;
+        isBtnRechercheUtilise = true;
 
     }
 
@@ -242,7 +242,7 @@ public class ControllerRechercherAdherent implements Initializable {
         // Si le numéro d'adhérent dans la barre de saisie est bien le numéro d'adhérent "chargé",
         // on passe à la fenêtre Fiche Adhérent, sinon on lance la recherche sur le numéro d'adhérent
         // saisi puis on affiche la fiche adhérent
-        if (isBtnRechercheUtilisé && adherent.getNumAdherent() == Integer.parseInt(txtNumAdherent.getText())) {
+        if (isBtnRechercheUtilise && adherent.getNumAdherent() == Integer.parseInt(txtNumAdherent.getText())) {
             try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
@@ -293,9 +293,9 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

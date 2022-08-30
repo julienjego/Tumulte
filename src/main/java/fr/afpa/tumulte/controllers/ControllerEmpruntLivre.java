@@ -3,7 +3,9 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.Exemplaire;
-import fr.afpa.tumulte.outils.*;
+import fr.afpa.tumulte.outils.AccesImpression;
+import fr.afpa.tumulte.outils.DaoEmprunt;
+import fr.afpa.tumulte.outils.ListSommeEmprunt;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,26 +30,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
 /**
  * The type Controller emprunt livre.
  */
 public class ControllerEmpruntLivre implements Initializable {
 
-    Adherent adherent;
-
     public Label lblDate;
-
-    public Adherent getAdherent() {
-        return adherent;
-    }
-
-    public void setAdherent(Adherent adherent) {
-        this.adherent = adherent;
-    }
-
     public Adherent adherentEmprunt;
-
+    Adherent adherent;
     private Integer empruntsEncours = 0;
     /**
      * Bouton annuler.
@@ -145,16 +135,23 @@ public class ControllerEmpruntLivre implements Initializable {
     @FXML
     private Color x4;
 
+    public Adherent getAdherent() {
+        return adherent;
+    }
+
+    public void setAdherent(Adherent adherent) {
+        this.adherent = adherent;
+    }
+
     public void taxiAdherent(Adherent adherentT) {
         lblNumAdherent.setText(String.valueOf(adherentT.getNumAdherent()));
         lblNomAdherent.setText(String.valueOf(adherentT.getNomAdherent()));
         lblPrenomAdherent.setText(String.valueOf(adherentT.getPrenomAdherent()));
         adherent = adherentT;
 
-
     }
 
-    public  void demanderConfirmation() throws IOException {
+    public void demanderConfirmation() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Encore ?");
         alert.setHeaderText("Le livre est emprunté.");
@@ -162,11 +159,10 @@ public class ControllerEmpruntLivre implements Initializable {
         ButtonType oui = new ButtonType("Oui");
         ButtonType non = new ButtonType("Non");
         alert.getButtonTypes().clear();
-        alert.getButtonTypes().addAll( oui, non);
+        alert.getButtonTypes().addAll(oui, non);
         Window window = alert.getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(e -> alert.hide());
         Optional<ButtonType> option = alert.showAndWait();
-
 
         if (option.get() == non) {
 
@@ -174,9 +170,8 @@ public class ControllerEmpruntLivre implements Initializable {
 
             retourVersPageEmprunt();
 
-
-        }effacer();
-
+        }
+        effacer();
 
     }
 
@@ -295,7 +290,6 @@ public class ControllerEmpruntLivre implements Initializable {
         }
     }
 
-
     private void effacer() {
         txtCodeExemplaire.setText("");
         lblTitreExemplaire.setText("");
@@ -314,18 +308,18 @@ public class ControllerEmpruntLivre implements Initializable {
         if (!(daoE.showExemplaire(txtCodeExemplaire.getText()).isDisponible())) {
             String messageErreur1 = "Le livre n'est pas disponible.";
             String messageErreur2 = "Le Livre " + (daoE.showExemplaire(txtCodeExemplaire.getText())).getlivre().getTitreLivre() + " est déjà emprunté\r"
-                    + "Vous pouvez passer au suivant ou quitter";
+                                            + "Vous pouvez passer au suivant ou quitter";
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else {
 
             daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()), txtCodeExemplaire.getText());
             empruntsEncours += 1;
             btnEmprunter.setDisable(nbMaxEmpruntsEstAtteint(empruntsEncours));
-            if(empruntsEncours >= 3){
+            if (empruntsEncours >= 3) {
                 alertEmpruntMax();
                 imprimer();
                 retourVersPageEmprunt();
-            }else {
+            } else {
 
                 demanderConfirmation();
             }
@@ -423,10 +417,6 @@ public class ControllerEmpruntLivre implements Initializable {
             listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
             AccesImpression.setListSommeEmprunt(listSommeEmprunt);
 
-
-
-
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
 
@@ -434,9 +424,6 @@ public class ControllerEmpruntLivre implements Initializable {
             Stage stage2 = new Stage();
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
-
-
-
 
             stage2.initModality(Modality.APPLICATION_MODAL);
             Window stage = null;
@@ -450,15 +437,13 @@ public class ControllerEmpruntLivre implements Initializable {
 
     }
 
-    private void alertEmpruntMax(){
+    private void alertEmpruntMax() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Maximum d'emprunt atteint.");
         alert.setHeaderText("Le livre est emprunté.");
         alert.setContentText("Le nombre maximum d'emprunt a été atteint.");
         alert.showAndWait();
     }
-
-
 
 }
 

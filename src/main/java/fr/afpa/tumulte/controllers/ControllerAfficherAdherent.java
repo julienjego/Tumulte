@@ -2,8 +2,6 @@ package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
-import fr.afpa.tumulte.entites.EmpruntTicketImpression;
-import fr.afpa.tumulte.entites.Exemplaire;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
 import fr.afpa.tumulte.outils.AccesImpression;
 import fr.afpa.tumulte.outils.ListSommeEmprunt;
@@ -30,16 +28,13 @@ import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
 
-
     final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
+    public Label lblDate;
+    public Adherent adherent;
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     private Adherent adherentAff;
-
-    public Label lblDate;
     private Stage stage;
     private Scene scene;
-
-    public Adherent adherent;
     @FXML
     private Button btnImpreimerTicket;
     @FXML
@@ -131,8 +126,6 @@ public class ControllerAfficherAdherent implements Initializable {
 
 //            System.out.println(listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent)));
 
-
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
 
@@ -140,9 +133,6 @@ public class ControllerAfficherAdherent implements Initializable {
             Stage stage2 = new Stage();
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
-
-
-
 
             stage2.initModality(Modality.APPLICATION_MODAL);
             stage2.initOwner(stage);
@@ -181,7 +171,7 @@ public class ControllerAfficherAdherent implements Initializable {
         tblPretEnCours.setItems(data);
     }
 
-    public void taxiAdherent(Adherent adherent){
+    public void taxiAdherent(Adherent adherent) {
         adherentAff = adherent;
         lblNom.setText(adherentAff.getNomAdherent());
         lblPrenom.setText(adherentAff.getPrenomAdherent());

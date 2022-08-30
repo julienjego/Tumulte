@@ -52,6 +52,8 @@ public class DaoEmprunt {
         newEmprunt.setNumExemplaire(em.find(Exemplaire.class, numExemplaire));
         newEmprunt.setDatEmprunt(LocalDate.now());
         newEmprunt.setDatRestitutionPrev(calcDateRetour());
+        em.find(Exemplaire.class, numExemplaire).setDisponible(false);
+
 
         em.persist(newEmprunt);
         tx.commit();

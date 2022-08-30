@@ -37,19 +37,6 @@ public class ControllerEmpruntLivre implements Initializable {
     public Adherent adherentEmprunt;
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     private Integer empruntsEncours = 0;
-
-    public void taxiAdherent(Adherent adherent) {
-        lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
-        lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
-        lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
-
-//    public void setAdherentEmprunt(Adherent adherentEmprunt) {
-//        this.adherentEmprunt = adherentEmprunt;
-//    }
-
-    }
-
-
     /**
      * Bouton annuler.
      */
@@ -147,11 +134,13 @@ public class ControllerEmpruntLivre implements Initializable {
     private Color x4;
 
     public void taxiAdherent(Adherent adherent) {
-        adherentEmprunt = adherent;
         lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
         lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
         lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
 
+//    public void setAdherentEmprunt(Adherent adherentEmprunt) {
+//        this.adherentEmprunt = adherentEmprunt;
+//    }
 
     }
 
@@ -257,8 +246,7 @@ public class ControllerEmpruntLivre implements Initializable {
                 lblISSN.setText("NC");
                 lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
 
-            }
-            else {
+            } else {
                 System.out.println("exemplaire inconnu");
                 afficherMessageErreur("Erreur de letcure", "Exemplaire non reconnu");
 
@@ -292,7 +280,7 @@ public class ControllerEmpruntLivre implements Initializable {
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else {
 
-            daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()),txtCodeExemplaire.getText());
+            daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()), txtCodeExemplaire.getText());
             String message1 = "Le livre est emprunté.";
             String message2 = "Merci de nous laisser tranquille.";
             afficherMessage(message1, message2);

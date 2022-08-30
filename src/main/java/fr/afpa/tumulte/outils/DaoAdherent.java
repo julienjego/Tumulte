@@ -6,19 +6,30 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 public class DaoAdherent {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
 
-    // Créer ou mettre à jour un adhérent
+    // Créer un adhérent
     public void saveAdherent(Adherent adherent) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         tx.begin();
-        if (adherent.getNumAdherent() == null){
-            em.persist(adherent);
+        Adherent adherentTmp;
+        adherentTmp = (Adherent) em.createNativeQuery("SELECT * FROM adherent where nomAdherent like \"" + adherent.getNomAdherent() + "\"", Adherent.class).getSingleResult();
+
+        if (adherentTmp.getNomAdherent().equals(adherent.getNomAdherent())
+                && adherentTmp.getPrenomAdherent().equals(adherent.getPrenomAdherent())
+                && adherentTmp.getAdrAdherent().equals(adherent.getAdrAdherent())) {
+            System.out.println("adherent deja dans la base");
         } else {
-            em.merge(adherent);
+            em.persist(adherent);
+            System.out.println("ajout adherent");
         }
         tx.commit();
 

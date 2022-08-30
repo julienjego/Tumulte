@@ -2,8 +2,11 @@ package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
+import fr.afpa.tumulte.entites.EmpruntTicketImpression;
 import fr.afpa.tumulte.entites.Exemplaire;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
+import fr.afpa.tumulte.outils.AccesImpression;
+import fr.afpa.tumulte.outils.ListSommeEmprunt;
 import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +30,7 @@ import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
 
+
     final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     private Adherent adherentAff;
@@ -34,6 +38,8 @@ public class ControllerAfficherAdherent implements Initializable {
     public Label lblDate;
     private Stage stage;
     private Scene scene;
+
+    public Adherent adherent;
     @FXML
     private Button btnImpreimerTicket;
     @FXML
@@ -118,6 +124,15 @@ public class ControllerAfficherAdherent implements Initializable {
 
     private void imprimer() {
         try {
+            String numAdherent = lblNumAdherent.getText();
+            ListSommeEmprunt listSommeEmprunt = new ListSommeEmprunt();
+            listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
+            AccesImpression.setListSommeEmprunt(listSommeEmprunt);
+
+//            System.out.println(listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent)));
+
+
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
 
@@ -125,6 +140,10 @@ public class ControllerAfficherAdherent implements Initializable {
             Stage stage2 = new Stage();
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
+
+
+
+
             stage2.initModality(Modality.APPLICATION_MODAL);
             stage2.initOwner(stage);
             stage2.setResizable(false);

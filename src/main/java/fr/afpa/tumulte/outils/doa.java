@@ -9,67 +9,67 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class doa {
-    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
 
     public static void updateThemeLibel(String codeTheme, String libel) {
-        EntityManager entityManager = null;
+        EntityManager em = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();
-            Theme theme = entityManager.find(Theme.class, codeTheme);
-            EntityTransaction trans = entityManager.getTransaction();
+            em = emf.createEntityManager();
+            Theme theme = em.find(Theme.class, codeTheme);
+            EntityTransaction trans = em.getTransaction();
             trans.begin();
             theme.setLibelTheme(libel);
-            entityManager.persist(theme);
+            em.persist(theme);
             trans.commit();
             System.out.println(theme);
         } finally {
-            if (entityManager != null && entityManager.isOpen()) {
-                entityManager.close();
+            if (em != null && em.isOpen()) {
+                em.close();
             }
         }
     }
 
     public static List<Theme> listTheme() {
-        EntityManager entityManager = null;
+        EntityManager em = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();
-            List<Theme> themes = entityManager.createQuery("from Theme", Theme.class).getResultList();
+            em = emf.createEntityManager();
+            List<Theme> themes = em.createQuery("from Theme", Theme.class).getResultList();
             return themes;
         } finally {
-            if (entityManager != null && entityManager.isOpen()) {
-                entityManager.close();
+            if (em != null && em.isOpen()) {
+                em.close();
             }
         }
     }
 
     public static void createTheme(String codeTheme, String theme, String descripTheme, int nbEmprunt) {
-        EntityManager entityManager = null;
+        EntityManager em = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();
-            EntityTransaction trans = entityManager.getTransaction();
+            em = emf.createEntityManager();
+            EntityTransaction trans = em.getTransaction();
             trans.begin();
             Theme newTheme = new Theme(codeTheme, theme, descripTheme, nbEmprunt);
-            entityManager.persist(newTheme);
+            em.persist(newTheme);
             trans.commit();
         } finally {
-            if (entityManager != null && entityManager.isOpen()) {
-                entityManager.close();
+            if (em != null && em.isOpen()) {
+                em.close();
             }
         }
     }
 
     public static void deleteThemeById(int idTheme) {
-        EntityManager entityManager = null;
+        EntityManager em = null;
         try {
-            entityManager = entityManagerFactory.createEntityManager();
-            Theme theme = entityManager.find(Theme.class, idTheme);
-            EntityTransaction trans = entityManager.getTransaction();
+            em = emf.createEntityManager();
+            Theme theme = em.find(Theme.class, idTheme);
+            EntityTransaction trans = em.getTransaction();
             trans.begin();
-            entityManager.remove(theme);
+            em.remove(theme);
             trans.commit();
         } finally {
-            if (entityManager != null && entityManager.isOpen()) {
-                entityManager.close();
+            if (em != null && em.isOpen()) {
+                em.close();
             }
         }
     }

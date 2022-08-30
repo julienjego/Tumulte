@@ -9,31 +9,25 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import static fr.afpa.tumulte.outils.Utile.calcDateRetour;
 
 
 public class DaoEmprunt {
-     EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
 
-
-
-
-
-    public  Exemplaire showExemplaire(String numExemplaire) {
+    public Exemplaire showExemplaire(String numExemplaire) {
         EntityManager em = emf.createEntityManager();
-        return em.find(Exemplaire.class, numExemplaire);
 
+        return em.find(Exemplaire.class, numExemplaire);
     }
 
-    public  Emprunt creerEmprunt(Adherent adherent, Exemplaire exemplaire) {
+    public Emprunt creerEmprunt(Adherent adherent, Exemplaire exemplaire) {
         Emprunt emprunt = new Emprunt();
         emprunt.setNumAdherent(adherent);
         emprunt.setNumExemplaire(exemplaire);
         emprunt.setDatEmprunt(LocalDate.now());
         emprunt.setDatRestitutionPrev(calcDateRetour());
-
 
         return emprunt;
     }
@@ -48,7 +42,7 @@ public class DaoEmprunt {
 
     }
 
-    public void validerEmprunt(Integer numAdherent, String numExemplaire){
+    public void validerEmprunt(Integer numAdherent, String numExemplaire) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
@@ -58,12 +52,13 @@ public class DaoEmprunt {
         newEmprunt.setNumExemplaire(em.find(Exemplaire.class, numExemplaire));
         newEmprunt.setDatEmprunt(LocalDate.now());
         newEmprunt.setDatRestitutionPrev(calcDateRetour());
+        em.find(Exemplaire.class, numExemplaire).setDisponible(false);
+
 
         em.persist(newEmprunt);
         tx.commit();
 
     }
-
 
 
 //    public Emprunt showEmpruntsByNumAdherent(Adherent adherent) {

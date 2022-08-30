@@ -21,9 +21,9 @@ public class Emplacement {
 
     public Emplacement(Bibliotheque codBibliotheque, String codEmplacement, Theme codTheme, String libelEmplacement) {
         this.bibliotheque = codBibliotheque;
-        codEmplacement = codEmplacement;
+        this.codEmplacement = codEmplacement;
         this.theme = codTheme;
-        libelEmplacement = libelEmplacement;
+        this.libelEmplacement = libelEmplacement;
     }
 
     public Emplacement() {
@@ -42,7 +42,7 @@ public class Emplacement {
     }
 
     public void setCodEmplacement(String codEmplacement) {
-        codEmplacement = codEmplacement;
+        this.codEmplacement = codEmplacement;
     }
 
     public Theme getTheme() {
@@ -58,7 +58,7 @@ public class Emplacement {
     }
 
     public void setLibelEmplacement(String libelEmplacement) {
-        libelEmplacement = libelEmplacement;
+        this.libelEmplacement = libelEmplacement;
     }
 
     @Override

@@ -7,7 +7,7 @@ import fr.afpa.tumulte.outils.AccesImpression;
 import fr.afpa.tumulte.outils.DaoEmprunt;
 import fr.afpa.tumulte.outils.ListSommeEmprunt;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -243,12 +243,9 @@ public class ControllerEmpruntLivre implements Initializable {
         init();
 
         // Autorise seulement l'insertion de chiffre dans le txtfield
-        txtCodeExemplaire.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (!"0123456789-".contains(keyEvent.getCharacter())) {
-                    keyEvent.consume();
-                }
+        txtCodeExemplaire.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            if (!"0123456789-".contains(keyEvent.getCharacter())) {
+                keyEvent.consume();
             }
         });
     }
@@ -284,7 +281,7 @@ public class ControllerEmpruntLivre implements Initializable {
                 btnEmprunter.setDisable(false);
 
             } else {
-                System.out.println("exemplaire inconnu");
+
                 afficherMessageErreur("Erreur de letcure", "Exemplaire non reconnu");
 
             }
@@ -403,12 +400,12 @@ public class ControllerEmpruntLivre implements Initializable {
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
             stage2.initModality(Modality.APPLICATION_MODAL);
-            Window stage = null;
-            stage2.initOwner(stage);
+
             stage2.setResizable(false);
             stage2.show();
 
         } catch (IOException e) {
+
             System.out.println("Impossible d'ouvrir la fenêtre");
         }
 

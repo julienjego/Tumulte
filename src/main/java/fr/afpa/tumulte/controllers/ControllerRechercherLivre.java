@@ -101,19 +101,11 @@ public class ControllerRechercherLivre implements Initializable {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lblDate.setText(LocalDate.now().format(frformat));
 
-        btnRecherche.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                onClickRecherche();
-            }
-        });
+        btnRecherche.setOnAction(actionEvent -> onClickRecherche());
 
-        txtRecherche.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    onClickRecherche();
-                }
+        txtRecherche.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                onClickRecherche();
             }
         });
     }

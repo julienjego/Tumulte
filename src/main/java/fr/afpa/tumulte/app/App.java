@@ -8,13 +8,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class App extends Application {
     public static void main(String[] args) {
 
-/*        Adherent adherent = new Adherent("BEBERT", "Al", "14 rue du four", "06.00.00.00.00", LocalDate.of(2022, 02, 22));
-        DaoAdherent daoAdherent = new DaoAdherent();
-        daoAdherent.saveAdherent(adherent);*/
 
         launch();
     }
@@ -23,11 +21,11 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/menuPrincipal.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setMinHeight(600);
         stage.setMinWidth(900);
         stage.setTitle("TUMULTE");
-        Image icon = new Image(App.class.getResource("/image/livreicone.png").toExternalForm());
+        Image icon = new Image(Objects.requireNonNull(App.class.getResource("/image/livreicone.png")).toExternalForm());
         stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();

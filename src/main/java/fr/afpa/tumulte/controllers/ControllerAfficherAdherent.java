@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
@@ -95,6 +96,7 @@ public class ControllerAfficherAdherent implements Initializable {
 
     @FXML
     void modifierAdherent(ActionEvent event) {
+        /** @TODO prévoir d'ajouter le code */
 
     }
 
@@ -107,7 +109,7 @@ public class ControllerAfficherAdherent implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
         scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         ControllerRechercherAdherent ctrlRechAdh = fxmlLoader.getController();
@@ -149,10 +151,7 @@ public class ControllerAfficherAdherent implements Initializable {
 
     }
 
-    /**
-     * @param location
-     * @param resources
-     */
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -191,7 +190,7 @@ public class ControllerAfficherAdherent implements Initializable {
         data.clear();
         data.addAll(
                 projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
-        //System.out.println(data.size());
+
     }
 
     @FXML

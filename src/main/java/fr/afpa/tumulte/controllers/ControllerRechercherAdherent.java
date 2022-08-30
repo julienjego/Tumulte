@@ -34,6 +34,7 @@ public class ControllerRechercherAdherent implements Initializable {
     public Adherent adherent;
     public Label lblDate;
     public Integer nbEmpruntsEnCours;
+    private boolean isBtnRechercheUtilisé = false;
     /**
      * The Stage.
      */
@@ -210,12 +211,10 @@ public class ControllerRechercherAdherent implements Initializable {
             }
 
         }
-//        else {
-//            String headerTxt = "Ce numéro d'adhérent est inconnu !";
-//            String contentTxt = "Merci de vérifier et saisir un nouveau numéro d'adhérent.";
-//            fenetreErreur(headerTxt, contentTxt);
-//            txtNumAdherent.setText("");
-//        }
+
+
+            isBtnRechercheUtilisé = true;
+
     }
 
     private void fenetreErreur(String headerTxt, String contentTxt) {
@@ -228,20 +227,26 @@ public class ControllerRechercherAdherent implements Initializable {
 
     @FXML
     private void afficherFicheAdherent() {
-        try {
+        if (isBtnRechercheUtilisé && adherent.getNumAdherent() == Integer.parseInt(txtNumAdherent.getText())) {
+            try {
 
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
-            Stage stage = (Stage) (menuBar.getScene().getWindow());
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Menu principal");
-            stage.setScene(scene);
-            ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
-            ctrlAfficherAdherent.taxiAdherent(adherent);
-            stage.show();
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
+                Stage stage = (Stage) (menuBar.getScene().getWindow());
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setTitle("Menu principal");
+                stage.setScene(scene);
+                ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
+                ctrlAfficherAdherent.taxiAdherent(adherent);
+                stage.show();
 
-        } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenêtre !");
+            } catch (IOException e) {
+                System.out.println("Impossible d'ouvrir la fenêtre !");
+            }
+        } else {
+            rechercherAdherent();
+            afficherFicheAdherent();
         }
+
     }
 
     public void taxiAdherent(Adherent adherent) {

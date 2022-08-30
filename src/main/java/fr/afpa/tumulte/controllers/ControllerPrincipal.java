@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControllerPrincipal implements Initializable {
@@ -38,9 +39,9 @@ public class ControllerPrincipal implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         init();
 
-        btnEmprunt.setGraphic(new ImageView(new Image(App.class.getResource("/image/borrow.png").toExternalForm(), 72, 72, true, true)));
-        btnStat.setGraphic(new ImageView(new Image(App.class.getResource("/image/report.png").toExternalForm(), 72, 72, true, true)));
-        btnFonds.setGraphic(new ImageView(new Image(App.class.getResource("/image/books.png").toExternalForm(), 72, 72, true, true)));
+        btnEmprunt.setGraphic(new ImageView(new Image(Objects.requireNonNull(App.class.getResource("/image/borrow.png")).toExternalForm(), 72, 72, true, true)));
+        btnStat.setGraphic(new ImageView(new Image(Objects.requireNonNull(App.class.getResource("/image/report.png")).toExternalForm(), 72, 72, true, true)));
+        btnFonds.setGraphic(new ImageView(new Image(Objects.requireNonNull(App.class.getResource("/image/books.png")).toExternalForm(), 72, 72, true, true)));
 
     }
 
@@ -56,7 +57,7 @@ public class ControllerPrincipal implements Initializable {
         stage.setMinHeight(600);
         stage.setMinWidth(900);
         scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();
@@ -69,7 +70,7 @@ public class ControllerPrincipal implements Initializable {
         stage.setMinHeight(600);
         stage.setMinWidth(900);
         scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Consultation du fonds");
         stage.setScene(scene);
         stage.show();
@@ -82,7 +83,7 @@ public class ControllerPrincipal implements Initializable {
         stage.setMinHeight(700);
         stage.setMinWidth(1000);
         scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Statistiques");
         stage.setScene(scene);
         stage.show();
@@ -91,9 +92,9 @@ public class ControllerPrincipal implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

@@ -3,7 +3,9 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.Exemplaire;
-import fr.afpa.tumulte.outils.*;
+import fr.afpa.tumulte.outils.AccesImpression;
+import fr.afpa.tumulte.outils.DaoEmprunt;
+import fr.afpa.tumulte.outils.ListSommeEmprunt;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,7 +20,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +47,7 @@ public class ControllerEmpruntLivre implements Initializable {
         this.adherent = adherent;
     }
 
-    public Adherent adherentEmprunt;
+
 
     private Integer empruntsEncours = 0;
     /**
@@ -216,7 +217,7 @@ public class ControllerEmpruntLivre implements Initializable {
                 App.class.getResource("/fxml/menuPrincipal.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();
@@ -242,7 +243,7 @@ public class ControllerEmpruntLivre implements Initializable {
         init();
 
         // Autorise seulement l'insertion de chiffre dans le txtfield
-        txtCodeExemplaire.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
+        txtCodeExemplaire.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (!"0123456789-".contains(keyEvent.getCharacter())) {
@@ -274,8 +275,6 @@ public class ControllerEmpruntLivre implements Initializable {
         try {
             if (numExemplaireEstConnu(exemplaire)) {
                 lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
-                //lblAuteur.setText(StringUtils.join(exemplaire.getlivre().getAuteur().get(0).getNomAuteur() +" "+ exemplaire.getlivre().getAuteur().get(0).getPrenomAuteur(), " "));
-                lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
                 lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
                 lblEtat.setText(exemplaire.getCommentExemplaire());
                 lblDisponible.setText(exemplaire.isDisponible() ? "Oui" : "Non");
@@ -342,15 +341,6 @@ public class ControllerEmpruntLivre implements Initializable {
         alert.showAndWait();
     }
 
-    private void afficherMessage(String message1, String message2) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-        alert.setTitle("Confirmation");
-        alert.setHeaderText(message1);
-        alert.setContentText(message2);
-        alert.showAndWait();
-    }
-
     private boolean codeExemplaireIsEmpty() {
         return txtCodeExemplaire.getLength() == 0;
     }
@@ -358,9 +348,9 @@ public class ControllerEmpruntLivre implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 
@@ -378,11 +368,7 @@ public class ControllerEmpruntLivre implements Initializable {
 
     public boolean nbMaxEmpruntsEstAtteint(Integer nbEmpruntsEnCours) {
 
-        if (nbEmpruntsEnCours < 3) {
-            return false;
-        } else {
-            return true;
-        }
+        return nbEmpruntsEnCours >= 3;
     }
 
     public void taxiEmprunts(Integer nbEmpruntsEnCours) {
@@ -395,49 +381,27 @@ public class ControllerEmpruntLivre implements Initializable {
         stage.setMinHeight(600);
         stage.setMinWidth(900);
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();
     }
 
-    void retourRechercherAdherent() throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
-        Stage stage = (Stage) (menuBar.getScene().getWindow());
-        Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
-        stage.setTitle("Emprunter");
-        stage.setScene(scene);
-
-        stage.show();
-
-    }
 
     private void imprimer() {
         try {
             String numAdherent = String.valueOf(adherent.getNumAdherent());
             AccesImpression.setAdherent(adherent);
-
             ListSommeEmprunt listSommeEmprunt = new ListSommeEmprunt();
             listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
             AccesImpression.setListSommeEmprunt(listSommeEmprunt);
-
-
-
-
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
-
             Scene scene2 = new Scene(fxmlLoader.load());
             Stage stage2 = new Stage();
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
-
-
-
-
             stage2.initModality(Modality.APPLICATION_MODAL);
             Window stage = null;
             stage2.initOwner(stage);
@@ -445,7 +409,7 @@ public class ControllerEmpruntLivre implements Initializable {
             stage2.show();
 
         } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenetre");
+            System.out.println("Impossible d'ouvrir la fenêtre");
         }
 
     }

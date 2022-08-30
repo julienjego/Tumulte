@@ -9,7 +9,6 @@ import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,16 +35,13 @@ public class ControllerRechercherAdherent implements Initializable {
     public Adherent adherent;
     public Label lblDate;
     public Integer nbEmpruntsEnCours;
-
-    private boolean isBtnRechercheUtilisé = false;
-
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
-
     /**
      * The Stage.
      */
     Stage stage;
     Scene scene;
+    private boolean isBtnRechercheUtilisé = false;
     @FXML
     private Button btnConsulterFicheAdherent;
     @FXML
@@ -193,12 +189,9 @@ public class ControllerRechercherAdherent implements Initializable {
         tablePretsEnCours.setItems(data);
 
         // Autorise seulement l'insertion de chiffre dans le txtfield
-        txtNumAdherent.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (!"0123456789".contains(keyEvent.getCharacter())) {
-                    keyEvent.consume();
-                }
+        txtNumAdherent.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            if (!"0123456789".contains(keyEvent.getCharacter())) {
+                keyEvent.consume();
             }
         });
 
@@ -232,7 +225,7 @@ public class ControllerRechercherAdherent implements Initializable {
         }
 
 
-            isBtnRechercheUtilisé = true;
+        isBtnRechercheUtilisé = true;
 
     }
 

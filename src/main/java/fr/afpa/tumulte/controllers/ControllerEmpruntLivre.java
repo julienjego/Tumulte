@@ -219,6 +219,7 @@ public class ControllerEmpruntLivre implements Initializable {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lblDate.setText(LocalDate.now().format(frformat));
         btnRechercherLivre.setDisable(true);
+        btnEmprunter.setDisable(true);
     }
 
     /**
@@ -244,6 +245,7 @@ public class ControllerEmpruntLivre implements Initializable {
                 lblISBN.setText(exemplaire.getlivre().getIsbnLivre());
                 lblISSN.setText("NC");
                 lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
+                btnEmprunter.setDisable(false);
 
             } else {
                 System.out.println("exemplaire inconnu");

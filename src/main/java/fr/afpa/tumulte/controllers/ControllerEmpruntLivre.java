@@ -3,10 +3,10 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.Exemplaire;
-import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.DaoEmprunt;
 import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +27,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-
 /**
  * The type Controller emprunt livre.
  */
@@ -36,132 +35,113 @@ public class ControllerEmpruntLivre implements Initializable {
     public Label lblDate;
 
     public Adherent adherentEmprunt;
-    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     private Integer empruntsEncours = 0;
-
-    public void taxiAdherent(Adherent adherent) {
-         adherentEmprunt = adherent;
-         lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
-        lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
-        lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
-
-
-    }
-
-
     /**
      * Bouton annuler.
      */
     @FXML
     private Button btnAnnuler;
-
     /**
      * Bouton emprunter.
      */
     @FXML
     private Button btnEmprunter;
-
     /**
      * Bouton Menu Principal.
      */
     @FXML
     private Button btnMenuPrincipal;
-
     /**
      * Bouton rechercher Livre.
      */
     @FXML
     private Button btnRechercherLivre;
-
     /**
      * Label de l'auteur.
      */
     @FXML
     private Label lblAuteur;
-
     /**
      * Label de disponibilité du livre.
      */
     @FXML
     private Label lblDisponible;
-
     /**
      * Label de l'emplacement du livre.
      */
     @FXML
     private Label lblEmplacement;
-
     /**
      * Label de l'état du livre.
      */
     @FXML
     private Label lblEtat;
-
     /**
      * Label de l'ISBN.
      */
     @FXML
     private Label lblISBN;
-
     /**
      * Label de l'ISSN.
      */
     @FXML
     private Label lblISSN;
-
     /**
      * Label indiquant le nom de l'adhérent.
      */
     @FXML
     private Label lblNomAdherent;
-
     /**
      * Label indiquant le numéro de l'adhérent.
      */
     @FXML
     private Label lblNumAdherent;
-
     /**
      * Label indiquant le prénom de l'adhérent.
      */
     @FXML
     private Label lblPrenomAdherent;
-
     /**
      * Label indiquant le thème du livre.
      */
     @FXML
     private Label lblTheme;
-
     /**
      * Label indiquant le titre du livre.
      */
     @FXML
     private Label lblTitreExemplaire;
-
     /**
      * Label indiquant le code de l'exemplaire.
      */
     @FXML
     private TextField txtCodeExemplaire;
-
     /**
      * Barre de menu.
      */
     @FXML
     private MenuBar menuBar;
-
     /**
      * Font.
      */
     @FXML
     private Font x3;
-
     /**
      * Font.
      */
     @FXML
     private Color x4;
+
+    public void taxiAdherent(Adherent adherent) {
+        lblNumAdherent.setText(String.valueOf(adherent.getNumAdherent()));
+        lblNomAdherent.setText(String.valueOf(adherent.getNomAdherent()));
+        lblPrenomAdherent.setText(String.valueOf(adherent.getPrenomAdherent()));
+
+//    public void setAdherentEmprunt(Adherent adherentEmprunt) {
+//        this.adherentEmprunt = adherentEmprunt;
+//    }
+
+    }
 
     /**
      * Annuler.
@@ -177,7 +157,7 @@ public class ControllerEmpruntLivre implements Initializable {
     @FXML
     void emprunterLivre() {
 
-       confEmpruntLivre();
+        confEmpruntLivre();
         effacer();
     }
 
@@ -212,7 +192,7 @@ public class ControllerEmpruntLivre implements Initializable {
     void activerBtnRechercher(KeyEvent e) {
 
         btnRechercherLivre.setDisable(codeExemplaireIsEmpty());
-        if (e.getCode().equals(KeyCode.ENTER) ) {
+        if (e.getCode().equals(KeyCode.ENTER)) {
             rechercherLivre();
         }
     }
@@ -223,6 +203,16 @@ public class ControllerEmpruntLivre implements Initializable {
     @Override
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
         init();
+
+        // Autorise seulement l'insertion de chiffre dans le txtfield
+        txtCodeExemplaire.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (!"0123456789-".contains(keyEvent.getCharacter())) {
+                    keyEvent.consume();
+                }
+            }
+        });
     }
 
     private void init() {
@@ -237,25 +227,31 @@ public class ControllerEmpruntLivre implements Initializable {
      */
     private void afficherLabels() {
         DaoEmprunt daoE = new DaoEmprunt();
- afficherInfoExemplaire(daoE.showExemplaire(txtCodeExemplaire.getText()));
+        afficherInfoExemplaire(daoE.showExemplaire(txtCodeExemplaire.getText()));
 
     }
 
     private void afficherInfoExemplaire(Exemplaire exemplaire) {
-        if (numExemplaireEstConnu(exemplaire)) {
-            lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
-            //lblAuteur.setText(StringUtils.join(exemplaire.getlivre().getAuteur().get(0).getNomAuteur() +" "+ exemplaire.getlivre().getAuteur().get(0).getPrenomAuteur(), " "));
-            lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
-            lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
-            lblEtat.setText(exemplaire.getCommentExemplaire());
-            lblDisponible.setText(exemplaire.isDisponible() ? "Oui" : "Non");
-            lblISBN.setText(exemplaire.getlivre().getIsbnLivre());
-            lblISSN.setText("NC");
-            lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
 
-        }
-        else {
-            System.out.println("exemplaire inconnu");
+        try {
+            if (numExemplaireEstConnu(exemplaire)) {
+                lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
+                //lblAuteur.setText(StringUtils.join(exemplaire.getlivre().getAuteur().get(0).getNomAuteur() +" "+ exemplaire.getlivre().getAuteur().get(0).getPrenomAuteur(), " "));
+                lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
+                lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
+                lblEtat.setText(exemplaire.getCommentExemplaire());
+                lblDisponible.setText(exemplaire.isDisponible() ? "Oui" : "Non");
+                lblISBN.setText(exemplaire.getlivre().getIsbnLivre());
+                lblISSN.setText("NC");
+                lblEmplacement.setText(exemplaire.getemplacement().getCodEmplacement());
+
+            } else {
+                System.out.println("exemplaire inconnu");
+                afficherMessageErreur("Erreur de letcure", "Exemplaire non reconnu");
+
+            }
+        } catch (Exception e) {
+            afficherMessageErreur("Erreur de letcure", "Exemplaire non reconnu");
 
         }
     }
@@ -276,20 +272,21 @@ public class ControllerEmpruntLivre implements Initializable {
     private void confEmpruntLivre() {
         DaoEmprunt daoE = new DaoEmprunt();
 
-        if (!(daoE.showExemplaire(txtCodeExemplaire.getText()).isDisponible())){
+        if (!(daoE.showExemplaire(txtCodeExemplaire.getText()).isDisponible())) {
             String messageErreur1 = "Le livre n'est pas disponible.";
             String messageErreur2 = "Le Livre " + (daoE.showExemplaire(txtCodeExemplaire.getText())).getlivre().getTitreLivre() + "  pour les nuls est déjà emprunté\r"
                     + "Vous pouvez passer au suivant ou quitter";
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else {
-            daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()),txtCodeExemplaire.getText()); ;
+
+            daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()), txtCodeExemplaire.getText());
             String message1 = "Le livre est emprunté.";
             String message2 = "Merci de nous laisser tranquille.";
             afficherMessage(message1, message2);
 
             empruntsEncours += 1;
             btnEmprunter.setDisable(nbMaxEmpruntsEstAtteint(empruntsEncours));
-            }
+        }
 
     }
 
@@ -322,7 +319,7 @@ public class ControllerEmpruntLivre implements Initializable {
         alert.showAndWait();
     }
 
-    private boolean numExemplaireEstConnu(Exemplaire exemplaire){
+    private boolean numExemplaireEstConnu(Exemplaire exemplaire) {
         return Objects.equals(txtCodeExemplaire.getText(), exemplaire.getNumExemplaire());
     }
 
@@ -334,7 +331,7 @@ public class ControllerEmpruntLivre implements Initializable {
         this.empruntsEncours = empruntsEncours;
     }
 
-    public boolean nbMaxEmpruntsEstAtteint (Integer nbEmpruntsEnCours) {
+    public boolean nbMaxEmpruntsEstAtteint(Integer nbEmpruntsEnCours) {
 
         if (nbEmpruntsEnCours < 3) {
             return false;

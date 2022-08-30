@@ -14,19 +14,19 @@ import java.util.List;
 public class Adherent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "numAdherent",nullable = false, length = 11)
+    @Column(name = "numAdherent", nullable = false, length = 11)
     private Integer numAdherent;
-    @Column (name = "nomAdherent",nullable = false, length = 50)
+    @Column(name = "nomAdherent", nullable = false, length = 50)
     private String nomAdherent;
-    @Column (name = "prenomAdherent",nullable = false, length = 50)
+    @Column(name = "prenomAdherent", nullable = false, length = 50)
     private String prenomAdherent;
-    @Column (name = "adrAdherent",nullable = false, length = 50)
+    @Column(name = "adrAdherent", nullable = false, length = 50)
     private String adrAdherent;
-    @Column (name = "telAdherent",nullable = false, length = 20)
+    @Column(name = "telAdherent", nullable = false, length = 20)
     private String teleAdherent;
-    @Column (name = "perimeLe",nullable = false)
+    @Column(name = "perimeLe", nullable = false)
     private LocalDate perimeLe;
-    @Column (name = "pwdAdherent",nullable = true, length = 10)
+    @Column(name = "pwdAdherent", nullable = true, length = 10)
     private String pwdAdherent;
     @OneToMany(mappedBy = "numAdherent")
     private List<Emprunt> lstEmpruntsEnCours = new ArrayList<>();
@@ -43,6 +43,15 @@ public class Adherent {
         this.perimeLe = perimeLe;
         this.pwdAdherent = pwdAdherent;
         this.lstEmpruntsEnCours = lstEmpruntsEnCours;
+    }
+
+    public Adherent(String nomAdherent, String prenomAdherent, String adrAdherent, String teleAdherent, LocalDate perimeLe) {
+        this.numAdherent = numAdherent;
+        this.nomAdherent = nomAdherent;
+        this.prenomAdherent = prenomAdherent;
+        this.adrAdherent = adrAdherent;
+        this.teleAdherent = teleAdherent;
+        this.perimeLe = perimeLe;
     }
 
     public List<Emprunt> getLstEmpruntsEnCours() {

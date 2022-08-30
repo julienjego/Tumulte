@@ -3,6 +3,7 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
+import fr.afpa.tumulte.outils.AccesImpression;
 import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
@@ -30,16 +31,17 @@ import java.util.ResourceBundle;
  * The type Controller rechercher adherent.
  */
 public class ControllerRechercherAdherent implements Initializable {
-    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
     public Adherent adherent;
     public Label lblDate;
     public Integer nbEmpruntsEnCours;
+    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     /**
      * The Stage.
      */
     Stage stage;
     Scene scene;
-    final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
+    private boolean isBtnRechercheUtilisé = false;
     @FXML
     private Button btnConsulterFicheAdherent;
     @FXML
@@ -91,11 +93,12 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     void activerBoutons(KeyEvent e) {
         activerBoutons();
-        if (e.getCode().equals(KeyCode.ENTER) ) {
+        if (e.getCode().equals(KeyCode.ENTER)) {
             rechercherAdherent();
         }
 
     }
+
     void activerBoutons() {
         btnRechercherAdherent.setDisable(!idAdherentEstValide());
         btnConsulterFicheAdherent.setDisable(!idAdherentEstValide());
@@ -133,6 +136,7 @@ public class ControllerRechercherAdherent implements Initializable {
 
         try {
             DaoAdherent daoAdherent = new DaoAdherent();
+
             afficherInfoAdherent(daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
             adherent = daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText()));
         } catch (Exception e) {
@@ -156,6 +160,8 @@ public class ControllerRechercherAdherent implements Initializable {
         Scene scene = new Scene(fxmlLoader.load());
         ControllerEmpruntLivre ctrlEMprLivre = fxmlLoader.getController();
         ctrlEMprLivre.taxiAdherent(adherent);
+
+
         ctrlEMprLivre.taxiEmprunts(nbEmpruntsEnCours);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Menu principal");
@@ -182,6 +188,13 @@ public class ControllerRechercherAdherent implements Initializable {
 
         tablePretsEnCours.setItems(data);
 
+        // Autorise seulement l'insertion de chiffre dans le txtfield
+        txtNumAdherent.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            if (!"0123456789".contains(keyEvent.getCharacter())) {
+                keyEvent.consume();
+            }
+        });
+
     }
 
     private void afficherInfoAdherent(Adherent adherent) {
@@ -189,9 +202,13 @@ public class ControllerRechercherAdherent implements Initializable {
             lblNomAdherent.setText(adherent.getNomAdherent());
             lblPrenomAdherent.setText(adherent.getPrenomAdherent());
             creerTableauEmprunts(adherent);
+
             if (nbEmpruntsEnCours >= 3) {
                 lblTropDePrets.setVisible(true);
                 btnValiderAdherent.setDisable(true);
+            } else {
+                lblTropDePrets.setVisible(false);
+                btnValiderAdherent.setDisable(false);
             }
 
             if (abonnementEstPerime(adherent)) {
@@ -206,12 +223,10 @@ public class ControllerRechercherAdherent implements Initializable {
             }
 
         }
-//        else {
-//            String headerTxt = "Ce numéro d'adhérent est inconnu !";
-//            String contentTxt = "Merci de vérifier et saisir un nouveau numéro d'adhérent.";
-//            fenetreErreur(headerTxt, contentTxt);
-//            txtNumAdherent.setText("");
-//        }
+
+
+        isBtnRechercheUtilisé = true;
+
     }
 
     private void fenetreErreur(String headerTxt, String contentTxt) {
@@ -224,20 +239,31 @@ public class ControllerRechercherAdherent implements Initializable {
 
     @FXML
     private void afficherFicheAdherent() {
-        try {
+        // Si le numéro d'adhérent dans la barre de saisie est bien le numéro d'adhérent "chargé",
+        // on passe à la fenêtre Fiche Adhérent, sinon on lance la recherche sur le numéro d'adhérent
+        // saisi puis on affiche la fiche adhérent
+        if (isBtnRechercheUtilisé && adherent.getNumAdherent() == Integer.parseInt(txtNumAdherent.getText())) {
+            try {
 
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
-            Stage stage = (Stage) (menuBar.getScene().getWindow());
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle("Menu principal");
-            stage.setScene(scene);
-            ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
-            ctrlAfficherAdherent.taxiAdherent(adherent);
-            stage.show();
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
+                Stage stage = (Stage) (menuBar.getScene().getWindow());
+                Scene scene = new Scene(fxmlLoader.load());
+                stage.setTitle("Menu principal");
+                stage.setScene(scene);
+                ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
+                ctrlAfficherAdherent.taxiAdherent(adherent);
+                AccesImpression.setAdherent(adherent);
+                stage.show();
 
-        } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenêtre !");
+            } catch (IOException e) {
+                System.out.println("Impossible d'ouvrir la fenêtre !");
+            }
+        } else {
+            rechercherAdherent();
+            afficherFicheAdherent();
+
         }
+
     }
 
     public void taxiAdherent(Adherent adherent) {
@@ -249,7 +275,7 @@ public class ControllerRechercherAdherent implements Initializable {
         data.clear();
         data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
         nbEmpruntsEnCours = data.size();
-        }
+    }
 
     private boolean idAdherentEstValide() {
         return !txtNumAdherent.getText().equals("") && txtNumAdherent.getLength() < 11;

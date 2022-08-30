@@ -36,7 +36,6 @@ public class ControllerEmpruntLivre implements Initializable {
     public Label lblDate;
 
     public Adherent adherentEmprunt;
-    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     private Integer empruntsEncours = 0;
 
     public void taxiAdherent(Adherent adherent) {

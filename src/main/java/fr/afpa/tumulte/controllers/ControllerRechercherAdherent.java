@@ -189,9 +189,13 @@ public class ControllerRechercherAdherent implements Initializable {
             lblNomAdherent.setText(adherent.getNomAdherent());
             lblPrenomAdherent.setText(adherent.getPrenomAdherent());
             creerTableauEmprunts(adherent);
+
             if (nbEmpruntsEnCours >= 3) {
                 lblTropDePrets.setVisible(true);
                 btnValiderAdherent.setDisable(true);
+            } else {
+                lblTropDePrets.setVisible(false);
+                btnValiderAdherent.setDisable(false);
             }
 
             if (abonnementEstPerime(adherent)) {

@@ -16,7 +16,7 @@
         <class>fr.afpa.tumulte.entites.Livre</class>
         <class>fr.afpa.tumulte.entites.Theme</class>
         <class>fr.afpa.tumulte.entites.Redaction_pk</class>
-<!--        <class>fr.afpa.tumulte.entites.Redaction</class>-->
+        <class>fr.afpa.tumulte.entites.Redaction</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>

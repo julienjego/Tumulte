@@ -27,18 +27,18 @@ public class AccesStat {
     }
 
     public static List<Theme> listTheme(String nomBib, String annee) {
-        String requete = "select exemplaire.numExemplaire \n" +
-                                 "FROM theme t\n" +
-                                 "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme\n" +
-                                 "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement\n" +
-                                 "INNER JOIN emprunt e ON exemplaire.numExemplaire = e.numExemplaire\n";
+        String requete = "select exemplaire.numExemplaire " +
+                                 "FROM theme t " +
+                                 "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme " +
+                                 "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement " +
+                                 "INNER JOIN emprunt e ON exemplaire.numExemplaire = e.numExemplaire ";
         if (nomBib.equals(TOUTES_BIB)) {
             return listThemeBiblio(requete
                                            + "where t.codTheme=", annee);
         } else {
             return listThemeBiblio(requete
-                                           + "INNER JOIN bibliotheque b ON b.codBibliotheque = emplacement.codBibliotheque\n"
-                                           + "where b.libelBibliotheque = \"" + nomBib + "\"\n"
+                                           + "INNER JOIN bibliotheque b ON b.codBibliotheque = emplacement.codBibliotheque "
+                                           + "where b.libelBibliotheque = \"" + nomBib + "\" "
                                            + "and t.codTheme = ", annee);
 
         }

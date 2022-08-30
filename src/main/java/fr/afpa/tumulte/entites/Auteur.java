@@ -16,21 +16,11 @@ public class Auteur {
     private int codAuteur;
 
     private String nomAuteur;
-
-    public List<Livre> getLivres() {
-        return livres;
-    }
-
-    public void setLivres(ArrayList<Livre> livres) {
-        this.livres = livres;
-    }
-
     private String prenomAuteur;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "redaction",
-            joinColumns = @JoinColumn(name = "codAuteur"),
-            inverseJoinColumns = @JoinColumn(name = "IsbnLivre"))
+    @ManyToMany(mappedBy = "auteur", fetch = FetchType.EAGER)
+//    @JoinTable(name = "redaction",
+//            joinColumns = @JoinColumn(name = "codAuteur"),
+//            inverseJoinColumns = @JoinColumn(name = "IsbnLivre"))
     private List<Livre> livres = new ArrayList<>();
 
     public Auteur(int codAuteur, String nomAuteur, String prenomAuteur, List<Livre> livres) {
@@ -64,6 +54,14 @@ public class Auteur {
         this.codAuteur = codAuteur;
         this.nomAuteur = nomAuteur;
         this.prenomAuteur = prenomAuteur;
+    }
+
+    public List<Livre> getLivres() {
+        return livres;
+    }
+
+    public void setLivres(ArrayList<Livre> livres) {
+        this.livres = livres;
     }
 
     public void setLivres(List<Livre> livres) {

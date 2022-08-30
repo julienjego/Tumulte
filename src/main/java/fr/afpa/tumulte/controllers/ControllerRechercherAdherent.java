@@ -253,6 +253,7 @@ public class ControllerRechercherAdherent implements Initializable {
                 ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
                 ctrlAfficherAdherent.taxiAdherent(adherent);
                 AccesImpression.setAdherent(adherent);
+                
                 stage.show();
 
             } catch (IOException e) {

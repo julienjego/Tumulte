@@ -454,7 +454,7 @@ public class ControllerEmpruntLivre implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Maximum d'emprunt atteint.");
         alert.setHeaderText("Le livre est emprunté.");
-        alert.setContentText("Le nombre maximum d'emprunt à était atteint.");
+        alert.setContentText("Le nombre maximum d'emprunt a été atteint.");
         alert.showAndWait();
     }
 

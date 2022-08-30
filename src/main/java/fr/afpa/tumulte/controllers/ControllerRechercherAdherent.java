@@ -9,6 +9,7 @@ import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,16 +32,16 @@ import java.util.ResourceBundle;
  * The type Controller rechercher adherent.
  */
 public class ControllerRechercherAdherent implements Initializable {
-    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
     public Adherent adherent;
     public Label lblDate;
     public Integer nbEmpruntsEnCours;
+    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
     /**
      * The Stage.
      */
     Stage stage;
     Scene scene;
-    final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
     @FXML
     private Button btnConsulterFicheAdherent;
     @FXML
@@ -92,11 +93,12 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     void activerBoutons(KeyEvent e) {
         activerBoutons();
-        if (e.getCode().equals(KeyCode.ENTER) ) {
+        if (e.getCode().equals(KeyCode.ENTER)) {
             rechercherAdherent();
         }
 
     }
+
     void activerBoutons() {
         btnRechercherAdherent.setDisable(!idAdherentEstValide());
         btnConsulterFicheAdherent.setDisable(!idAdherentEstValide());
@@ -134,6 +136,7 @@ public class ControllerRechercherAdherent implements Initializable {
 
         try {
             DaoAdherent daoAdherent = new DaoAdherent();
+
             afficherInfoAdherent(daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText())));
             adherent = daoAdherent.showAdherent(Integer.valueOf(txtNumAdherent.getText()));
         } catch (Exception e) {
@@ -184,6 +187,16 @@ public class ControllerRechercherAdherent implements Initializable {
         columnAuteur.setCellValueFactory(new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomsAuteurs"));
 
         tablePretsEnCours.setItems(data);
+
+        // Autorise seulement l'insertion de chiffre dans le txtfield
+        txtNumAdherent.addEventFilter(KeyEvent.KEY_TYPED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                if (!"0123456789".contains(keyEvent.getCharacter())) {
+                    keyEvent.consume();
+                }
+            }
+        });
 
     }
 
@@ -253,7 +266,7 @@ public class ControllerRechercherAdherent implements Initializable {
         data.clear();
         data.addAll(projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
         nbEmpruntsEnCours = data.size();
-        }
+    }
 
     private boolean idAdherentEstValide() {
         return !txtNumAdherent.getText().equals("") && txtNumAdherent.getLength() < 11;

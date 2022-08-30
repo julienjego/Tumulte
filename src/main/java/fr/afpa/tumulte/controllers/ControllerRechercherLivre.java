@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -80,7 +79,7 @@ public class ControllerRechercherLivre implements Initializable {
     public void initialize(final URL url, final ResourceBundle resourceBundle) {
         init();
         tabLivres.setVisible(true);
-        ObservableList<Livre> listLivre = lireLivre(TOUTES_BIB);
+        ObservableList<Livre> listLivre = lireLivre(TOUTES_BIB, "toutes");
         colISBN.setCellValueFactory(
                 new PropertyValueFactory<Livre, String>("IsbnLivre"));
         colTitre.setCellValueFactory(
@@ -119,12 +118,6 @@ public class ControllerRechercherLivre implements Initializable {
     }
 
     @FXML
-    void onClickAnnuler(MouseEvent event) {
-
-    }
-
-
-    @FXML
     void onClickRecherche() {
         ObservableList<Livre> listLivre = updateLireLivre(txtRecherche.getText());
         colISBN.setCellValueFactory(
@@ -146,7 +139,7 @@ public class ControllerRechercherLivre implements Initializable {
     @FXML
     void onClickRestartListe(ActionEvent event) {
 
-        ObservableList<Livre> listLivre = lireLivre(TOUTES_BIB);
+        ObservableList<Livre> listLivre = lireLivre(TOUTES_BIB, "toutes");
         colISBN.setCellValueFactory(
                 new PropertyValueFactory<Livre, String>("IsbnLivre"));
         colTitre.setCellValueFactory(
@@ -162,7 +155,6 @@ public class ControllerRechercherLivre implements Initializable {
         tabLivres.setItems(listLivre);
 
     }
-
 
     @FXML
     public void onClickMenuPrincipal() throws IOException {

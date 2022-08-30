@@ -26,24 +26,25 @@ public class AccesStat {
         }
     }
 
-    public static List<Theme> listTheme(String nomBib) {
-        String requete = "FROM theme t\n" +
-                                 "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme\n" +
-                                 "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement\n" +
-                                 "INNER JOIN emprunt  ON exemplaire.numExemplaire = emprunt.numExemplaire\n";
+    public static List<Theme> listTheme(String nomBib, String annee) {
+        String requete = "select exemplaire.numExemplaire " +
+                                 "FROM theme t " +
+                                 "INNER JOIN emplacement  ON t.codTheme = emplacement.codTheme " +
+                                 "INNER JOIN exemplaire  ON emplacement.codEmplacement = exemplaire.codEmplacement " +
+                                 "INNER JOIN emprunt e ON exemplaire.numExemplaire = e.numExemplaire ";
         if (nomBib.equals(TOUTES_BIB)) {
             return listThemeBiblio(requete
-                                           + "where t.codTheme=");
+                                           + "where t.codTheme=", annee);
         } else {
             return listThemeBiblio(requete
-                                           + "INNER JOIN bibliotheque b ON b.codBibliotheque = emplacement.codBibliotheque\n"
-                                           + "where b.libelBibliotheque = \"" + nomBib + "\"\n"
-                                           + "and t.codTheme = ");
+                                           + "INNER JOIN bibliotheque b ON b.codBibliotheque = emplacement.codBibliotheque "
+                                           + "where b.libelBibliotheque = \"" + nomBib + "\" "
+                                           + "and t.codTheme = ", annee);
 
         }
     }
 
-    private static List<Theme> listThemeBiblio(String requete) {
+    private static List<Theme> listThemeBiblio(String requete, String annee) {
         EntityManager eM = null;
         List<Theme> themes = new ArrayList<>();
         int nbEmpruntTotal = 0;
@@ -52,9 +53,12 @@ public class AccesStat {
             themes = eM.createQuery("from Theme", Theme.class).getResultList();
             for (int i = 0; i < themes.size(); i++) {
                 int nbEmprunt;
-                nbEmprunt = eM.createNativeQuery("select exemplaire.numExemplaire \n" + requete + themes.get(i).getCodTheme(),
-                        String.class).getResultList().size();
-
+                if (annee != "toutes") {
+                    nbEmprunt = eM.createNativeQuery(requete
+                                                             + themes.get(i).getCodTheme()
+                                                             + " and YEAR(e.datEmprunt) = "
+                                                             + annee).getResultList().size();
+                } else nbEmprunt = eM.createNativeQuery(requete + themes.get(i).getCodTheme()).getResultList().size();
                 nbEmpruntTotal = nbEmpruntTotal + nbEmprunt;
                 themes.get(i).setNbEmprunt(nbEmprunt);
             }
@@ -63,7 +67,7 @@ public class AccesStat {
             T0.setNbEmprunt(nbEmpruntTotal);
             themes.add(0, T0);
         } catch (Exception e) {
-            System.out.println(e.getCause());
+            e.printStackTrace();
 
         } finally {
             if (eM != null && eM.isOpen()) {

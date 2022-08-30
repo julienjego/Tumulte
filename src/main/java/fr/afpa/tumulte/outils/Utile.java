@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The type Utile.
@@ -60,9 +61,9 @@ public class Utile {
      * @return the observable list
      */
 
-    public static ObservableList<Theme> lireTheme(String nomBib) {
+    public static ObservableList<Theme> lireTheme(String nomBib, String annee) {
         try {
-            List<Theme> listTheme = AccesStat.listTheme(nomBib);
+            List<Theme> listTheme = AccesStat.listTheme(nomBib, annee);
             return FXCollections.observableArrayList(listTheme);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -80,9 +81,9 @@ public class Utile {
      *
      * @return the observable list
      */
-    public static ObservableList<Livre> lireLivre(String nomBib) {
+    public static ObservableList<Livre> lireLivre(String nomBib, String annee) {
         try {
-            List<Livre> listLivre = accesLivre.listLivres(nomBib);
+            List<Livre> listLivre = accesLivre.listLivres(nomBib, annee);
             return FXCollections.observableArrayList(listLivre);
         } catch (Exception e) {
             System.out.println(e);
@@ -139,8 +140,9 @@ public class Utile {
 
         return LocalDate.now().plusDays(15);
 
-
     }
+
+
 
 
 }

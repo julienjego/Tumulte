@@ -1,7 +1,13 @@
 package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
+import fr.afpa.tumulte.entites.Adherent;
+import fr.afpa.tumulte.entites.EmpruntTicketImpression;
 import fr.afpa.tumulte.entites.Exemplaire;
+import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
+import fr.afpa.tumulte.outils.AccesImpression;
+import fr.afpa.tumulte.outils.ListSommeEmprunt;
+import fr.afpa.tumulte.outils.ProjectionTableauEmprunt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,9 +30,16 @@ import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
 
+
+    final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
+    ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    private Adherent adherentAff;
+
     public Label lblDate;
     private Stage stage;
     private Scene scene;
+
+    public Adherent adherent;
     @FXML
     private Button btnImpreimerTicket;
     @FXML
@@ -34,17 +47,17 @@ public class ControllerAfficherAdherent implements Initializable {
     @FXML
     private Button btnRetour;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlBbl;
+    private TableColumn colTtlBbl;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlCodeExemplaire;
+    private TableColumn colTtlCodeExemplaire;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlDatepret;
+    private TableColumn colTtlDatepret;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlIsbn;
+    private TableColumn colTtlIsbn;
     @FXML
-    private TableColumn<Exemplaire, String> colTtlTitre;
+    private TableColumn colTtlTitre;
     @FXML
-    private TableColumn<Exemplaire, String> colTtldateRetour;
+    private TableColumn colTtldateRetour;
     @FXML
     private Label lblAdresse;
     @FXML
@@ -62,7 +75,7 @@ public class ControllerAfficherAdherent implements Initializable {
     @FXML
     private Label lblTel;
     @FXML
-    private TableView<Exemplaire> tblPretEnCours;
+    private TableView<TableViewEmpruntsEnCours> tblPretEnCours;
     @FXML
     private Font x3;
     @FXML
@@ -103,12 +116,23 @@ public class ControllerAfficherAdherent implements Initializable {
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
+        ControllerRechercherAdherent ctrlRechAdh = fxmlLoader.getController();
+        ctrlRechAdh.taxiAdherent(adherentAff);
         stage.show();
 
     }
 
     private void imprimer() {
         try {
+            String numAdherent = lblNumAdherent.getText();
+            ListSommeEmprunt listSommeEmprunt = new ListSommeEmprunt();
+            listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
+            AccesImpression.setListSommeEmprunt(listSommeEmprunt);
+
+//            System.out.println(listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent)));
+
+
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
 
@@ -116,6 +140,10 @@ public class ControllerAfficherAdherent implements Initializable {
             Stage stage2 = new Stage();
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
+
+
+
+
             stage2.initModality(Modality.APPLICATION_MODAL);
             stage2.initOwner(stage);
             stage2.setResizable(false);
@@ -136,22 +164,40 @@ public class ControllerAfficherAdherent implements Initializable {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lblDate.setText(LocalDate.now().format(frformat));
 
-        // @TODO"taper ds la bdd pour avoir livre + exemplaire + emprunt"
-        final ObservableList<?> data = FXCollections.observableArrayList(
-       );
-
         tblPretEnCours.setEditable(true);
 
-        colTtlTitre.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("titre"));
+        colTtlTitre.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("titreLivre"));
+        colTtlBbl.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("nomBibliotheque"));
+        colTtlDatepret.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datEmprunt"));
+        colTtlIsbn.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("isbn"));
+        colTtldateRetour.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("datRetour"));
+        colTtlCodeExemplaire.setCellValueFactory(
+                new PropertyValueFactory<TableViewEmpruntsEnCours, String>("numExemplaire"));
+        tblPretEnCours.setItems(data);
+    }
 
-        colTtlBbl.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("codBibliotheque"));
+    public void taxiAdherent(Adherent adherent){
+        adherentAff = adherent;
+        lblNom.setText(adherentAff.getNomAdherent());
+        lblPrenom.setText(adherentAff.getPrenomAdherent());
+        lblTel.setText(adherentAff.getTeleAdherent());
+        lblAdresse.setText(adherentAff.getAdrAdherent());
+        lblNumAdherent.setText(String.valueOf(adherentAff.getNumAdherent()));
+        creerTableauEmprunts(adherent);
+        lblNbPretEnCours.setText(String.valueOf(data.size()));
+        lblPretRetard.setText(String.valueOf(projectionTableauEmprunt.nbEmpruntsEnRetard(adherentAff.getNumAdherent())));
+    }
 
-        colTtlDatepret.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("datePret"));
-        colTtlIsbn.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("IsbnLivre"));
-        colTtldateRetour.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("dateRetour"));
-        colTtlCodeExemplaire.setCellValueFactory(new PropertyValueFactory<Exemplaire, String>("numExemplaire"));
-
-        //@todo remettre le nouveau tableau à la place de data ------------ >>>   tblPretEnCours.setItems(data);   <<<------------------//
+    private void creerTableauEmprunts(Adherent adherent) {
+        data.clear();
+        data.addAll(
+                projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
+        //System.out.println(data.size());
     }
 
     @FXML

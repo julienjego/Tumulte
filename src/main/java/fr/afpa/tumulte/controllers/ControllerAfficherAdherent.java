@@ -15,8 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,20 +22,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
 
-
     final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    @FXML
+    private Label lblDate;
     private Adherent adherentAff;
-
-    public Label lblDate;
     private Stage stage;
-    private Scene scene;
-
-    public Adherent adherent;
     @FXML
     private Button btnImpreimerTicket;
     @FXML
@@ -74,17 +69,9 @@ public class ControllerAfficherAdherent implements Initializable {
     private Label lblTel;
     @FXML
     private TableView<TableViewEmpruntsEnCours> tblPretEnCours;
-    @FXML
-    private Font x3;
-    @FXML
-    private Font x31;
-    @FXML
-    private Color x4;
-    @FXML
-    private Color x41;
+
     @FXML
     private MenuBar menuBar;
-
 
     @FXML
     void imprimerTicket(ActionEvent event) {
@@ -92,9 +79,9 @@ public class ControllerAfficherAdherent implements Initializable {
 
     }
 
-
     @FXML
     void modifierAdherent(ActionEvent event) {
+        /** @TODO prévoir d'ajouter le code */
 
     }
 
@@ -106,8 +93,8 @@ public class ControllerAfficherAdherent implements Initializable {
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
-        scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         ControllerRechercherAdherent ctrlRechAdh = fxmlLoader.getController();
@@ -123,10 +110,6 @@ public class ControllerAfficherAdherent implements Initializable {
             listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
             AccesImpression.setListSommeEmprunt(listSommeEmprunt);
 
-
-
-
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
 
@@ -135,24 +118,17 @@ public class ControllerAfficherAdherent implements Initializable {
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
 
-
-
-
             stage2.initModality(Modality.APPLICATION_MODAL);
             stage2.initOwner(stage);
             stage2.setResizable(false);
             stage2.show();
 
         } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenêtre");
+            e.printStackTrace();
         }
 
     }
 
-    /**
-     * @param location
-     * @param resources
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -175,7 +151,7 @@ public class ControllerAfficherAdherent implements Initializable {
         tblPretEnCours.setItems(data);
     }
 
-    public void taxiAdherent(Adherent adherent){
+    public void taxiAdherent(Adherent adherent) {
         adherentAff = adherent;
         lblNom.setText(adherentAff.getNomAdherent());
         lblPrenom.setText(adherentAff.getPrenomAdherent());
@@ -191,7 +167,7 @@ public class ControllerAfficherAdherent implements Initializable {
         data.clear();
         data.addAll(
                 projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
-        //System.out.println(data.size());
+
     }
 
     @FXML

@@ -4,8 +4,11 @@ import fr.afpa.tumulte.entites.Adherent;
 
 public class AccesImpression {
 
-    public static ListSommeEmprunt listSommeEmprunt;
-    public static Adherent adherent;
+    private static ListSommeEmprunt listSommeEmprunt;
+    private static Adherent adherent;
+
+    private AccesImpression() {
+    }
 
     public static Adherent getAdherent() {
         return adherent;

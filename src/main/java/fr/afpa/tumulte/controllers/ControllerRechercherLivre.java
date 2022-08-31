@@ -4,7 +4,6 @@ import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Livre;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -101,19 +99,11 @@ public class ControllerRechercherLivre implements Initializable {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         lblDate.setText(LocalDate.now().format(frformat));
 
-        btnRecherche.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                onClickRecherche();
-            }
-        });
+        btnRecherche.setOnAction(actionEvent -> onClickRecherche());
 
-        txtRecherche.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                if (keyEvent.getCode() == KeyCode.ENTER) {
-                    onClickRecherche();
-                }
+        txtRecherche.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                onClickRecherche();
             }
         });
     }

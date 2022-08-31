@@ -4,14 +4,13 @@ import fr.afpa.tumulte.entites.Livre;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccesLivre {
     private static final String TOUTES_BIB = "Toutes les Bibliotèques";
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("fr.afpa.tumulte");
+    private static final EntityManagerFactory emf = UtileEmf.ENTITY_MANAGER_FACTORY.getEmf();
 
     public List<Livre> listLivres(String nomBib, String annee) {
 
@@ -37,7 +36,7 @@ public class AccesLivre {
             for (int i = 0; i < livres.size(); i++) {
                 int nbEmprunt;
                 int nbExemplaire;
-                if (annee != "toutes") {
+                if (!annee.equals("toutes")) {
                     nbEmprunt = eM.createNativeQuery("select exemplaire.numExemplaire \n"
                                                              + "FROM livre l\n"
                                                              + "INNER JOIN exemplaire  ON l.IsbnLivre = exemplaire.IsbnLivre\n"
@@ -71,7 +70,7 @@ public class AccesLivre {
 
             trans.commit();
         } catch (Exception e) {
-            System.out.println(e.getCause());
+            e.printStackTrace();
 
         } finally {
             if (eM != null && eM.isOpen()) {

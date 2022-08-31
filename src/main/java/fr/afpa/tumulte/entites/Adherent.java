@@ -46,7 +46,6 @@ public class Adherent {
     }
 
     public Adherent(String nomAdherent, String prenomAdherent, String adrAdherent, String teleAdherent, LocalDate perimeLe) {
-        this.numAdherent = numAdherent;
         this.nomAdherent = nomAdherent;
         this.prenomAdherent = prenomAdherent;
         this.adrAdherent = adrAdherent;

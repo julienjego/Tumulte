@@ -2,8 +2,6 @@ package fr.afpa.tumulte.controllers;
 
 import fr.afpa.tumulte.app.App;
 import fr.afpa.tumulte.entites.Adherent;
-import fr.afpa.tumulte.entites.EmpruntTicketImpression;
-import fr.afpa.tumulte.entites.Exemplaire;
 import fr.afpa.tumulte.entites.TableViewEmpruntsEnCours;
 import fr.afpa.tumulte.outils.AccesImpression;
 import fr.afpa.tumulte.outils.ListSommeEmprunt;
@@ -17,8 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,20 +22,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ControllerAfficherAdherent implements Initializable {
 
-
     final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    @FXML
+    private Label lblDate;
     private Adherent adherentAff;
-
-    public Label lblDate;
     private Stage stage;
-    private Scene scene;
-
-    public Adherent adherent;
     @FXML
     private Button btnImpreimerTicket;
     @FXML
@@ -76,31 +69,19 @@ public class ControllerAfficherAdherent implements Initializable {
     private Label lblTel;
     @FXML
     private TableView<TableViewEmpruntsEnCours> tblPretEnCours;
-    @FXML
-    private Font x3;
-    @FXML
-    private Font x31;
-    @FXML
-    private Color x4;
-    @FXML
-    private Color x41;
+
     @FXML
     private MenuBar menuBar;
 
-    /**
-     * @param event
-     */
     @FXML
     void imprimerTicket(ActionEvent event) {
         imprimer();
 
     }
 
-    /**
-     * @param event
-     */
     @FXML
     void modifierAdherent(ActionEvent event) {
+        /** @TODO prévoir d'ajouter le code */
 
     }
 
@@ -112,8 +93,8 @@ public class ControllerAfficherAdherent implements Initializable {
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
-        scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         ControllerRechercherAdherent ctrlRechAdh = fxmlLoader.getController();
@@ -129,10 +110,6 @@ public class ControllerAfficherAdherent implements Initializable {
             listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
             AccesImpression.setListSommeEmprunt(listSommeEmprunt);
 
-//            System.out.println(listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent)));
-
-
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
 
@@ -141,24 +118,17 @@ public class ControllerAfficherAdherent implements Initializable {
             stage2.setTitle("Imprimer");
             stage2.setScene(scene2);
 
-
-
-
             stage2.initModality(Modality.APPLICATION_MODAL);
             stage2.initOwner(stage);
             stage2.setResizable(false);
             stage2.show();
 
         } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenetre");
+            e.printStackTrace();
         }
 
     }
 
-    /**
-     * @param location
-     * @param resources
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         DateTimeFormatter frformat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -181,7 +151,7 @@ public class ControllerAfficherAdherent implements Initializable {
         tblPretEnCours.setItems(data);
     }
 
-    public void taxiAdherent(Adherent adherent){
+    public void taxiAdherent(Adherent adherent) {
         adherentAff = adherent;
         lblNom.setText(adherentAff.getNomAdherent());
         lblPrenom.setText(adherentAff.getPrenomAdherent());
@@ -197,15 +167,15 @@ public class ControllerAfficherAdherent implements Initializable {
         data.clear();
         data.addAll(
                 projectionTableauEmprunt.tableViewEmpruntsEnCours(adherent.getNumAdherent()));
-        //System.out.println(data.size());
+
     }
 
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

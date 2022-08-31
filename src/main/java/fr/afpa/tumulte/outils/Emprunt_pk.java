@@ -4,7 +4,6 @@ import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 @Embeddable
@@ -33,8 +32,8 @@ public class Emprunt_pk implements Serializable {
         }
         Emprunt_pk emprunt_pk = (Emprunt_pk) o;
         return Objects.equals(numAdherent, emprunt_pk.numAdherent) &&
-                Objects.equals(numExemplaire, emprunt_pk.numExemplaire) &&
-                Objects.equals(datEmprunt, emprunt_pk.datEmprunt);
+                       Objects.equals(numExemplaire, emprunt_pk.numExemplaire) &&
+                       Objects.equals(datEmprunt, emprunt_pk.datEmprunt);
     }
 
     @Override

@@ -23,6 +23,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static fr.afpa.tumulte.outils.Utile.*;
@@ -43,7 +44,6 @@ public class ControllerStat implements Initializable {
      * Constante de "Graphique par thème".
      */
     private static final String GRAF_THEME = "Graphique par thème";
-    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     /**
      * Constante du nombre d'année consultable.
      */
@@ -220,11 +220,6 @@ public class ControllerStat implements Initializable {
         cbxVue.getItems().addAll(lstVue);
         cbxVue.setValue(cbxVue.getItems().get(0));
 
-        /* a dev */
-//        cbxAnnee.setVisible(false);
-//        lblAnnee.setVisible(false);
-        /*-------*/
-
         grfTheme.setVisible(false);
         panResu.setVisible(false);
         btnImprimer.setVisible(false);
@@ -244,10 +239,13 @@ public class ControllerStat implements Initializable {
      */
     @FXML
     public void onClickValider() {
+
+        btnImprimer.setVisible(false);
+
         lblTitre.setText(String.format("%s pour %s : %s",
                 cbxBib.getValue(), cbxAnnee.getValue(), cbxVue.getValue()));
         panResu.setVisible(true);
-        btnImprimer.setVisible(true);
+
         btnAnnuler.setVisible(true);
         btnValiderTop.setVisible(true);
 
@@ -295,7 +293,7 @@ public class ControllerStat implements Initializable {
                 ObservableList<Theme> listTheme = lireTheme(cbxBib.getValue().toString(), String.valueOf(cbxAnnee.getValue()));
                 ObservableList<XYChart.Data<String, Number>> data = FXCollections.observableArrayList();
 
-                for (int i = 1; i < listTheme.size(); i++) {
+                for (int i = 1; i < Objects.requireNonNull(listTheme).size(); i++) {
                     String item = listTheme.get(i).getLibelTheme();
                     int count = listTheme.get(i).getNbEmprunt();
                     data.add(new BarChart.Data(item + "(" + count + ")", count));
@@ -325,7 +323,7 @@ public class ControllerStat implements Initializable {
                 App.class.getResource("/fxml/menuPrincipal.fxml"));
         Stage stage = (Stage) (menuBar.getScene().getWindow());
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
         stage.show();
@@ -358,9 +356,9 @@ public class ControllerStat implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

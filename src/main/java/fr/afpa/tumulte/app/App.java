@@ -12,11 +12,8 @@ import java.io.IOException;
 public class App extends Application {
     public static void main(String[] args) {
 
-/*        Adherent adherent = new Adherent("BEBERT", "Al", "14 rue du four", "06.00.00.00.00", LocalDate.of(2022, 02, 22));
-        DaoAdherent daoAdherent = new DaoAdherent();
-        daoAdherent.saveAdherent(adherent);*/
-
         launch();
+
     }
 
     @Override
@@ -35,7 +32,6 @@ public class App extends Application {
             event.consume();
             Utile.exitApp("Êtes-vous sûr ?");
         });
-
     }
 
 }

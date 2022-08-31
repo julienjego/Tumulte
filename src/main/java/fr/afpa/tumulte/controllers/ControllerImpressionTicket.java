@@ -3,7 +3,6 @@ package fr.afpa.tumulte.controllers;
 import fr.afpa.tumulte.entites.Adherent;
 import fr.afpa.tumulte.entites.EmpruntTicketImpression;
 import fr.afpa.tumulte.outils.AccesImpression;
-import fr.afpa.tumulte.outils.DaoAdherent;
 import fr.afpa.tumulte.outils.ListSommeEmprunt;
 import fr.afpa.tumulte.outils.Utile;
 import javafx.fxml.FXML;
@@ -22,7 +21,7 @@ import java.util.ResourceBundle;
 public class ControllerImpressionTicket implements Initializable {
 
     public Adherent adherentImpression;
-    public EmpruntTicketImpression empruntTicketImpression;
+
     public ListSommeEmprunt listSommeEmprunt;
     @FXML
     private Label lblDatePret1;
@@ -77,36 +76,16 @@ public class ControllerImpressionTicket implements Initializable {
     @FXML
     private Pane pane3;
 
-    public void setAdherentImpression(Adherent adherentImpression) {
-        this.adherentImpression = adherentImpression;
-    }
-
-    public void taxiAdherentImpression(Adherent adherentImpression) {
-        setAdherentImpression(adherentImpression);
-        DaoAdherent daoAdherent = new DaoAdherent();
-
-
-    }
-
-    public void setListSommeEmprunt(ListSommeEmprunt listSommeEmprunt) {
-        this.listSommeEmprunt = listSommeEmprunt;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("ici");
         listSommeEmprunt = AccesImpression.getListSommeEmprunt();
-        System.out.println(listSommeEmprunt);
         adherentImpression = AccesImpression.getAdherent();
-        System.out.println("l'adherent " + adherentImpression);
-
         lblQuand.setText(Utile.getDateTimeString());
-
 
         lblNumAdherent.setText(String.valueOf(adherentImpression.getNumAdherent()));
         lblPrenomNom.setText(adherentImpression.getPrenomAdherent() + " " + adherentImpression.getNomAdherent());
         lblDateValidite.setText(adherentImpression.getPerimeLe().format(DateTimeFormatter
-                .ofLocalizedDate(FormatStyle.SHORT)));
+                                                                                .ofLocalizedDate(FormatStyle.SHORT)));
         lblNumeroExemplaire1.setText("#3");
 
         ListSommeEmprunt lstEmp = new ListSommeEmprunt();
@@ -119,14 +98,13 @@ public class ControllerImpressionTicket implements Initializable {
             pane0.setMinHeight(379);
             EmpruntTicketImpression emprunt1;
             emprunt1 = (lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).get(0);
-            System.out.println(emprunt1);
             lblIsbn1.setText(emprunt1.getIsbn());
             lblTitre1.setText(emprunt1.getTitre());
             lblBibliotheque1.setText(emprunt1.getBibliotheque());
             lblDatePret1.setText(emprunt1.getDateDePret().format(DateTimeFormatter
-                    .ofLocalizedDate(FormatStyle.SHORT)));
+                                                                         .ofLocalizedDate(FormatStyle.SHORT)));
             lblDateRetour1.setText(emprunt1.getDeteDeRetourLimite().format(DateTimeFormatter
-                    .ofLocalizedDate(FormatStyle.SHORT)));
+                                                                                   .ofLocalizedDate(FormatStyle.SHORT)));
             lblNumeroExemplaire1.setText("#" + emprunt1.getNumExemplaire().substring(14));
         }
 
@@ -136,14 +114,13 @@ public class ControllerImpressionTicket implements Initializable {
             pane0.setMinHeight(499);
             EmpruntTicketImpression emprunt2;
             emprunt2 = (lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).get(1);
-            System.out.println(emprunt2);
             lblIsbn2.setText(emprunt2.getIsbn());
             lblTitre2.setText(emprunt2.getTitre());
             lblBibliotheque2.setText(emprunt2.getBibliotheque());
             lblDatePret2.setText(emprunt2.getDateDePret().format(DateTimeFormatter
-                    .ofLocalizedDate(FormatStyle.SHORT)));
+                                                                         .ofLocalizedDate(FormatStyle.SHORT)));
             lblDateRetour2.setText(emprunt2.getDeteDeRetourLimite().format(DateTimeFormatter
-                    .ofLocalizedDate(FormatStyle.SHORT)));
+                                                                                   .ofLocalizedDate(FormatStyle.SHORT)));
             lblNumeroExemplaire2.setText("#" + emprunt2.getNumExemplaire().substring(14));
 
         }
@@ -153,21 +130,17 @@ public class ControllerImpressionTicket implements Initializable {
             pane0.setMinHeight(599);
             EmpruntTicketImpression emprunt3;
             emprunt3 = (lstEmp.listEmpruntImpression(adherentImpression.getNumAdherent())).get(2);
-            System.out.println(emprunt3);
             lblIsbn3.setText(emprunt3.getIsbn());
             lblTitre3.setText(emprunt3.getTitre());
             lblBibliotheque3.setText(emprunt3.getBibliotheque());
             lblDatePret3.setText(emprunt3.getDateDePret().format(DateTimeFormatter
-                    .ofLocalizedDate(FormatStyle.SHORT)));
+                                                                         .ofLocalizedDate(FormatStyle.SHORT)));
             lblDateRetour3.setText(emprunt3.getDeteDeRetourLimite().format(DateTimeFormatter
-                    .ofLocalizedDate(FormatStyle.SHORT)));
+                                                                                   .ofLocalizedDate(FormatStyle.SHORT)));
             lblNumeroExemplaire3.setText("#" + emprunt3.getNumExemplaire().substring(14));
-
 
         }
 
-
     }
-
 
 }

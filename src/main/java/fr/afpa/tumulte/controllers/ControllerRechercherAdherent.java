@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -41,7 +42,7 @@ public class ControllerRechercherAdherent implements Initializable {
      */
     Stage stage;
     Scene scene;
-    private boolean isBtnRechercheUtilisé = false;
+    private boolean isBtnRechercheUtilise = false;
     @FXML
     private Button btnConsulterFicheAdherent;
     @FXML
@@ -122,7 +123,7 @@ public class ControllerRechercherAdherent implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/menuPrincipal.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
         scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();
@@ -161,9 +162,8 @@ public class ControllerRechercherAdherent implements Initializable {
         ControllerEmpruntLivre ctrlEMprLivre = fxmlLoader.getController();
         ctrlEMprLivre.taxiAdherent(adherent);
 
-
         ctrlEMprLivre.taxiEmprunts(nbEmpruntsEnCours);
-        scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Menu principal");
         stage.setScene(scene);
         stage.show();
@@ -224,8 +224,7 @@ public class ControllerRechercherAdherent implements Initializable {
 
         }
 
-
-        isBtnRechercheUtilisé = true;
+        isBtnRechercheUtilise = true;
 
     }
 
@@ -242,7 +241,7 @@ public class ControllerRechercherAdherent implements Initializable {
         // Si le numéro d'adhérent dans la barre de saisie est bien le numéro d'adhérent "chargé",
         // on passe à la fenêtre Fiche Adhérent, sinon on lance la recherche sur le numéro d'adhérent
         // saisi puis on affiche la fiche adhérent
-        if (isBtnRechercheUtilisé && adherent.getNumAdherent() == Integer.parseInt(txtNumAdherent.getText())) {
+        if (isBtnRechercheUtilise && adherent.getNumAdherent() == Integer.parseInt(txtNumAdherent.getText())) {
             try {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/afficherAdherent.fxml"));
@@ -253,11 +252,11 @@ public class ControllerRechercherAdherent implements Initializable {
                 ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
                 ctrlAfficherAdherent.taxiAdherent(adherent);
                 AccesImpression.setAdherent(adherent);
-                
+
                 stage.show();
 
             } catch (IOException e) {
-                System.out.println("Impossible d'ouvrir la fenêtre !");
+                e.printStackTrace();
             }
         } else {
             rechercherAdherent();
@@ -293,9 +292,9 @@ public class ControllerRechercherAdherent implements Initializable {
     @FXML
     void openAbout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("A propos");
-        alert.setHeaderText("A propos de l'application");
-        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Oziris à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
+        alert.setTitle("À propos");
+        alert.setHeaderText("À propos de l'application");
+        alert.setContentText("L'appli Mégathèque a été réalisée par Jérôme Chaput, Damien Gruffeille, Julien Jégo et Romain Benejam à l'Afpa de Beaumont.\rElle est vachement bien.\rIcônes : © max.icons\r© Afpa 2022 ");
         alert.showAndWait();
     }
 

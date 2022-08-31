@@ -32,7 +32,6 @@ public class App extends Application {
             event.consume();
             Utile.exitApp("Êtes-vous sûr ?");
         });
-
     }
 
 }

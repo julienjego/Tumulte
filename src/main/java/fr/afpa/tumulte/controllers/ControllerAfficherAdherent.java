@@ -15,8 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -30,12 +28,11 @@ import java.util.ResourceBundle;
 public class ControllerAfficherAdherent implements Initializable {
 
     final ObservableList<TableViewEmpruntsEnCours> data = FXCollections.observableArrayList();
-    public Label lblDate;
-    public Adherent adherent;
     ProjectionTableauEmprunt projectionTableauEmprunt = new ProjectionTableauEmprunt();
+    @FXML
+    private Label lblDate;
     private Adherent adherentAff;
     private Stage stage;
-    private Scene scene;
     @FXML
     private Button btnImpreimerTicket;
     @FXML
@@ -72,24 +69,15 @@ public class ControllerAfficherAdherent implements Initializable {
     private Label lblTel;
     @FXML
     private TableView<TableViewEmpruntsEnCours> tblPretEnCours;
-    @FXML
-    private Font x3;
-    @FXML
-    private Font x31;
-    @FXML
-    private Color x4;
-    @FXML
-    private Color x41;
+
     @FXML
     private MenuBar menuBar;
-
 
     @FXML
     void imprimerTicket(ActionEvent event) {
         imprimer();
 
     }
-
 
     @FXML
     void modifierAdherent(ActionEvent event) {
@@ -105,7 +93,7 @@ public class ControllerAfficherAdherent implements Initializable {
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fxml/rechercherAdherent.fxml"));
         stage = (Stage) (menuBar.getScene().getWindow());
-        scene = new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Emprunter");
         stage.setScene(scene);
@@ -122,8 +110,6 @@ public class ControllerAfficherAdherent implements Initializable {
             listSommeEmprunt.listEmpruntImpression(Integer.valueOf(numAdherent));
             AccesImpression.setListSommeEmprunt(listSommeEmprunt);
 
-
-
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/impressionTicket.fxml"));
 
@@ -138,11 +124,10 @@ public class ControllerAfficherAdherent implements Initializable {
             stage2.show();
 
         } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenêtre");
+            e.printStackTrace();
         }
 
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

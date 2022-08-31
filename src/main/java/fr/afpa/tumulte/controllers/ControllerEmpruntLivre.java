@@ -20,7 +20,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,26 +29,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
 /**
  * The type Controller emprunt livre.
  */
 public class ControllerEmpruntLivre implements Initializable {
-
     Adherent adherent;
-
-    public Label lblDate;
-
-    public Adherent getAdherent() {
-        return adherent;
-    }
-
-    public void setAdherent(Adherent adherent) {
-        this.adherent = adherent;
-    }
-
-
-
+    @FXML
+    private Label lblDate;
     private Integer empruntsEncours = 0;
     /**
      * Bouton annuler.
@@ -147,16 +133,23 @@ public class ControllerEmpruntLivre implements Initializable {
     @FXML
     private Color x4;
 
+    public Adherent getAdherent() {
+        return adherent;
+    }
+
+    public void setAdherent(Adherent adherent) {
+        this.adherent = adherent;
+    }
+
     public void taxiAdherent(Adherent adherentT) {
         lblNumAdherent.setText(String.valueOf(adherentT.getNumAdherent()));
         lblNomAdherent.setText(String.valueOf(adherentT.getNomAdherent()));
         lblPrenomAdherent.setText(String.valueOf(adherentT.getPrenomAdherent()));
         adherent = adherentT;
 
-
     }
 
-    public  void demanderConfirmation() throws IOException {
+    public void demanderConfirmation() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Encore ?");
         alert.setHeaderText("Le livre est emprunté.");
@@ -164,21 +157,16 @@ public class ControllerEmpruntLivre implements Initializable {
         ButtonType oui = new ButtonType("Oui");
         ButtonType non = new ButtonType("Non");
         alert.getButtonTypes().clear();
-        alert.getButtonTypes().addAll( oui, non);
+        alert.getButtonTypes().addAll(oui, non);
         Window window = alert.getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(e -> alert.hide());
         Optional<ButtonType> option = alert.showAndWait();
 
-
         if (option.get() == non) {
-
             imprimer();
-
             retourVersPageEmprunt();
-
-
-        }effacer();
-
+        }
+        effacer();
 
     }
 
@@ -276,7 +264,6 @@ public class ControllerEmpruntLivre implements Initializable {
         try {
             if (numExemplaireEstConnu(exemplaire)) {
                 lblTitreExemplaire.setText(exemplaire.getlivre().getTitreLivre());
-                lblAuteur.setText((StringUtils.join(exemplaire.getlivre().getAuteur(), " | ")));
                 lblTheme.setText(exemplaire.getlivre().getTheme().getLibelTheme());
                 lblEtat.setText(exemplaire.getCommentExemplaire());
                 lblDisponible.setText(exemplaire.isDisponible() ? "Oui" : "Non");
@@ -286,7 +273,6 @@ public class ControllerEmpruntLivre implements Initializable {
                 btnEmprunter.setDisable(false);
 
             } else {
-                System.out.println("exemplaire inconnu");
                 afficherMessageErreur("Erreur de letcure", "Exemplaire non reconnu");
 
             }
@@ -295,7 +281,6 @@ public class ControllerEmpruntLivre implements Initializable {
 
         }
     }
-
 
     private void effacer() {
         txtCodeExemplaire.setText("");
@@ -315,18 +300,18 @@ public class ControllerEmpruntLivre implements Initializable {
         if (!(daoE.showExemplaire(txtCodeExemplaire.getText()).isDisponible())) {
             String messageErreur1 = "Le livre n'est pas disponible.";
             String messageErreur2 = "Le Livre " + (daoE.showExemplaire(txtCodeExemplaire.getText())).getlivre().getTitreLivre() + " est déjà emprunté\r"
-                    + "Vous pouvez passer au suivant ou quitter";
+                                            + "Vous pouvez passer au suivant ou quitter";
             afficherMessageErreur(messageErreur1, messageErreur2);
         } else {
 
             daoE.validerEmprunt(Integer.valueOf(lblNumAdherent.getText()), txtCodeExemplaire.getText());
             empruntsEncours += 1;
             btnEmprunter.setDisable(nbMaxEmpruntsEstAtteint(empruntsEncours));
-            if(empruntsEncours >= 3){
+            if (empruntsEncours >= 3) {
                 alertEmpruntMax();
                 imprimer();
                 retourVersPageEmprunt();
-            }else {
+            } else {
 
                 demanderConfirmation();
             }
@@ -340,15 +325,6 @@ public class ControllerEmpruntLivre implements Initializable {
         alert.setTitle("Erreur");
         alert.setHeaderText(messageErreur1);
         alert.setContentText(messageErreur2);
-        alert.showAndWait();
-    }
-
-    private void afficherMessage(String message1, String message2) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-        alert.setTitle("Confirmation");
-        alert.setHeaderText(message1);
-        alert.setContentText(message2);
         alert.showAndWait();
     }
 
@@ -398,8 +374,6 @@ public class ControllerEmpruntLivre implements Initializable {
         stage.show();
     }
 
-
-
     private void imprimer() {
         try {
             String numAdherent = String.valueOf(adherent.getNumAdherent());
@@ -420,20 +394,18 @@ public class ControllerEmpruntLivre implements Initializable {
             stage2.show();
 
         } catch (IOException e) {
-            System.out.println("Impossible d'ouvrir la fenêtre");
+            e.printStackTrace();
         }
 
     }
 
-    private void alertEmpruntMax(){
+    private void alertEmpruntMax() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Maximum d'emprunt atteint.");
         alert.setHeaderText("Le livre est emprunté.");
         alert.setContentText("Le nombre maximum d'emprunt a été atteint.");
         alert.showAndWait();
     }
-
-
 
 }
 

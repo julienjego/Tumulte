@@ -13,16 +13,16 @@ public class Emprunt {
     @Id
     @ManyToOne
     @JoinColumn(name = "numAdherent")
-    public Adherent numAdherent;
+    private Adherent numAdherent;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "numExemplaire")
-    public Exemplaire numExemplaire;
+    private Exemplaire numExemplaire;
     @Id
-    public LocalDate datEmprunt;
-    public LocalDate datRestitutionPrev;
-    public LocalDate datRestitutionEff;
+    private LocalDate datEmprunt;
+    private LocalDate datRestitutionPrev;
+    private LocalDate datRestitutionEff;
 
     public Emprunt() {
     }

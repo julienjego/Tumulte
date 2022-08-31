@@ -162,7 +162,6 @@ public class ControllerRechercherAdherent implements Initializable {
         ControllerEmpruntLivre ctrlEMprLivre = fxmlLoader.getController();
         ctrlEMprLivre.taxiAdherent(adherent);
 
-
         ctrlEMprLivre.taxiEmprunts(nbEmpruntsEnCours);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm());
         stage.setTitle("Menu principal");
@@ -225,7 +224,6 @@ public class ControllerRechercherAdherent implements Initializable {
 
         }
 
-
         isBtnRechercheUtilise = true;
 
     }
@@ -254,11 +252,11 @@ public class ControllerRechercherAdherent implements Initializable {
                 ControllerAfficherAdherent ctrlAfficherAdherent = fxmlLoader.getController();
                 ctrlAfficherAdherent.taxiAdherent(adherent);
                 AccesImpression.setAdherent(adherent);
-                
+
                 stage.show();
 
             } catch (IOException e) {
-                System.out.println("Impossible d'ouvrir la fenêtre !");
+                e.printStackTrace();
             }
         } else {
             rechercherAdherent();

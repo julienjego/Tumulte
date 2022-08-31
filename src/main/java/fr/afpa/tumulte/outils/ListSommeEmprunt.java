@@ -24,11 +24,11 @@ public class ListSommeEmprunt {
             EmpruntTicketImpression empruntTicketImpression = new EmpruntTicketImpression();
             empruntTicketImpression.setNumExemplaire(emprunt.getNumExemplaire().getNumExemplaire());
             empruntTicketImpression.setNumAdherent(emprunt.getNumAdherent().getNumAdherent());
-            empruntTicketImpression.setCodeExemplaire("@TODO");
+
             empruntTicketImpression.setTitre(emprunt.getNumExemplaire().getlivre().getTitreLivre());
             empruntTicketImpression.setBibliotheque(emprunt.getNumExemplaire().getBibliotheque().getLibelBibliotheque());
-            empruntTicketImpression.setDateDePret(emprunt.datEmprunt);
-            empruntTicketImpression.setDeteDeRetourLimite(emprunt.datRestitutionPrev);
+            empruntTicketImpression.setDateDePret(emprunt.getDatEmprunt());
+            empruntTicketImpression.setDeteDeRetourLimite(emprunt.getDatRestitutionPrev());
             empruntTicketImpression.setIsbn(emprunt.getNumExemplaire().getlivre().getIsbnLivre());
 
             infoTicket.add(empruntTicketImpression);
@@ -40,8 +40,8 @@ public class ListSommeEmprunt {
     @Override
     public String toString() {
         return "ListSommeEmprunt{" +
-                "emf=" + emf +
-                ", adherent=" + adherent +
-                '}';
+                       "emf=" + emf +
+                       ", adherent=" + adherent +
+                       '}';
     }
 }

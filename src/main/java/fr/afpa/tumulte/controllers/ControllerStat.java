@@ -44,7 +44,6 @@ public class ControllerStat implements Initializable {
      * Constante de "Graphique par thème".
      */
     private static final String GRAF_THEME = "Graphique par thème";
-    private static final String TOUTES_BIB = "Toutes les Bibliotèques";
     /**
      * Constante du nombre d'année consultable.
      */
@@ -221,8 +220,6 @@ public class ControllerStat implements Initializable {
         cbxVue.getItems().addAll(lstVue);
         cbxVue.setValue(cbxVue.getItems().get(0));
 
-
-
         grfTheme.setVisible(false);
         panResu.setVisible(false);
         btnImprimer.setVisible(false);
@@ -242,10 +239,13 @@ public class ControllerStat implements Initializable {
      */
     @FXML
     public void onClickValider() {
+
+        btnImprimer.setVisible(false);
+
         lblTitre.setText(String.format("%s pour %s : %s",
                 cbxBib.getValue(), cbxAnnee.getValue(), cbxVue.getValue()));
         panResu.setVisible(true);
-        btnImprimer.setVisible(true);
+
         btnAnnuler.setVisible(true);
         btnValiderTop.setVisible(true);
 
